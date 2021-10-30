@@ -8,10 +8,10 @@ Person 2 - Karim
 Thesis
 Defense
 
-Person 3 - Ahmed
+Person 3 - Noureldin
 Progress Report
 Course
 
-Person 4 - Noureldin
+Person 4 - Ahmed
 Publication
 Payment
