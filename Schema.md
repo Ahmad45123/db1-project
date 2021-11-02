@@ -67,7 +67,7 @@ WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year
 <style>
 
     * {
-        font-family: 'Muli';
+        font-family: 'Arial';
         text-underline-offset: 3px;
     }
 
