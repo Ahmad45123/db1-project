@@ -26,8 +26,43 @@ ProgressReport(<span class="primary">Report_ID</span>, <span class="foreign">The
 
 Supervisor(StudentID, <span class="foreign primary">SupervisorID, ThesisSN</span>).
 
-## Relationships
+<div style="height: 20px;"></div>
+<hr/>
+<div style="height: 20px;"></div>
 
+Student.Academic_ID *references* Academic.ID
+
+GUCian.Student_ID *references* Student.ID
+
+Publication.Payment_ID *references* Payment.ID
+
+PublishedOn.ThesisSN *references* Thesis.SerialNumber
+
+PublishedOn.PublicationID *references* Publication.ID
+
+Installment.PaymentID *references* Payment.ID
+
+Evaluates.ExaminerID *references* Examiner.ID
+
+Evalutes.ThesisSN *references* Thesis.SerialNumber
+
+Defense.ThesisSN *references* Thesis.SerialNumber
+
+Thesis.PaymentID *references* Payment.ID
+
+ProgressReport.ThesisSN *references* Thesis.SerialNumber
+
+Supervisor.StudentID *references* Student.ID
+
+Supervisor.SupervisorID *references* Examiner.ID
+
+Supervisor.ThesisSN *references* Thesis.SerialNumber
+
+<div style="height: 20px;"></div>
+<hr/>
+<div style="height: 20px;"></div>
+
+WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year
 
 <style>
 
