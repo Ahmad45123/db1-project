@@ -26,9 +26,9 @@ ProgressReport(<span class="primary">Report_ID</span>, <span class="foreign">The
 
 Supervisor(StudentID, <span class="foreign primary">SupervisorID, ThesisSN</span>).
 
-<div style="height: 20px;"></div>
+<div style="height: 10px;"></div>
 <hr/>
-<div style="height: 20px;"></div>
+<div style="height: 10px;"></div>
 
 Student.Academic_ID *references* Academic.ID
 
@@ -58,9 +58,9 @@ Supervisor.SupervisorID *references* Examiner.ID
 
 Supervisor.ThesisSN *references* Thesis.SerialNumber
 
-<div style="height: 20px;"></div>
+<div style="height: 10px;"></div>
 <hr/>
-<div style="height: 20px;"></div>
+<div style="height: 10px;"></div>
 
 WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year
 
