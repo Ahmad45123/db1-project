@@ -4,6 +4,8 @@ Student(<span class="foreign primary">Academic_ID</span>, Type, GPA, Address, Ph
 
 GUCian(<span class="foreign primary">Student_ID</span>, Undergrad_ID).
 
+NonGUCian(<span class="foreign primary">Student_ID</span>).
+
 Supervisor(<span class="foreign primary">Academic_ID</span>)
 
 Publication(<span class="primary">ID</span>, <span class="foreign">Owner_ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place).
