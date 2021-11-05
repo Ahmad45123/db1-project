@@ -6,7 +6,7 @@ GUCian(<span class="foreign primary">Student_ID</span>, Undergrad_ID).
 
 Supervisor(<span class="foreign primary">Academic_ID</span>)
 
-Publication(<span class="primary">ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place).
+Publication(<span class="primary">ID</span>, <span class="foreign">Owner_ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place).
 
 PublishedOn(<span class="foreign primary">ThesisSN, PublicationID</span>).
 
@@ -32,9 +32,11 @@ Supervisor(StudentID, <span class="foreign primary">SupervisorID, ThesisSN</span
 
 Student.Academic_ID *references* Academic.ID
 
-GUCian.Student_ID *references* Student.ID
+GUCian.Student_ID *references* Student.Academic_ID
 
 Publication.Payment_ID *references* Payment.ID
+
+Publication.Owner_ID *references* Student.Academic_ID
 
 PublishedOn.ThesisSN *references* Thesis.SerialNumber
 
@@ -42,7 +44,7 @@ PublishedOn.PublicationID *references* Publication.ID
 
 Installment.PaymentID *references* Payment.ID
 
-Evaluates.ExaminerID *references* Examiner.ID
+Evaluates.ExaminerID *references* Examiner.ExaminerID
 
 Evalutes.ThesisSN *references* Thesis.SerialNumber
 
@@ -52,9 +54,9 @@ Thesis.PaymentID *references* Payment.ID
 
 ProgressReport.ThesisSN *references* Thesis.SerialNumber
 
-Supervisor.StudentID *references* Student.ID
+Supervisor.StudentID *references* Student.Academic_ID
 
-Supervisor.SupervisorID *references* Examiner.ID
+Supervisor.SupervisorID *references* Examiner.ExaminerID
 
 Supervisor.ThesisSN *references* Thesis.SerialNumber
 
