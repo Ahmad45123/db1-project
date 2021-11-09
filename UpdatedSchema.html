@@ -118,23 +118,23 @@ aside > *:last-child {
 <hr/>
 
 <p>GUCian(<span class="foreign primary">Student_ID</span>, Undergrad_ID).</p>
-<p>GUCian.Student_ID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
+<p>GUCian.Student_ID <em>references</em> <span href="http://Student.Academic_ID">Student.Academic_ID</span></p>
 <hr/>
 
 <p>nonGUCian(<span class="foreign primary">Student_ID</span>).</p>
-<p>nonGUCian.Student_ID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
+<p>nonGUCian.Student_ID <em>references</em> <span href="http://Student.Academic_ID">Student.Academic_ID</span></p>
+<hr/>
+
+<p>Supervisor(<span class="foreign primary">Academic_ID</span>)</p>
+<p>Supervisor.Academic_ID <em>references</em> <span href="http://Student.Academic_ID">Academic.ID</span></p>
 <hr/>
 
 <p>Course(<span class="primary">ID</span>, Code, CreditHours, Fee).</p>
 <hr/>
 
 <p>Taking(<span class="foreign primary">nonGUCianID</span>, <span class="foreign primary">courseID</span>, Grade).</p>
-<p>Taking.nonGUCianID <em>references</em> <span href="http://Student.ID">nonGUCian.ID</span></p>
-<p>Taking.courseID <em>references</em> <span href="http://Student.ID">Course.ID</span></p>
-<hr/>
-
-<p>Supervisor(<span class="foreign primary">Academic_ID</span>)</p>
-<p>Supervisor.Academic_ID <em>references</em> <span href="http://Student.ID">Academic.ID</span></p>
+<p>Taking.nonGUCianID <em>references</em> <span href="http://Student.Academic_ID">nonGUCian.Student_ID</span></p>
+<p>Taking.courseID <em>references</em> <span href="http://Student.Academic_ID">Course.ID</span></p>
 <hr/>
 
 <p>Payment(<span class="primary">ID</span>, TotalAmount, FundPercentage, NoOfInstallments).</p>
@@ -152,8 +152,9 @@ aside > *:last-child {
 <p>WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year</p>
 <hr/>
 
-<p>Publication(<span class="primary">ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place).</p>
+<p>Publication(<span class="primary">ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place, <span class="foreign">PublisherID</span>).</p>
 <p>Publication.Payment_ID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
+<p>Publication.PublisherID <em>references</em> <span href="http://Payment.ID">Student.Academic_ID</span></p>
 <hr/>
 
 <p>PublishedOn(<span class="foreign primary">ThesisSN, PublicationID</span>).</p>
@@ -175,8 +176,8 @@ aside > *:last-child {
 <hr/>
 
 <p>Supervises(<span class="foreign">StudentID</span>, <span class="foreign primary">SupervisorID, ThesisSN</span>).</p>
-<p>Supervises.StudentID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
-<p>Supervises.SupervisorID <em>references</em> <span href="http://Examiner.ID">Examiner.ID</span></p>
+<p>Supervises.StudentID <em>references</em> <span href="http://Student.Academic_ID">Student.Academic_ID</span></p>
+<p>Supervises.SupervisorID <em>references</em> <span href="http://Examiner.ID">Supervisor.Academic_ID</span></p>
 <p>Supervises.ThesisSN <em>references</em> Thesis.SerialNumber</p>
 <hr/>
 
