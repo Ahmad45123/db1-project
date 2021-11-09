@@ -107,62 +107,78 @@ aside > *:last-child {
         
         
         
-    </head>
-    <body class="vscode-body vscode-light">
-        <p>Academic(<span class="primary">ID</span>, FirstName, LastName, Email, Faculty).</p>
+</head>
+<body class="vscode-body vscode-light">
+
+<p>Academic(<span class="primary">ID</span>, FirstName, LastName, Email, Faculty).</p>
+<hr/>
+
 <p>Student(<span class="foreign primary">Academic_ID</span>, Type, GPA, Address, PhoneNumber1, PhoneNumber2).</p>
 <p>Student.Academic_ID <em>references</em> <span href="http://Academic.ID">Academic.ID</span></p>
-<div style="height: 0.5px;"></div>
+<hr/>
 
 <p>GUCian(<span class="foreign primary">Student_ID</span>, Undergrad_ID).</p>
 <p>GUCian.Student_ID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
-<div style="height: 0.5px;"></div>
+<hr/>
+
+<p>nonGUCian(<span class="foreign primary">Student_ID</span>).</p>
+<p>nonGUCian.Student_ID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
+<hr/>
+
+<p>Course(<span class="primary">ID</span>, Code, CreditHours, Fee).</p>
+<hr/>
+
+<p>Taking(<span class="foreign primary">nonGUCianID</span>, <span class="foreign primary">courseID</span>, Grade).</p>
+<p>Taking.nonGUCianID <em>references</em> <span href="http://Student.ID">nonGUCian.ID</span></p>
+<p>Taking.courseID <em>references</em> <span href="http://Student.ID">Course.ID</span></p>
+<hr/>
 
 <p>Supervisor(<span class="foreign primary">Academic_ID</span>)</p>
-<div style="height: 0.5px;"></div>
+<p>Supervisor.Academic_ID <em>references</em> <span href="http://Student.ID">Academic.ID</span></p>
+<hr/>
+
+<p>Payment(<span class="primary">ID</span>, TotalAmount, FundPercentage, NoOfInstallments).</p>
+<hr/>
+
+<p>Installment(<span class="primary">InstallmentID</span>, <span class="foreign primary">PaymentID</span>, Date, Amount, Status).</p>
+<p>Installment.PaymentID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
+<hr/>
+
+<p>Examiner(<span class="primary">ExaminerID</span>, Type, FieldOfWork, FirstName, LastName).</p>
+<hr/>
+
+<p>Thesis(<span class="primary">SerialNumber</span>, <span class="foreign">PaymentID</span>, Title, Type, Field, ExtensionsNeeded, StartDate, EndDate, SeminarDate, YearsSpent).</p>
+<p>Thesis.PaymentID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
+<p>WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year</p>
+<hr/>
 
 <p>Publication(<span class="primary">ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place).</p>
 <p>Publication.Payment_ID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
-<div style="height: 0.5px;"></div>
+<hr/>
 
 <p>PublishedOn(<span class="foreign primary">ThesisSN, PublicationID</span>).</p>
 <p>PublishedOn.ThesisSN <em>references</em> Thesis.SerialNumber</p>
 <p>PublishedOn.PublicationID <em>references</em> <span href="http://Publication.ID">Publication.ID</span></p>
-<div style="height: 0.5px;"></div>
+<hr/>
 
-<p>Payment(<span class="primary">ID</span>, TotalAmount, FundPercentage, NoOfInstallments).</p>
-<div style="height: 0.5px;"></div>
+<p>ProgressReport(<span class="primary">Report_ID</span>, <span class="foreign primary">ThesisSN</span>, Description, Date, Evalution, State).</p>
+<p>ProgressReport.ThesisSN <em>references</em> Thesis.SerialNumber</p>
+<hr/>
 
-<p>Installment(<span class="primary">InstallmentID</span>, <span class="foreign primary">PaymentID</span>, Date, Amount, Status).</p>
-<p>Installment.PaymentID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
-<div style="height: 0.5px;"></div>
-
-<p>Examiner(<span class="primary">ExaminerID</span>, Type, FieldOfWork, FirstName, LastName).</p>
-<div style="height: 0.5px;"></div>
+<p>Defense(<span class="primary foreign">ThesisSN</span>, Location, Grade, Date).</p>
+<p>Defense.ThesisSN <em>references</em> Thesis.SerialNumber</p>
+<hr/>
 
 <p>Evalutes(<span class="foreign primary">ExaminerID, ThesisSN</span>, Comment).</p>
 <p>Evaluates.ExaminerID <em>references</em> <span href="http://Examiner.ID">Examiner.ID</span></p>
 <p>Evalutes.ThesisSN <em>references</em> Thesis.SerialNumber</p>
-<div style="height: 0.5px;"></div>
+<hr/>
 
-<p>Defense(<span class="primary foreign">ThesisSN</span>, Location, Grade, Date).</p>
-<p>Defense.ThesisSN <em>references</em> Thesis.SerialNumber</p>
-<div style="height: 0.5px;"></div>
-
-<p>Thesis(<span class="primary">SerialNumber</span>, <span class="foreign">PaymentID</span>, Title, Type, Field, ExtensionsNeeded, StartDate, EndDate, SeminarDate, YearsSpent).</p>
-<p>Thesis.PaymentID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
-<p>ProgressReport.ThesisSN <em>references</em> Thesis.SerialNumber</p>
-<p>WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year</p>
-<div style="height: 0.5px;"></div>
-
-<p>ProgressReport(<span class="primary">Report_ID</span>, <span class="foreign primary">ThesisSN</span>, Description, Date, Evalution, State).</p>
-<div style="height: 0.5px;"></div>
-
-<p>Supervisor(StudentID, <span class="foreign primary">SupervisorID, ThesisSN</span>).</p>
-<p>Supervisor.StudentID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
-<p>Supervisor.SupervisorID <em>references</em> <span href="http://Examiner.ID">Examiner.ID</span></p>
-<p>Supervisor.ThesisSN <em>references</em> Thesis.SerialNumber</p>
-<div style="height: 0.5px;"></div>
+<p>Supervises(<span class="foreign">StudentID</span>, <span class="foreign primary">SupervisorID, ThesisSN</span>).</p>
+<p>Supervises.StudentID <em>references</em> <span href="http://Student.ID">Student.ID</span></p>
+<p>Supervises.SupervisorID <em>references</em> <span href="http://Examiner.ID">Examiner.ID</span></p>
+<p>Supervises.ThesisSN <em>references</em> Thesis.SerialNumber</p>
+<hr/>
 
 <style>
 
