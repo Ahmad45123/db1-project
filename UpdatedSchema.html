@@ -149,7 +149,7 @@ aside > *:last-child {
 
 <p>Thesis(<span class="primary">SerialNumber</span>, <span class="foreign">PaymentID</span>, Title, Type, Field, ExtensionsNeeded, StartDate, EndDate, SeminarDate, YearsSpent).</p>
 <p>Thesis.PaymentID <em>references</em> <span href="http://Payment.ID">Payment.ID</span></p>
-<p>WHERE: Thesis.YearsSpent = CurrentDate.Year - StartDate.Year</p>
+<p>WHERE: Thesis.YearsSpent = EndDate.Year - StartDate.Year</p>
 <hr/>
 
 <p>Publication(<span class="primary">ID</span>, <span class="foreign">Payment_ID</span>, Accepted, Date, Title, Host, Place, <span class="foreign">PublisherID</span>).</p>
