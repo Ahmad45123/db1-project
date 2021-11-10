@@ -1,15 +1,119 @@
-Academic(ID INT PRIMARY KEY IDENTITY, FirstName VARCHAR(20), LastName VARCHAR(20), Email VARCHAR(50), Faculty VARCHAR(20)) ||
-Student(Academic_ID INT PRIMARY KEY FOREIGN KEY REFERENCES Academic(ID),Type VARCHAR(6), GPA DECIMAL(5, 4), student_address VARCHAR(20), PhoneNumber1 VARCHAR(20), PhoneNumber2 VARCHAR(20)) ||
-Supervisor(academic_ID INT PRIMARY KEY FOREIGN KEY REFERENCES Academic(ID)) ||
-GUCian(student_id INT PRIMARY KEY FOREIGN KEY REFERENCES Student(ID),undergrad_ID INT) ||
-Non_GUCian(student_id INT PRIMARY KEY FOREIGN KEY REFERENCES Student(ID)) ||
-Publication(ID INT PRIMARY KEY,owner_ID INT FOREIGN KEY REFERENCES Student(ID),Payment_ID INT FOREIGN KEY REFERENCES Payment(ID),Accepted BIT,publication_date DATETIME,title VARCHAR(100),host VARCHAR(40),place VARCHAR(100)) ||
-PublishedOn(publication_ID INT PRIMARY KEY FOREIGN KEY REFERENCES Publication(ID),thesis_SN INT PRIMARY KEY FOREIGN KEY REFERENCES Thesis(SerialNumber)) ||
-Payment(ID INT PRIMARY KEY,no_installments INT,total_amount DECIMAL(10, 2),fund_percentage DECIMAL(4, 2)) ||
-Installment(ID INT PRIMARY KEY,payment_ID INT FOREIGN KEY REFERENCES Payment(ID),installment_date DATETIME,amount DECIMAL(10, 2),installment_status DECIMAL(10, 2)) ||
-Examiner(ID INT PRIMARY KEY,examiner_type VARCHAR(20),field_of_work VARCHAR(20),first_name VARCHAR(20),last_name VARCHAR(20)) ||
-Evaluates(examiner_ID INT FOREIGN KEY REFERENCES Examiner(ID),thesis_SN INT FOREIGN KEY REFERENCES Thesis(SerialNumber)) ||
-Defense(examiner_ID INT FOREIGN KEY REFERENCES Examiner(ID),thesis_SN INT FOREIGN KEY REFERENCES Thesis(SerialNumber),defense_date DATETIME,defense_location VARCHAR(100),defense_grade DECIMAL(4, 2)) ||
-Thesis(serialNumber INT PRIMARY KEY,paymentID INT FOREIGN KEY REFERENCES Payment(ID),title VARCHAR(100),thesisType VARCHAR(20),fieldOfWork VARCHAR(20),extensionsNeeded INT,startDate DATETIME,endDate DATETIME,seminarDate DATETIME,yearsSpent AS year(CURRENT_TIMESTAMP) - year(startDate)) ||
-ProgressReport(report_ID INT PRIMARY KEY,thesisSN INT FOREIGN KEY REFERENCES Thesis(serialNumber),thesisDescription VARCHAR(1000),thesisDate DATETIME,evaluation DECIMAL(4, 2),thesisState INT) ||
-Supervisor(StudentID int FOREIGN KEY REFERENCES Student(Academic)_ID,SupervisorID int FOREIGN KEY REFERENCES Examiner(ID),ThesisSN int FOREIGN KEY REFERENCES Thesis(SerialNumber),PRIMARY KEY(SupervisorID, ThesisSN)) ||
+Academic(ID INT PRIMARY KEY IDENTITY,
+ FirstName VARCHAR(20),
+ LastName VARCHAR(20),
+ Email VARCHAR(50),
+ Faculty VARCHAR(20)) || 
+
+
+Student(Academic_ID INT PRIMARY KEY FOREIGN KEY REFERENCES Academic(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+ StudentType VARCHAR(6),
+ GPA DECIMAL(5,
+ 4),
+ student_address VARCHAR(20),
+ PhoneNumber1 VARCHAR(20),
+ PhoneNumber2 VARCHAR(20)) || 
+
+
+GUCian(student_id INT PRIMARY KEY FOREIGN KEY REFERENCES Student(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+undergrad_ID INT) || 
+
+
+Non_GUCian(student_id INT PRIMARY KEY FOREIGN KEY REFERENCES Student(ID) ON DELETE CASCADE ON UPDATE CASCADE) || 
+
+
+Supervisor(academic_ID INT PRIMARY KEY FOREIGN KEY REFERENCES Academic(ID) ON DELETE CASCADE ON UPDATE CASCADE) || 
+
+Course(id INT PRIMARY KEY,
+code INT,
+creditHours INT,
+fee INT) ||
+
+Taking(nonGUCId INT FOREIGN KEY REFERENCES Non_GUCian(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
+courseId INT FOREIGN KEY REFERENCES Course(id) ON DELETE CASCADE ON UPDATE CASCADE,
+grade INT,
+PRIMARY KEY(nonGUCId, courseId)) ||
+
+
+Payment(ID INT PRIMARY KEY,
+no_installments INT,
+total_amount DECIMAL(10,
+ 2),
+fund_percentage DECIMAL(4,
+ 2)) || 
+
+
+Installment(ID INT,
+payment_ID INT FOREIGN KEY REFERENCES Payment(ID) ON DELETE SET NULL ON UPDATE CASCADE,
+installment_date DATETIME,
+amount DECIMAL(10,
+ 2),
+installment_status DECIMAL(10,
+ 2),
+ PRIMARY KEY (ID, payment_ID)) || 
+
+
+Examiner(ID INT PRIMARY KEY,
+examiner_type VARCHAR(20),
+field_of_work VARCHAR(20),
+first_name VARCHAR(20),
+last_name VARCHAR(20)) || 
+
+
+Thesis(serialNumber INT PRIMARY KEY,
+paymentID INT FOREIGN KEY REFERENCES Payment(ID) ON DELETE SET NULL ON UPDATE CASCADE,
+title VARCHAR(100),
+thesisType VARCHAR(20),
+fieldOfWork VARCHAR(20),
+extensionsNeeded INT,
+startDate DATETIME,
+endDate DATETIME,
+seminarDate DATETIME,
+yearsSpent AS year(CURRENT_TIMESTAMP) - year(startDate)) || 
+
+
+
+Publication(ID INT PRIMARY KEY,
+oayment_ID INT FOREIGN KEY REFERENCES Payment(ID) ON DELETE SET NULL ON UPDATE CASCADE,
+publisher_ID INT FOREIGN KEY REFERENCES Student(Academic_ID) ON DELETE SET NULL ON UPDATE CASCADE,
+Accepted BIT,
+publication_date DATETIME,
+title VARCHAR(100),
+host VARCHAR(40),
+place VARCHAR(100)) || 
+
+
+PublishedOn(publication_ID INT FOREIGN KEY REFERENCES Publication(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+thesis_SN INT FOREIGN KEY REFERENCES Thesis(SerialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY(publication_ID, thesis_SN)) || 
+
+
+ProgressReport(report_ID INT,
+thesisSN INT FOREIGN KEY REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+thesisDescription VARCHAR(1000),
+thesisDate DATETIME,
+evaluation DECIMAL(4,
+ 2),
+thesisState INT,
+PRIMARY KEY(report_ID, thesis_SN)) || 
+
+
+
+Defense(examiner_ID INT FOREIGN KEY REFERENCES Examiner(ID) ON DELETE SET NULL ON UPDATE CASCADE,
+thesis_SN INT FOREIGN KEY REFERENCES Thesis(SerialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+defense_date DATETIME,
+defense_location VARCHAR(100),
+defense_grade DECIMAL(4,
+ 2)) || 
+
+
+Evaluates(examiner_ID INT FOREIGN KEY REFERENCES Examiner(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+thesis_SN INT FOREIGN KEY REFERENCES Thesis(SerialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY(examiner_ID, thesis_SN)) || 
+
+
+Supervises(StudentID int FOREIGN KEY REFERENCES Student(Academic_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+SupervisorID int FOREIGN KEY REFERENCES Supervisor(academic_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+ThesisSN int FOREIGN KEY REFERENCES Thesis(SerialNumber) ON UPDATE CASCADE ON DELETE CASCADE,
+PRIMARY KEY(SupervisorID,
+ ThesisSN)) || 
+
