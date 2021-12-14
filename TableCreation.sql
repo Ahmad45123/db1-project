@@ -118,7 +118,7 @@ CREATE TABLE Thesis (
     title TEXT NOT NULL,
     startDate DATE NOT NULL,
     endDate DATE NOT NULL,
-    defenseDate DATE NOT NULL,
+    defenseDate Datetime NOT NULL,
     years AS year(endDate) - year(startDate),
     grade DECIMAL(3,2) NOT NULL,
     payment_id INT REFERENCES Payment(id),
@@ -150,9 +150,9 @@ CREATE TABLE Examiner (
 
 CREATE TABLE Defense (
     serialNumber INT REFERENCES Thesis(serialNumber),
-    date DATE NOT NULL,
-    location TEXT NOT NULL,
-    grade DECIMAL(3,2) NOT NULL,
+    date Datetime NOT NULL,
+    location varchar(15) NOT NULL,
+    grade DECIMAL(3,2),
     PRIMARY KEY(serialNumber, date)
 );
 
@@ -218,7 +218,7 @@ CREATE TABLE ExaminerEvaluateDefense (
     date DATE NOT NULL,
     serialNo INT REFERENCES Thesis(serialNumber),
     examinerId INT REFERENCES Examiner(id),
-    comment TEXT NOT NULL,
+    comment varchar(300),
     PRIMARY KEY (date, serialNo, examinerId)
 );
 
