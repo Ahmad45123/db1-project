@@ -111,8 +111,8 @@ CREATE TABLE GUCianProgressReport (
     sid INT REFERENCES GucianStudent(id),
     no INT NOT NULL,
     date DATE NOT NULL,
-    eval VARCHAR(50) NOT NULL,
-    state VARCHAR(50) NOT NULL,
+    eval VARCHAR(50) NULL,
+    state VARCHAR(50) NULL,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
     PRIMARY KEY (sid, no)

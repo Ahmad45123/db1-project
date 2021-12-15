@@ -229,3 +229,84 @@ CREATE PROC ViewCoursePaymentsInstall (@studentId INT) AS BEGIN
 END;
 
 GO;
+
+CREATE PROC ViewThesisPaymentsInstall (@studentId INT) AS 
+    SELECT Payment.*, Installment.* FROM Payment
+    INNER JOIN Installment ON Installment.paymentId = Payment.id
+    INNER JOIN Thesis ON Thesis.payment_id = Payment.id
+    INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.sid = @studentId
+    INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.sid = @studentId;
+
+GO;
+
+CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
+    SELECT Installment.*, Payment.id FROM Installment
+    INNER JOIN Payment ON Payment.id = Installment.paymentId
+    INNER JOIN Thesis ON Thesis.payment_id = Payment.id
+    INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND GUCStudentRegisterThesis.sid = @studentID
+    INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND NonGUCStudentRegisterThesis.sid = @studentID
+    WHERE Installment.[date] >= GETDATE();
+
+GO;
+
+CREATE PROC ViewMissedInstallments (@studentID INT) AS
+    SELECT Installment.*, Payment.id FROM Installment
+    INNER JOIN Payment ON Payment.id = Installment.paymentId
+    INNER JOIN Thesis ON Thesis.payment_id = Payment.id
+    INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND GUCStudentRegisterThesis.sid = @studentID
+    INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND NonGUCStudentRegisterThesis.sid = @studentID
+    WHERE Installment.[date] < GETDATE();
+
+GO;
+
+CREATE PROC AddProgressReport (@thesisSerialNo int, @progressReportDate date) AS BEGIN
+    
+    DECLARE @supId INT;
+    DECLARE @noId INT;
+
+    IF EXISTS (SELECT * FROM GUCStudentRegisterThesis WHERE GUCStudentRegisterThesis.serial_no = @thesisSerialNo) BEGIN
+        SELECT @supId = GUCStudentRegisterThesis.supid FROM GUCStudentRegisterThesis WHERE GUCStudentRegisterThesis.serial_no = @thesisSerialNo;
+        SELECT @noId = MAX(GUCianProgressReport.[no]) FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo;
+        INSERT INTO GUCianProgressReport (thesisSerialNumber, date, supId, no) VALUES (@thesisSerialNo, @progressReportDate, @supId, @noId + 1);
+    END;
+    ELSE BEGIN
+        SELECT @supId = NonGUCStudentRegisterThesis.supid FROM NonGUCStudentRegisterThesis WHERE NonGUCStudentRegisterThesis.serial_no = @thesisSerialNo;
+        SELECT @noId = MAX(NonGUCianProgressReport.[no]) FROM NonGUCianProgressReport WHERE NonGUCianProgressReport.thesisSerialNumber = @thesisSerialNo;
+        INSERT INTO NonGUCianProgressReport (thesisSerialNumber, date, supId, no) VALUES (@thesisSerialNo, @progressReportDate, @supId, @noId + 1);
+    END;
+END;
+
+GO;
+
+CREATE PROC FillProgressReport (@thesisSerialNo int, @progressReportNo int, @state int, @description varchar(200)) AS BEGIN
+    IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
+        UPDATE GUCianProgressReport SET state = @state, eval = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
+    END;
+    ELSE BEGIN
+        UPDATE NonGUCianProgressReport SET state = @state, eval = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
+    END;
+END;
+
+GO;
+
+CREATE PROC ViewEvalProgressReport (@thesisSerialNo int, @progressReportNo int) AS 
+    IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
+        SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo;
+    END;
+    ELSE BEGIN
+        SELECT * FROM NonGUCianProgressReport WHERE NonGUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND NonGUCianProgressReport.no = @progressReportNo;
+    END;
+
+GO;
+
+CREATE PROC addPublication (@title varchar(50), @pubDate datetime, @host varchar(50), @place varchar(50), @accepted bit) AS BEGIN
+    INSERT INTO Publication (title, [date], host, place, accepted) VALUES (@title, @pubDate, @host, @place, @accepted);
+END;
+
+GO;
+
+CREATE PROC linkPubThesis (@pubId int, @thesisSerialNo int) AS BEGIN
+    INSERT INTO ThesisHasPublication (pubId, serialNo) VALUES (@pubId, @thesisSerialNo);
+END;
+
+GO;
