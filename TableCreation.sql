@@ -1,7 +1,7 @@
 CREATE TABLE PostGradUser (
     id INT PRIMARY KEY IDENTITY,
-    email VARCHAR(10) NOT NULL,
-    password VARCHAR(10) NOT NULL
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(20) NOT NULL
 ); 
 
 CREATE TABLE Admin(
@@ -10,34 +10,34 @@ CREATE TABLE Admin(
 
 CREATE TABLE GucianStudent (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
-    firstName VARCHAR(10) NOT NULL,
-    lastName VARCHAR(10) NOT NULL,
+    firstName VARCHAR(20) NOT NULL,
+    lastName VARCHAR(20) NOT NULL,
     type VARCHAR(10) NOT NULL,
-    faculty VARCHAR(50) NOT NULL,
-    address VARCHAR(10) NOT NULL,
+    faculty VARCHAR(20) NOT NULL,
+    address VARCHAR(50) NOT NULL,
     GPA DECIMAL(3,2) NOT NULL,
     undergradID VARCHAR(10) NOT NULL,
 );
 
 CREATE TABLE NonGucianStudent (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
-    firstName VARCHAR(10) NOT NULL,
-    lastName VARCHAR(10) NOT NULL,
+    firstName VARCHAR(20) NOT NULL,
+    lastName VARCHAR(20) NOT NULL,
     type VARCHAR(10) NOT NULL,
-    faculty VARCHAR(50) NOT NULL,
-    address VARCHAR(10) NOT NULL,
+    faculty VARCHAR(20) NOT NULL,
+    address VARCHAR(50) NOT NULL,
     GPA DECIMAL(3,2) NOT NULL
 );
 
 CREATE TABLE GUCStudentPhoneNumber (
     id INT REFERENCES GucianStudent(id),
-    phone VARCHAR(50) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
     PRIMARY KEY(id, phone)
 );
 
 CREATE TABLE NonGUCStudentPhoneNumber (
     id INT REFERENCES NonGucianStudent(id),
-    phone VARCHAR(50) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
     PRIMARY KEY(id, phone)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE Course (
 CREATE TABLE Supervisor (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
     name VARCHAR(50) NOT NULL,
-    faculty VARCHAR(50) NOT NULL
+    faculty VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE Payment (
