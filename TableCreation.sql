@@ -96,7 +96,7 @@ CREATE TABLE Examiner (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
     name VARCHAR(50) NOT NULL,
     fieldOfWork VARCHAR(50) NOT NULL,
-    isNational VARCHAR(50) NOT NULL
+    isNational BIT NOT NULL
 );
 
 CREATE TABLE Defense (
