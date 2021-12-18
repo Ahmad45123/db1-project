@@ -15,7 +15,7 @@ CREATE TABLE GucianStudent (
     type VARCHAR(10) NOT NULL,
     faculty VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
-    GPA DECIMAL(3,2) NOT NULL,
+    GPA DECIMAL(10,2) NOT NULL,
     undergradID VARCHAR(10) NOT NULL,
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE NonGucianStudent (
     type VARCHAR(10) NOT NULL,
     faculty VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
-    GPA DECIMAL(3,2) NOT NULL
+    GPA DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE GUCStudentPhoneNumber (
@@ -43,9 +43,9 @@ CREATE TABLE NonGUCStudentPhoneNumber (
 
 CREATE TABLE Course (
     id INT PRIMARY KEY IDENTITY,
-    fees DECIMAL(5,2) NOT NULL,
+    fees DECIMAL(10,2) NOT NULL,
     creditHours INT NOT NULL,
-    code VARCHAR(50) NOT NULL
+    code VARCHAR(10) NOT NULL UNIQUE
 );
 
 CREATE TABLE Supervisor (
@@ -56,15 +56,15 @@ CREATE TABLE Supervisor (
 
 CREATE TABLE Payment (
     id INT PRIMARY KEY IDENTITY,
-    amount DECIMAL(5,2) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
     no_Installments INT NOT NULL,
-    fundPercentage DECIMAL(3,2) NOT NULL
+    fundPercentage DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE Installment (
     date DATE NOT NULL,
     paymentId INT REFERENCES Payment(id),
-    amount DECIMAL(5,2) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
     done INT NOT NULL,
     PRIMARY KEY (date, paymentId)
 );
@@ -77,8 +77,8 @@ CREATE TABLE Thesis (
     startDate DATE NOT NULL,
     endDate DATE NOT NULL,
     defenseDate Datetime NOT NULL,
-    years AS year(endDate) - year(startDate),
-    grade DECIMAL(3,2) NOT NULL,
+    years AS DATEDIFF(YEAR, endDate, startDate),
+    grade DECIMAL(10,2) NOT NULL,
     payment_id INT REFERENCES Payment(id),
     noExtension INT NOT NULL
 );
@@ -103,7 +103,7 @@ CREATE TABLE Defense (
     serialNumber INT REFERENCES Thesis(serialNumber),
     date Datetime NOT NULL,
     location varchar(15) NOT NULL,
-    grade DECIMAL(3,2),
+    grade DECIMAL(10,2),
     PRIMARY KEY(serialNumber, date)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE GUCianProgressReport (
     sid INT REFERENCES GucianStudent(id),
     no INT NOT NULL,
     date DATE NOT NULL,
-    eval VARCHAR(50) NULL,
+    eval INT NULL,
     state VARCHAR(50) NULL,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
@@ -122,7 +122,7 @@ CREATE TABLE NonGUCianProgressReport (
     sid INT REFERENCES NonGucianStudent(id),
     no INT NOT NULL,
     date DATE NOT NULL,
-    eval VARCHAR(50) NOT NULL,
+    eval INT NOT NULL,
     state VARCHAR(50) NOT NULL,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
@@ -139,7 +139,7 @@ CREATE TABLE NonGucianStudentPayForCourse (
 CREATE TABLE NonGUCianStudentTakeCourse (
     sid INT REFERENCES NonGucianStudent(id),
     cid INT REFERENCES Course(id),
-    grade DECIMAL(3,2) NOT NULL,
+    grade DECIMAL(10,2),
     PRIMARY KEY (sid, cid)
 );
 
