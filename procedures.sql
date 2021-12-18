@@ -147,16 +147,12 @@ GO;
 
 -- 4h
 CREATE PROCEDURE AddGrade
-    @ThesisSerialNo int
+    @ThesisSerialNo int, @grade DECIMAL(3,2) -- assumed that an extra grade parameter is needed
 AS
 BEGIN
-
-    SELECT *
-    FROM Thesis
+    Update Thesis
+    SET grade = @grade
     WHERE serialNumber = @ThesisSerialNo
-
--- TODO: determine which magic spells to cast here
-
 END
 
 
