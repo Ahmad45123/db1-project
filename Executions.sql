@@ -84,7 +84,7 @@ GO
 EXEC ViewCoursesGrades 16;
 GO
 
-EXEC ViewCoursePaymentsInstall 18;
+EXEC ViewCoursePaymentsInstall 16;
 GO
 
 EXEC ViewThesisPaymentsInstall 5;
@@ -96,7 +96,7 @@ GO
 EXEC ViewUpcomingInstallments 6;
 GO
 
-EXEC ViewUpcomingInstallments 20;
+EXEC ViewUpcomingInstallments 26;
 GO
 
 EXEC ViewMissedInstallments 12;
@@ -104,6 +104,25 @@ GO
 
 EXEC ViewMissedInstallments 18;
 GO
+
+EXEC AddProgressReport 3, '2021-12-19'
+GO
+
+EXEC AddProgressReport 20, '2021-12-19'
+GO
+
+EXEC FillProgressReport 3, 1, '2021-12-19', 'bla bla bla'
+GO
+
+EXEC FillProgressReport 20, 1, '2021-12-19', 'bla bla bla'
+GO
+
+EXEC ViewEvalProgressReport 3, 1;
+GO
+
+EXEC ViewEvalProgressReport 20, 1;
+GO
+
 
 
 ---------------------------------------------

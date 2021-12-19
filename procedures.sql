@@ -238,15 +238,17 @@ GO
 CREATE PROC ViewThesisPaymentsInstall (@studentId INT) AS 
 
     IF EXISTS (SELECT * FROM GucianStudent WHERE GucianStudent.id = @studentId)
-        SELECT Payment.*, Installment.* FROM Payment
+        SELECT * FROM Payment
         INNER JOIN Installment ON Installment.paymentId = Payment.id
         INNER JOIN Thesis ON Thesis.payment_id = Payment.id
-        INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.sid = @studentId;
+        INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no = Thesis.serialNumber
+        WHERE GUCStudentRegisterThesis.sid = @studentId;
     ELSE
-        SELECT Payment.*, Installment.* FROM Payment
+        SELECT * FROM Payment
         INNER JOIN Installment ON Installment.paymentId = Payment.id
         INNER JOIN Thesis ON Thesis.payment_id = Payment.id
-        INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.sid = @studentId;
+        INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no = Thesis.serialNumber
+        WHERE NonGUCStudentRegisterThesis.sid = @studentId;
 GO
 
 CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
@@ -254,14 +256,14 @@ CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
         SELECT Installment.*, Payment.id FROM Installment
         INNER JOIN Payment ON Payment.id = Installment.paymentId
         INNER JOIN Thesis ON Thesis.payment_id = Payment.id
-        INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND GUCStudentRegisterThesis.sid = @studentID
-        WHERE Installment.[date] >= GETDATE();
+        INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no=Thesis.serialNumber
+        WHERE Installment.[date] >= GETDATE() AND GUCStudentRegisterThesis.sid = @studentID;
     ELSE
         SELECT Installment.*, Payment.id FROM Installment
         INNER JOIN Payment ON Payment.id = Installment.paymentId
         INNER JOIN Thesis ON Thesis.payment_id = Payment.id
-        INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND NonGUCStudentRegisterThesis.sid = @studentID
-        WHERE Installment.[date] >= GETDATE();
+        INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber
+        WHERE Installment.[date] >= GETDATE() AND NonGUCStudentRegisterThesis.sid = @studentID;
 GO
 
 CREATE PROC ViewMissedInstallments (@studentID INT) AS
@@ -269,30 +271,35 @@ CREATE PROC ViewMissedInstallments (@studentID INT) AS
         SELECT Installment.*, Payment.id FROM Installment
         INNER JOIN Payment ON Payment.id = Installment.paymentId
         INNER JOIN Thesis ON Thesis.payment_id = Payment.id
-        INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND GUCStudentRegisterThesis.sid = @studentID
-        WHERE Installment.[date] < GETDATE();
+        INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.serial_no=Thesis.serialNumber
+        WHERE Installment.[date] < GETDATE() AND GUCStudentRegisterThesis.sid = @studentID;
     ELSE
         SELECT Installment.*, Payment.id FROM Installment
         INNER JOIN Payment ON Payment.id = Installment.paymentId
         INNER JOIN Thesis ON Thesis.payment_id = Payment.id
-        INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND NonGUCStudentRegisterThesis.sid = @studentID
-        WHERE Installment.[date] < GETDATE();
+        INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber
+        WHERE Installment.[date] < GETDATE() AND NonGUCStudentRegisterThesis.sid = @studentID;
 GO
 
 CREATE PROC AddProgressReport (@thesisSerialNo int, @progressReportDate date) AS BEGIN
     
     DECLARE @supId INT;
+    DECLARE @studId INT;
     DECLARE @noId INT;
 
     IF EXISTS (SELECT * FROM GUCStudentRegisterThesis WHERE GUCStudentRegisterThesis.serial_no = @thesisSerialNo) BEGIN
         SELECT @supId = GUCStudentRegisterThesis.supid FROM GUCStudentRegisterThesis WHERE GUCStudentRegisterThesis.serial_no = @thesisSerialNo;
+        SELECT @studId = GUCStudentRegisterThesis.sid FROM GUCStudentRegisterThesis WHERE GUCStudentRegisterThesis.serial_no = @thesisSerialNo;
         SELECT @noId = MAX(GUCianProgressReport.[no]) FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo;
-        INSERT INTO GUCianProgressReport (thesisSerialNumber, date, supId, no) VALUES (@thesisSerialNo, @progressReportDate, @supId, @noId + 1);
+        IF @noId IS NULL BEGIN SET @noId = 0 END;
+        INSERT INTO GUCianProgressReport (sid, thesisSerialNumber, date, supId, no) VALUES (@studId, @thesisSerialNo, @progressReportDate, @supId, @noId + 1);
     END;
     ELSE BEGIN
         SELECT @supId = NonGUCStudentRegisterThesis.supid FROM NonGUCStudentRegisterThesis WHERE NonGUCStudentRegisterThesis.serial_no = @thesisSerialNo;
+        SELECT @studId = NonGUCStudentRegisterThesis.sid FROM NonGUCStudentRegisterThesis WHERE NonGUCStudentRegisterThesis.serial_no = @thesisSerialNo;
         SELECT @noId = MAX(NonGUCianProgressReport.[no]) FROM NonGUCianProgressReport WHERE NonGUCianProgressReport.thesisSerialNumber = @thesisSerialNo;
-        INSERT INTO NonGUCianProgressReport (thesisSerialNumber, date, supId, no) VALUES (@thesisSerialNo, @progressReportDate, @supId, @noId + 1);
+        IF @noId IS NULL BEGIN SET @noId = 0 END;
+        INSERT INTO NonGUCianProgressReport (sid, thesisSerialNumber, date, supId, no) VALUES (@studId, @thesisSerialNo, @progressReportDate, @supId, @noId + 1);
     END;
 END;
 

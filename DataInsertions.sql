@@ -112,6 +112,11 @@ INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 7817, 1, 
 INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 3409, 2, 0.8);
 INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 1247, 1, 0.1);
 
+INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 1541, 1, 0.1);
+INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 97845, 1, 0.1);
+INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 942, 1, 0.1);
+INSERT INTO Payment (amount, no_Installments, fundPercentage) VALUES ( 9411, 1, 0.1);
+
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-02-14', 1, 9974, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-05-02', 2, 4251, 0);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-07-15', 3, 6210, 1);
@@ -119,7 +124,7 @@ INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-09-01', 4,
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-10-17', 4, 3819, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-10-18', 5, 4307, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-11-14', 6, 416, 1);
-INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-12-31', 6, 500, 1);
+INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2022-12-31', 6, 500, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-01-08', 6, 500, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-01-14', 7, 9052, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-02-02', 8, 3052, 1);
@@ -148,7 +153,7 @@ INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-01-14', 22
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-02-02', 23, 3052, 0);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-02-15', 24, 7243, 0);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-03-21', 25, 3121, 1);
-INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-07-27', 26, 1000, 1);
+INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2022-07-27', 26, 1000, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2020-10-26', 26, 1000, 0);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2021-01-28', 26, 1000, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2021-02-04', 26, 1000, 1);
@@ -159,6 +164,15 @@ INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2021-10-05', 29
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2021-11-29', 29, 400, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2021-12-09', 30, 1247, 0);
 
+INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-02-14', 31, 1541, 1);
+INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-05-02', 32, 97845, 0);
+INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-07-15', 33, 942, 1);
+INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-09-01', 34, 9411, 1);
+
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (16, 31, 1);
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (16, 32, 2);
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (20, 33, 6);
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (25, 34, 4);
 
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(1, 'mohsen', 'raki', 'MSc', 'Electronics', 'rkrbjp street', 1.60, '31-4248');
@@ -394,32 +408,33 @@ INSERT INTO ExaminerEvaluateDefense(date, serialNo, examinerId, comment) VALUES 
 INSERT INTO ExaminerEvaluateDefense(date, serialNo, examinerId, comment) VALUES ('2021-10-21', 29, 44, 'Excellent');
 INSERT INTO ExaminerEvaluateDefense(date, serialNo, examinerId, comment) VALUES ('2021-12-01', 30, 41, 'Meet me after defense');
 
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (1,1,'2009-08-16','80','diam fringilla',1,31)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (1,2,'2017-07-28','97','cursus porttitor',1,39)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (2,1,'2004-10-25','25','auctor neque',2,36)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (3,1,'2018-05-04','73','ipsum dolor',3,37)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (4,1,'2016-09-11','29','euismod Vestibulum',4,37)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (5,1,'2005-12-23','21','eget urna',5,36)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (5,2,'2007-12-07','13','non eleifend',5,36)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (7,1,'2012-03-10','69','dolor sit',7,32)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (11,1,'2009-04-28','32','leo a',11,33)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (11,2,'2021-11-03','49','sollicitudin pulvinar',11,35)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (13,1,'2002-03-27','94','vel tortor',13,33)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (13,2,'2019-11-05','47','sem bibendum',13,33)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (15,1,'2003-04-09','81','sapien mattis',15,34)
-INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (15,2,'2005-04-17','97','eu ut',15,34)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (16,1,'2013-11-25','3','Etiam vel',16,34)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (16,2,'2002-01-03','29','orci Ut',16,37)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (17,1,'2020-06-20','2','nisi ligula',17,32)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (17,2,'2021-03-10','11','congue placerat',17,32)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (18,1,'2020-08-27','85','consequat suscipit',18,36)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (18,2,'2008-09-18','49','Aliquam orci',18,36)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (21,1,'2011-12-16','23','efficitur neque',21,35)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (24,1,'2003-12-07','3','Curabitur efficitur',24,31)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (24,2,'2017-08-04','85','neque Nullam',24,39)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (26,1,'2009-10-05','37','rutrum tempus',26,37)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (26,2,'2014-12-06','39','Suspendisse sodales',26,37)
-INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (27,1,'2016-08-08','13','amet consectetur',27,34)
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (1,1,'2009-08-16','diam fringilla',80,1,31);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (1,2,'2017-07-28','cursus porttitor',97,1,39);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (2,1,'2004-10-25','auctor neque',25,2,36);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (3,1,'2018-05-04','ipsum dolor',73,3,37);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (4,1,'2016-09-11','euismod Vestibulum',29,4,37);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (5,1,'2005-12-23','eget urna',21,5,36);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (5,2,'2007-12-07','non eleifend',13,5,36);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (7,1,'2012-03-10','dolor sit',69,7,32);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (11,1,'2009-04-28','leo a',32,11,33);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (11,2,'2021-11-03','sollicitudin pulvinar',49,11,35);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (13,1,'2002-03-27','vel tortor',94,13,33);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (13,2,'2019-11-05','sem bibendum',47,13,33);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (15,1,'2003-04-09','sapien mattis',81,15,34);
+INSERT INTO GUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (15,2,'2005-04-17','eu ut',97,15,34);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (16,1,'2013-11-25','Etiam vel',3,16,34);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (16,2,'2002-01-03','orci Ut',29,16,37);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (17,1,'2020-06-20','nisi ligula',2,17,32);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (17,2,'2021-03-10','congue placerat',11,17,32);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (18,1,'2020-08-27','consequat suscipit',85,18,36);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (18,2,'2008-09-18','Aliquam orci',49,18,36);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (21,1,'2011-12-16','efficitur neque',23,21,35);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (24,1,'2003-12-07','Curabitur efficitur',3,24,31);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (24,2,'2017-08-04','neque Nullam',85,24,39);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (26,1,'2009-10-05','rutrum tempus',37,26,37);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (26,2,'2014-12-06','Suspendisse sodales',39,26,37);
+INSERT INTO NonGUCianProgressReport(sid,no,date,eval,state,thesisSerialNumber,supid) VALUES (27,1,'2016-08-08','amet consectetur',13,27,34);
+
 INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (1, 39, 1)
 INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (1, 31, 1)
 INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (2, 36, 2)

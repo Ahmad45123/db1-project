@@ -115,8 +115,8 @@ CREATE TABLE GUCianProgressReport (
     sid INT REFERENCES GucianStudent(id),
     no INT  ,
     date DATE  ,
-    eval INT NULL,
-    state VARCHAR(50) NULL,
+    eval VARCHAR(200) NULL,
+    state INT NULL,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
     PRIMARY KEY (sid, no)
@@ -124,10 +124,10 @@ CREATE TABLE GUCianProgressReport (
 
 CREATE TABLE NonGUCianProgressReport (
     sid INT REFERENCES NonGucianStudent(id),
-    no INT  ,
-    date DATE  ,
-    eval INT  ,
-    state VARCHAR(50)  ,
+    no INT,
+    date DATE,
+    eval VARCHAR(200),
+    state INT,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
     PRIMARY KEY (sid, no)
