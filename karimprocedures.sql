@@ -218,7 +218,6 @@ AS
     INNER JOIN GucianStudent GST ON GSRT.sid=GST.id
     INNER JOIN Supervisor GS ON GSRT.supid=GS.id
     INNER JOIN Thesis GT ON GSRT.serial_no=GT.serialNumber
-    WHERE GT.endDate > GETDATE()
 )
 UNION
 (SELECT DISTINCT NGS.name, NGT.title, CONCAT(NGST.firstName,' ',NGST.lastName) 
@@ -226,7 +225,6 @@ UNION
     INNER JOIN NonGucianStudent NGST ON NGSRT.sid=NGST.id
     INNER JOIN Supervisor NGS ON NGSRT.supid=NGS.id
     INNER JOIN Thesis NGT ON NGSRT.serial_no=NGT.serialNumber
-    WHERE NGT.endDate > GETDATE()
 )
 
 GO
