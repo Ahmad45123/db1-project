@@ -5,10 +5,10 @@ CREATE PROCEDURE SupViewProfile
 AS
 SELECT *
 FROM Supervisor
-WHERE id = @supervisorID
+WHERE id = @supervisorID;
 
 
-GO;
+GO
 
 CREATE PROCEDURE UpdateSupProfile
     @supervisorID int,
@@ -17,10 +17,10 @@ CREATE PROCEDURE UpdateSupProfile
 AS
 UPDATE Supervisor
 SET name = @name, faculty = @faculty
-WHERE id = @supervisorID
+WHERE id = @supervisorID;
 
 
-GO;
+GO
 
 -- 4d
 
@@ -38,10 +38,10 @@ Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.
 ELSE-- non gucian
 return (SELECT P.id, P.title, P.date, P.place, P.accepted, P.host
 From Publication P, ThesisHasPublication THP, NonGucianStudentPayForCourse GSRT
-Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.id)
+Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.id);
 
 
-GO;
+GO
 
 -- 4e
 CREATE PROCEDURE AddDefenseGucian
