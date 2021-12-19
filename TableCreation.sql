@@ -83,7 +83,7 @@ CREATE TABLE Thesis (
     defenseDate Datetime,
     years AS DATEDIFF(YEAR, startDate, endDate),
     grade DECIMAL(10,2),
-    payment_id INT REFERENCES Payment(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    payment_id INT REFERENCES Payment(id),
     noExtension INT  
 );
 
@@ -117,8 +117,8 @@ CREATE TABLE GUCianProgressReport (
     date DATE  ,
     eval VARCHAR(200) NULL,
     state INT NULL,
-    thesisSerialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
-    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    thesisSerialNumber INT REFERENCES Thesis(serialNumber),
+    supid INT REFERENCES Supervisor(id),
     PRIMARY KEY (sid, no)
 );
 
@@ -128,8 +128,8 @@ CREATE TABLE NonGUCianProgressReport (
     date DATE  ,
     eval VARCHAR(200) NULL,
     state INT,
-    thesisSerialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
-    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    thesisSerialNumber INT REFERENCES Thesis(serialNumber),
+    supid INT REFERENCES Supervisor(id),
     PRIMARY KEY (sid, no)
 );
 
@@ -148,16 +148,16 @@ CREATE TABLE NonGUCianStudentTakeCourse (
 );
 
 CREATE TABLE GUCStudentRegisterThesis (
-    sid INT REFERENCES GucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    serial_no INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    sid INT REFERENCES GucianStudent(id) ,
+    supid INT REFERENCES Supervisor(id) ,
+    serial_no INT REFERENCES Thesis(serialNumber) ,
     PRIMARY KEY (sid, supid, serial_no)
 );
 
 CREATE TABLE NonGUCStudentRegisterThesis (
-    sid INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    serial_no INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    sid INT REFERENCES NonGucianStudent(id) ,
+    supid INT REFERENCES Supervisor(id) ,
+    serial_no INT REFERENCES Thesis(serialNumber) ,
     PRIMARY KEY (sid, supid, serial_no)
 );
 

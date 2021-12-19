@@ -169,11 +169,6 @@ INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-05-02', 32
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-07-15', 33, 942, 1);
 INSERT INTO Installment (date, paymentId, amount, done) VALUES ('2019-09-01', 34, 9411, 1);
 
-INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (16, 31, 1);
-INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (16, 32, 2);
-INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (20, 33, 6);
-INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (25, 34, 4);
-
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(1, 'mohsen', 'raki', 'MSc', 'Electronics', 'rkrbjp street', 1.60, '31-4248');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -344,6 +339,10 @@ INSERT INTO NonGucianStudentTakeCourse (sid, cid, grade) VALUES (29, 3, 0.0);
 INSERT INTO NonGucianStudentTakeCourse (sid, cid, grade) VALUES (30, 4, 21.0);
 INSERT INTO NonGucianStudentTakeCourse (sid, cid, grade) VALUES (30, 6, 1.0);
 
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (16, 31, 1);
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (16, 32, 2);
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (20, 33, 6);
+INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (25, 34, 4);
 
 INSERT INTO Defense (serialNumber, date, location, grade) VALUES (1, '2019-10-25' , 'uaaiboqaof', 100.0);
 INSERT INTO Defense (serialNumber, date, location, grade) VALUES (2, '2019-11-06' , 'eycnmmnjgm', 100.0);
