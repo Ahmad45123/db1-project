@@ -61,9 +61,12 @@ CREATE PROCEDURE AddDefenseNonGucian
     @DefenseDate Datetime ,
     @DefenseLocation varchar(15)
 AS
+Declare @sid int;
+SELECT @sid = sid FROM NonGUCStudentRegisterThesis WHERE serial_no = @ThesisSerialNo
+
 IF (not exists (select *
 from NonGUCianStudentTakeCourse a, NonGUCStudentRegisterThesis b
-where a.sid = b.sid and a.grade <= 50))
+where a.sid = b.sid and a.grade <= 50 and a.sid = @sid))
 INSERT INTO Defense
 VALUES
     (@ThesisSerialNo, @DefenseDate, @DefenseLocation, NULL)
@@ -115,7 +118,7 @@ BEGIN
         FROM GUCianProgressReport
         WHERE thesisSerialNumber = @ThesisSerialNo)
 
-    IF (@tmpeval = '0')
+    IF (@tmpeval = 0)
     BEGIN
         DELETE 
         FROM Thesis
@@ -134,7 +137,7 @@ BEGIN
         FROM NonGUCianProgressReport
         WHERE thesisSerialNumber = @ThesisSerialNo)
 
-    IF (@tmpeval = '0')
+    IF (@tmpeval = 0)
     BEGIN
         DELETE 
         FROM Thesis
