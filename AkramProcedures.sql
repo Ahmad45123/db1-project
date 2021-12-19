@@ -11,6 +11,7 @@ SET noExtension = noExtension + 1
 WHERE serialNumber = @ThesisSerialNo;
 GO
 
+
 -- (3-H) Issue a thesis payment
 CREATE PROCEDURE AdminIssueThesisPayment
 @ThesisSerialNo INT, 
@@ -161,6 +162,7 @@ INNER JOIN
 Thesis T
 ON T.serialNumber = regist.serial_no
 WHERE T.defenseDate = @defenseDate
+GO
 
 GO
 

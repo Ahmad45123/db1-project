@@ -21,7 +21,9 @@ EXEC AdminListSup
 
 
 ---------------------------------
+SELECT * FROM Thesis;
 EXECUTE AdminUpdateExtension 1;
+SELECT * FROM Thesis;
 GO
 ------------------------
 DECLARE @ans BIT;
