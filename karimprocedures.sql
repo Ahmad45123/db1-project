@@ -198,7 +198,6 @@ CREATE PROC AdminViewOnGoingTheses
 AS
 
 SET @thesesCount = (SELECT COUNT(serialNumber) FROM Thesis WHERE endDate > GETDATE() );
-PRINT @thesesCount;
 
 GO
 
