@@ -65,7 +65,7 @@ AS
 INSERT INTO PostGradUser(email, password) VALUES(@email, @password);
 DECLARE @justInsertedId INT = (SELECT MAX(id) FROM PostGradUser);
 INSERT INTO Supervisor(id, name, faculty) 
-VALUES(@justInsertedId, @first_name, @faculty);
+VALUES(@justInsertedId, CONCAT(@first_name,' ',@last_name), @faculty);
 
 GO
 

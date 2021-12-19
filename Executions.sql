@@ -105,3 +105,52 @@ GO
 EXEC ViewMissedInstallments 18;
 GO
 
+
+---------------------------------------------
+
+EXECUTE SupViewProfile 33
+GO
+
+EXECUTE UpdateSupProfile 33, 'updated_name', 'updated_faculty'
+GO
+
+EXECUTE SupViewProfile 33
+GO
+
+EXECUTE ViewAStudentPublications 10
+GO
+
+EXECUTE ViewAStudentPublications 20
+GO
+
+EXECUTE AddDefenseGucian 1, '2021-12-20', 'somewhere'
+GO
+
+EXECUTE AddDefenseNonGucian 21 ,'2021-12-20', 'somewhere'
+GO
+
+
+-- TODO: This function has an incorrect signature. So, it can't be properly tested
+-- EXECUTE AddExaminer
+
+EXECUTE CancelThesis 11
+GO 
+
+EXECUTE CancelThesis 21
+GO
+
+EXECUTE AddGrade 5, 1.1
+GO
+
+
+EXECUTE AddDefenseGrade 1, '2021-12-20', 2.9
+GO
+
+EXECUTE AddDefenseGrade 21, '2021-12-20', 9.9
+GO
+
+EXECUTE AddCommentsGrade 1, '2021-12-20', 'git gud'
+GO
+
+EXECUTE AddCommentsGrade 21, '2021-12-20', 'werte gut'
+GO
