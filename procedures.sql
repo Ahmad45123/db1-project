@@ -105,7 +105,7 @@ CREATE PROCEDURE CancelThesis
     @ThesisSerialNo int
 AS
 
-Declare @tmpeval varchar(50);
+Declare @tmpeval int;
 
 -- gucian
 IF EXISTS (SELECT eval
