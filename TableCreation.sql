@@ -117,7 +117,7 @@ CREATE TABLE GUCianProgressReport (
     date DATE  ,
     eval INT,
     state INT NULL,
-    thesisSerialNumber INT REFERENCES Thesis(serialNumber),
+    thesisSerialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
     supid INT REFERENCES Supervisor(id),
     report_description VARCHAR(200),
     PRIMARY KEY (sid, no)
@@ -129,7 +129,7 @@ CREATE TABLE NonGUCianProgressReport (
     date DATE  ,
     eval INT,
     state INT,
-    thesisSerialNumber INT REFERENCES Thesis(serialNumber),
+    thesisSerialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
     supid INT REFERENCES Supervisor(id),
     report_description VARCHAR(200),
     PRIMARY KEY (sid, no)
@@ -152,14 +152,14 @@ CREATE TABLE NonGUCianStudentTakeCourse (
 CREATE TABLE GUCStudentRegisterThesis (
     sid INT REFERENCES GucianStudent(id) ,
     supid INT REFERENCES Supervisor(id) ,
-    serial_no INT REFERENCES Thesis(serialNumber) ,
+    serial_no INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE ,
     PRIMARY KEY (sid, supid, serial_no)
 );
 
 CREATE TABLE NonGUCStudentRegisterThesis (
     sid INT REFERENCES NonGucianStudent(id) ,
     supid INT REFERENCES Supervisor(id) ,
-    serial_no INT REFERENCES Thesis(serialNumber) ,
+    serial_no INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (sid, supid, serial_no)
 );
 
