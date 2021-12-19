@@ -65,3 +65,43 @@ GO
 EXECUTE ViewSupStudentsYears 33;
 GO
 ---------------------------------
+
+EXECUTE viewMyProfile 1;
+GO
+
+EXECUTE viewMyProfile 20;
+GO
+
+EXECUTE editMyProfile 1, 'Ahmed', 'Alwasifey', '123456', 'bla@example.com', 'tagamo3 5th street', 'Dumb';
+GO
+
+EXECUTE editMyProfile 20, 'Anas', 'Alwasifey', '123456', 'bla@example.com', 'tagamo3 5th street', 'Dumb';
+GO
+
+EXEC addUndergradID 1, '49-4934';
+GO
+
+EXEC ViewCoursesGrades 16;
+GO
+
+EXEC ViewCoursePaymentsInstall 18;
+GO
+
+EXEC ViewThesisPaymentsInstall 5;
+GO
+
+EXEC ViewThesisPaymentsInstall 19;
+GO
+
+EXEC ViewUpcomingInstallments 6;
+GO
+
+EXEC ViewUpcomingInstallments 20;
+GO
+
+EXEC ViewMissedInstallments 12;
+GO
+
+EXEC ViewMissedInstallments 18;
+GO
+
