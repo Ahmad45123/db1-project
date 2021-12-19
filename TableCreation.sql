@@ -9,11 +9,11 @@ CREATE TABLE PostGradUser (
 ); 
 
 CREATE TABLE Admin(
-    id INT PRIMARY KEY REFERENCES PostGradUser(id)
+    id INT PRIMARY KEY REFERENCES PostGradUser(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE GucianStudent (
-    id INT PRIMARY KEY REFERENCES PostGradUser(id),
+    id INT PRIMARY KEY REFERENCES PostGradUser(id) ON DELETE CASCADE ON UPDATE CASCADE,
     firstName VARCHAR(20)  ,
     lastName VARCHAR(20)  ,
     type VARCHAR(10)  ,
@@ -24,7 +24,7 @@ CREATE TABLE GucianStudent (
 );
 
 CREATE TABLE NonGucianStudent (
-    id INT PRIMARY KEY REFERENCES PostGradUser(id),
+    id INT PRIMARY KEY REFERENCES PostGradUser(id) ON DELETE CASCADE ON UPDATE CASCADE,
     firstName VARCHAR(20)  ,
     lastName VARCHAR(20)  ,
     type VARCHAR(10)  ,
@@ -34,13 +34,13 @@ CREATE TABLE NonGucianStudent (
 );
 
 CREATE TABLE GUCStudentPhoneNumber (
-    id INT REFERENCES GucianStudent(id),
+    id INT REFERENCES GucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
     phone VARCHAR(20)  ,
     PRIMARY KEY(id, phone)
 );
 
 CREATE TABLE NonGUCStudentPhoneNumber (
-    id INT REFERENCES NonGucianStudent(id),
+    id INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
     phone VARCHAR(20)  ,
     PRIMARY KEY(id, phone)
 );
@@ -53,7 +53,7 @@ CREATE TABLE Course (
 );
 
 CREATE TABLE Supervisor (
-    id INT PRIMARY KEY REFERENCES PostGradUser(id),
+    id INT PRIMARY KEY REFERENCES PostGradUser(id) ON DELETE CASCADE ON UPDATE CASCADE,
     name VARCHAR(50)  ,
     faculty VARCHAR(20)  
 );
@@ -67,7 +67,7 @@ CREATE TABLE Payment (
 
 CREATE TABLE Installment (
     date DATE  ,
-    paymentId INT REFERENCES Payment(id),
+    paymentId INT REFERENCES Payment(id) ON DELETE CASCADE ON UPDATE CASCADE,
     amount DECIMAL(10,2)  ,
     done INT  ,
     PRIMARY KEY (date, paymentId)
@@ -83,7 +83,7 @@ CREATE TABLE Thesis (
     defenseDate Datetime,
     years AS DATEDIFF(YEAR, startDate, endDate),
     grade DECIMAL(10,2),
-    payment_id INT REFERENCES Payment(id),
+    payment_id INT REFERENCES Payment(id) ON DELETE CASCADE ON UPDATE CASCADE,
     noExtension INT  
 );
 
@@ -97,14 +97,14 @@ CREATE Table Publication(
 );
 
 CREATE TABLE Examiner (
-    id INT PRIMARY KEY REFERENCES PostGradUser(id),
+    id INT PRIMARY KEY REFERENCES PostGradUser(id) ON DELETE CASCADE ON UPDATE CASCADE,
     name VARCHAR(50)  ,
     fieldOfWork VARCHAR(50)  ,
     isNational BIT  
 );
 
 CREATE TABLE Defense (
-    serialNumber INT REFERENCES Thesis(serialNumber),
+    serialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
     date Datetime  ,
     location varchar(15)  ,
     grade DECIMAL(10,2),
@@ -112,65 +112,65 @@ CREATE TABLE Defense (
 );
 
 CREATE TABLE GUCianProgressReport (
-    sid INT REFERENCES GucianStudent(id),
+    sid INT REFERENCES GucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
     no INT  ,
     date DATE  ,
     eval VARCHAR(200) NULL,
     state INT NULL,
-    thesisSerialNumber INT REFERENCES Thesis(serialNumber),
-    supid INT REFERENCES Supervisor(id),
+    thesisSerialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (sid, no)
 );
 
 CREATE TABLE NonGUCianProgressReport (
-    sid INT REFERENCES NonGucianStudent(id),
-    no INT,
-    date DATE,
-    eval VARCHAR(200),
+    sid INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    no INT  ,
+    date DATE  ,
+    eval VARCHAR(200) NULL,
     state INT,
-    thesisSerialNumber INT REFERENCES Thesis(serialNumber),
-    supid INT REFERENCES Supervisor(id),
+    thesisSerialNumber INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (sid, no)
 );
 
 CREATE TABLE NonGucianStudentPayForCourse (
-    sid INT REFERENCES NonGucianStudent(id),
-    paymentNo INT REFERENCES Payment(id),
-    cid INT REFERENCES Course(id),
+    sid INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    paymentNo INT REFERENCES Payment(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    cid INT REFERENCES Course(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (sid, paymentNo, cid)
 );
 
 CREATE TABLE NonGUCianStudentTakeCourse (
-    sid INT REFERENCES NonGucianStudent(id),
-    cid INT REFERENCES Course(id),
+    sid INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    cid INT REFERENCES Course(id) ON DELETE CASCADE ON UPDATE CASCADE,
     grade DECIMAL(10,2),
     PRIMARY KEY (sid, cid)
 );
 
 CREATE TABLE GUCStudentRegisterThesis (
-    sid INT REFERENCES GucianStudent(id),
-    supid INT REFERENCES Supervisor(id),
-    serial_no INT REFERENCES Thesis(serialNumber),
+    sid INT REFERENCES GucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    serial_no INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (sid, supid, serial_no)
 );
 
 CREATE TABLE NonGUCStudentRegisterThesis (
-    sid INT REFERENCES NonGucianStudent(id),
-    supid INT REFERENCES Supervisor(id),
-    serial_no INT REFERENCES Thesis(serialNumber),
+    sid INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    supid INT REFERENCES Supervisor(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    serial_no INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (sid, supid, serial_no)
 );
 
 CREATE TABLE ExaminerEvaluateDefense (
     date Datetime,
-    serialNo INT REFERENCES Thesis(serialNumber),
-    examinerId INT REFERENCES Examiner(id),
+    serialNo INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    examinerId INT REFERENCES Examiner(id) ON DELETE CASCADE ON UPDATE CASCADE,
     comment varchar(300),
     PRIMARY KEY (date, serialNo, examinerId)
 );
 
 CREATE TABLE ThesisHasPublication (
-    serialNo INT REFERENCES Thesis(serialNumber),
-    pubid INT REFERENCES Publication(id),
+    serialNo INT REFERENCES Thesis(serialNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    pubid INT REFERENCES Publication(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (serialNo, pubid)
 );

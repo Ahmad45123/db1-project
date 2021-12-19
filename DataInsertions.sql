@@ -177,11 +177,11 @@ INSERT INTO NonGucianStudentPayForCourse (sid, paymentNo, cid) VALUES (25, 34, 4
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(1, 'mohsen', 'raki', 'MSc', 'Electronics', 'rkrbjp street', 1.60, '31-4248');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Electronics', 'MSc', 'Electronics Thesis', '2017-1-24', '2018-1-11', '2019-1-21', 3.19, 1, 0);
+Values( 'Electronics', 'MSc', 'Electronics Thesis', '2017-1-24', '2028-1-11', '2019-1-21', 3.19, 1, 0);
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(2, 'zephan', 'iel', 'MSc', 'Computer Science', 'uxjlpqj street', 2.13, '22-9997');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2017-2-5', '2018-2-26', '2019-2-24', 0.39, 2, 1);
+Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2017-2-5', '2025-2-26', '2019-2-24', 0.39, 2, 1);
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(3, 'afonso', 'fohri', 'MSc', 'Management', 'xkmekfl street', 3.13, '7-0786');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -193,7 +193,7 @@ Values( 'Management', 'MSc', 'Management Thesis', '2017-4-10', '2018-4-3', '2019
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(5, 'anuja', 'regli', 'MSc', 'Computer Science', 'dlvhuanv street', 3.09, '4-8140');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2017-5-16', '2018-5-6', '2019-5-25', 1.94, 5, 1);
+Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2017-5-16', '2022-5-6', '2019-5-25', 1.94, 5, 1);
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(6, 'corn', 'elio', 'MSc', 'Computer Science', 'plleet street', 0.27, '22-4417');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -205,11 +205,11 @@ Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2017-7-14', '2018
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(8, 'noran', 'nero', 'MSc', 'Pharmacy', 'hpkelzuxmu street', 3.27, '23-3696');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Pharmacy', 'MSc', 'Pharmacy Thesis', '2017-8-14', '2018-8-8', '2019-8-4', 1.11, 8, 1);
+Values( 'Pharmacy', 'MSc', 'Pharmacy Thesis', '2017-8-14', '2018-8-8', '2024-8-4', 1.11, 8, 1);
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(9, 'anish', 'laro', 'PhD', 'Computer Science', 'blidtkb street', 2.34, '12-4790');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Computer Science', 'PhD', 'Computer Science Thesis', '2017-9-6', '2018-9-7', '2019-9-24', 1.99, 9, 0);
+Values( 'Computer Science', 'PhD', 'Computer Science Thesis', '2017-9-6', '2029-9-7', '2019-9-24', 1.99, 9, 0);
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(10, 'silas', 'fatsani', 'PhD', 'Management', 'eoymtjp street', 1.85, '34-0478');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -225,7 +225,7 @@ Values( 'Electronics', 'PhD', 'Electronics Thesis', '2018-12-26', '2019-12-28', 
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(13, 'nassim', 'farka', 'PhD', 'Pharmacy', 'wqbsnl street', 1.80, '38-1120');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Pharmacy', 'PhD', 'Pharmacy Thesis', '2018-1-28', '2019-1-14', '2020-1-14', 1.59, 13, 0);
+Values( 'Pharmacy', 'PhD', 'Pharmacy Thesis', '2018-1-28', '2026-1-14', '2020-1-14', 1.59, 13, 0);
 INSERT Into GucianStudent(id, firstName, lastName, type, faculty, address, GPA, undergradID)
 Values(14, 'gennadius', 'erna', 'PhD', 'Management', 'rlxziol street', 2.39, '15-9670');
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -241,7 +241,7 @@ Values( 'Management', 'MSc', 'Management Thesis', '2018-4-5', '2019-4-10', '2020
 INSERT Into NonGucianStudent(id, firstName, lastName, type, faculty, address, GPA)
 Values(17, 'bert', 'jia', 'MSc', 'Computer Science', 'xfuyyorp street', 2.40);
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2018-5-21', '2019-5-22', '2020-5-5', 2.83, 17, 1);
+Values( 'Computer Science', 'MSc', 'Computer Science Thesis', '2018-5-21', '2024-5-22', '2020-5-5', 2.83, 17, 1);
 INSERT Into NonGucianStudent(id, firstName, lastName, type, faculty, address, GPA)
 Values(18, 'machli', 'jen', 'MSc', 'Computer Science', 'fbyoxuh street', 1.61);
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -281,7 +281,7 @@ Values( 'Management', 'PhD', 'Management Thesis', '2019-2-19', '2020-2-18', '202
 INSERT Into NonGucianStudent(id, firstName, lastName, type, faculty, address, GPA)
 Values(27, 'punit', 'vladimir', 'PhD', 'Management', 'lstnnmqaiz street', 1.56);
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Management', 'PhD', 'Management Thesis', '2019-3-7', '2020-3-15', '2021-3-27', 2.87, 27, 1);
+Values( 'Management', 'PhD', 'Management Thesis', '2019-3-7', '2028-3-15', '2021-3-27', 2.87, 27, 1);
 INSERT Into NonGucianStudent(id, firstName, lastName, type, faculty, address, GPA)
 Values(28, 'marietta', 'troph', 'PhD', 'Computer Science', 'lnorhuvr street', 0.53);
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -289,7 +289,7 @@ Values( 'Computer Science', 'PhD', 'Computer Science Thesis', '2019-4-10', '2020
 INSERT Into NonGucianStudent(id, firstName, lastName, type, faculty, address, GPA)
 Values(29, 'laurentius', 'andrea', 'PhD', 'Management', 'uucrydtnzw street', 3.69);
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
-Values( 'Management', 'PhD', 'Management Thesis', '2019-5-1', '2020-5-7', '2021-5-7', 2.29, 29, 0);
+Values( 'Management', 'PhD', 'Management Thesis', '2019-5-1', '2026-5-7', '2021-5-7', 2.29, 29, 0);
 INSERT Into NonGucianStudent(id, firstName, lastName, type, faculty, address, GPA)
 Values(30, 'filo', 'pavi', 'PhD', 'Computer Science', 'khzkwdxszc street', 0.83);
 INSERT INTO Thesis (field, type, title, startDate, endDate, defenseDate, grade, payment_id, noExtension)
@@ -471,4 +471,3 @@ INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (25, 36, 
 INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (28, 38, 28)
 INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (29, 37, 29)
 INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (30, 32, 30)
-
