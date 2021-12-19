@@ -1,3 +1,5 @@
+USE dbProject2;
+GO
 
 -- 4c
 CREATE PROCEDURE SupViewProfile

@@ -1,3 +1,9 @@
+CREATE DATABASE dbProject3;
+GO
+
+USE dbProject3;
+GO
+
 CREATE TABLE PostGradUser (
     id INT PRIMARY KEY IDENTITY,
     email VARCHAR(50) NOT NULL,
