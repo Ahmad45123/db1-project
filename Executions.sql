@@ -155,8 +155,8 @@ EXECUTE AddDefenseNonGucian 21 ,'2021-12-20', 'somewhere'
 GO
 
 
--- TODO: This function has an incorrect signature. So, it can't be properly tested
--- EXECUTE AddExaminer
+EXECUTE AddExaminer 1,'2021-12-20','Bart Mustafa','0','Electronics'
+GO
 
 EXECUTE CancelThesis 11
 GO 
