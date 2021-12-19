@@ -1,7 +1,9 @@
 EXECUTE StudentRegister 'GUC', 'Sucks', 'forgotten', 'Computer Science', 1, 
 'guc.sucks@student.guc.edu.eg', 'tagamo3';
 ---------------------------------
+SELECT * FROM Thesis;
 EXECUTE AdminUpdateExtension 1;
+SELECT * FROM Thesis;
 GO
 ------------------------
 DECLARE @ans BIT;

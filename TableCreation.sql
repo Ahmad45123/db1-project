@@ -1,9 +1,7 @@
-CREATE DATABASE dbProject3;
-GO
-
-USE dbProject3;
-GO
-
+USE Master;
+DROP DATABASE PostGradOffice;
+CREATE DATABASE PostGradOffice;
+USE PostGradOffice;
 CREATE TABLE PostGradUser (
     id INT PRIMARY KEY IDENTITY,
     email VARCHAR(50) NOT NULL,
@@ -83,7 +81,7 @@ CREATE TABLE Thesis (
     startDate DATE NOT NULL,
     endDate DATE NOT NULL,
     defenseDate Datetime NOT NULL,
-    years AS DATEDIFF(YEAR, endDate, startDate),
+    years AS DATEDIFF(YEAR, startDate, endDate),
     grade DECIMAL(10,2) NOT NULL,
     payment_id INT REFERENCES Payment(id),
     noExtension INT NOT NULL
