@@ -111,10 +111,10 @@ GO
 EXEC AddProgressReport 20, '2021-12-19'
 GO
 
-EXEC FillProgressReport 3, 1, '2021-12-19', 'bla bla bla'
+EXEC FillProgressReport 3, 1, 29, 'bla bla bla'
 GO
 
-EXEC FillProgressReport 20, 1, '2021-12-19', 'bla bla bla'
+EXEC FillProgressReport 20, 1, 80, 'bla bla bla'
 GO
 
 EXEC ViewEvalProgressReport 3, 1;
@@ -123,7 +123,17 @@ GO
 EXEC ViewEvalProgressReport 20, 1;
 GO
 
+EXEC addPublication 'My publication', '2021-12-19', 'GUC', 'New Cairo', 1;
+GO
 
+EXEC addPublication 'My publication Not Accepted', '2021-12-19', 'GUC', 'New Cairo', 0;
+GO
+
+EXEC linkPubThesis 1, 1;
+GO
+
+EXEC linkPubThesis 2, 16;
+GO
 
 ---------------------------------------------
 
