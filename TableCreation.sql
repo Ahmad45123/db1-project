@@ -1,7 +1,7 @@
-CREATE DATABASE dbProject2;
+CREATE DATABASE dbProject3;
 GO
 
-USE dbProject2;
+USE dbProject3;
 GO
 
 CREATE TABLE PostGradUser (
