@@ -310,10 +310,10 @@ GO
 
 CREATE PROC FillProgressReport (@thesisSerialNo int, @progressReportNo int, @state int, @description varchar(200)) AS BEGIN
     IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
-        UPDATE GUCianProgressReport SET state = @state, eval = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
+        UPDATE GUCianProgressReport SET state = @state, report_description = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
     END;
     ELSE BEGIN
-        UPDATE NonGUCianProgressReport SET state = @state, eval = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
+        UPDATE NonGUCianProgressReport SET state = @state, report_description = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
     END;
 END;
 
