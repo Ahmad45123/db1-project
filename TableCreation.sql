@@ -14,10 +14,10 @@ CREATE TABLE Admin(
 
 CREATE TABLE GucianStudent (
     id INT PRIMARY KEY REFERENCES PostGradUser(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    firstName VARCHAR(20)  ,
-    lastName VARCHAR(20)  ,
-    type VARCHAR(10)  ,
-    faculty VARCHAR(20)  ,
+    firstName VARCHAR(20),
+    lastName VARCHAR(20),
+    type VARCHAR(10),
+    faculty VARCHAR(20),
     address VARCHAR(50)  ,
     GPA DECIMAL(10,2)  ,
     undergradID VARCHAR(10)  ,
@@ -115,21 +115,23 @@ CREATE TABLE GUCianProgressReport (
     sid INT REFERENCES GucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
     no INT  ,
     date DATE  ,
-    eval VARCHAR(200) NULL,
+    eval INT,
     state INT NULL,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
+    report_description VARCHAR(200),
     PRIMARY KEY (sid, no)
 );
 
 CREATE TABLE NonGUCianProgressReport (
     sid INT REFERENCES NonGucianStudent(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    no INT  ,
+    no INT,
     date DATE  ,
-    eval VARCHAR(200) NULL,
+    eval INT,
     state INT,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
+    report_description VARCHAR(200),
     PRIMARY KEY (sid, no)
 );
 
