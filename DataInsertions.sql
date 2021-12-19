@@ -8,30 +8,30 @@
 USE dbProject3;
 GO
 
--- disable referential integrity
-EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
-GO 
+-- -- disable referential integrity
+-- EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
+-- GO 
 
-EXEC sp_MSForEachTable 'DELETE FROM ?' 
-GO 
+-- EXEC sp_MSForEachTable 'DELETE FROM ?' 
+-- GO 
 
--- enable referential integrity again 
-EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL' 
-GO
+-- -- enable referential integrity again 
+-- EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL' 
+-- GO
 
-EXEC sp_MSForEachTable 'DBCC CHECKIDENT(''?'', RESEED, 0)'
-GO
+-- EXEC sp_MSForEachTable 'DBCC CHECKIDENT(''?'', RESEED, 0)'
+-- GO
 
---EXEC sp_MSForEachTable 'SET IDENTITY_INSERT ? ON'
---GO
+-- --EXEC sp_MSForEachTable 'SET IDENTITY_INSERT ? ON'
+-- --GO
 
-SET IDENTITY_INSERT PostGradUser OFF;
-SET IDENTITY_INSERT Course OFF;
-SET IDENTITY_INSERT Payment OFF;
-SET IDENTITY_INSERT Thesis OFF;
-SET IDENTITY_INSERT Publication OFF;
+-- SET IDENTITY_INSERT PostGradUser OFF;
+-- SET IDENTITY_INSERT Course OFF;
+-- SET IDENTITY_INSERT Payment OFF;
+-- SET IDENTITY_INSERT Thesis OFF;
+-- SET IDENTITY_INSERT Publication OFF;
 
-GO
+-- GO
 
 INSERT INTO PostGradUser (email, password) VALUES ('mohsen.raki@gu.com', 'nyVrn9l8Eb');
 INSERT INTO PostGradUser (email, password) VALUES ('zephan.iel@rnau.com', 'DhMBLL6zPy');
