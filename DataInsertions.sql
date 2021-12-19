@@ -4,10 +4,6 @@
 --
 
 -- 1-8 master gucian, 9-15 phd gucian, 16-23 master non gucian, 24-30 phd non gucian
-
-USE dbProject3;
-GO
-
 -- -- disable referential integrity
 -- EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
 -- GO 
@@ -444,3 +440,20 @@ INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (24, 39, 
 INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (24, 31, 24)
 INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (26, 37, 26)
 INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (27, 34, 27)
+
+INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (6, 32, 6)
+INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (8, 33, 8)
+INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (9, 36, 9)
+INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (10, 37, 10)
+INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (12, 39, 12)
+INSERT INTO GUCStudentRegisterThesis (sid, supid, serial_no) VALUES (14, 34, 14)
+
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (19, 32, 19)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (20, 34, 20)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (22, 33, 22)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (23, 35, 23)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (25, 36, 25)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (28, 38, 28)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (29, 37, 29)
+INSERT INTO NonGUCStudentRegisterThesis (sid, supid, serial_no) VALUES (30, 32, 30)
+
