@@ -1,3 +1,6 @@
+USE dbProject3;
+
+GO
 -- 1 As an unregistered user I should be able to:
 
 -- a) Register to the website by using my name (First and last name), password, faculty, email, and
@@ -7,8 +10,6 @@
 -- Input: first_name varchar(20), last_name varchar(20), password varchar(20), faculty varchar(20),
 -- Gucian bit, email varchar(50), address varchar(50)
 -- Output: Nothing
-
-GO
 
 CREATE PROC StudentRegister
 
@@ -35,9 +36,9 @@ ELSE
 
 BEGIN
     INSERT INTO PostGradUser(email, password) VALUES(@email, @password);
-    DECLARE @justInsertedId INT = (SELECT MAX(id) FROM PostGradUser);
+    DECLARE @justInsertedId2 INT = (SELECT MAX(id) FROM PostGradUser);
     INSERT INTO NonGucianStudent(id, firstName, lastName, faculty, address) 
-    VALUES(@justInsertedId, @first_name, @last_name, @faculty, @address);
+    VALUES(@justInsertedId2, @first_name, @last_name, @faculty, @address);
 END
 
 GO
@@ -91,7 +92,6 @@ SET @success = 0;
 IF EXISTS(SELECT * FROM PostGradUser WHERE id=@ID AND password=@password)
 BEGIN
     SET @success = 1;
-    PRINT @success;
 END
 
 GO
@@ -142,7 +142,7 @@ CREATE PROC AdminListSup
 
 AS
 
-SELECT * FROM Supervisors;
+SELECT * FROM Supervisor;
 
 GO
 
@@ -161,7 +161,7 @@ CREATE PROC AdminViewSupervisorProfile
 
 AS
 
-SELECT * FROM Supervisors WHERE id=supId;
+SELECT * FROM Supervisor WHERE id=@supId;
 
 GO
 
@@ -246,7 +246,7 @@ CREATE PROC AdminListNonGucianCourse
 
 AS
 
-SELECT DISTINCT CONCAT(NGS.firstName,' ',NGS.lastName),C.code,NGC.grade FROM NonGUCianStudentTakeCourse INNER JOIN NonGucianStudent NGS ON NGC.sid = NGS.id
+SELECT DISTINCT CONCAT(NGS.firstName,' ',NGS.lastName),C.code,NGC.grade FROM NonGUCianStudentTakeCourse NGC INNER JOIN NonGucianStudent NGS ON NGC.sid = NGS.id
         INNER JOIN Course C ON NGC.cid = C.id WHERE NGC.cid=@courseID;
 
 GO

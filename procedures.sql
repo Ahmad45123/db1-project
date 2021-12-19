@@ -1,4 +1,4 @@
-USE dbProject2;
+USE dbProject3;
 GO
 
 -- 4c
@@ -30,17 +30,15 @@ CREATE PROCEDURE ViewAStudentPublications
     @StudentID int
 AS
 
-IF exists (SELECT *
-FROM GucianStudent
-WHERE id = @StudentID) -- gucian
-return (SELECT P.id, P.title, P.date, P.place, P.accepted, P.host
-From Publication P, ThesisHasPublication THP, GUCStudentRegisterThesis GSRT
-Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.id)
+IF exists (SELECT * FROM GucianStudent WHERE id = @StudentID) -- gucian
+    (SELECT P.id, P.title, P.date, P.place, P.accepted, P.host
+    From Publication P, ThesisHasPublication THP, GUCStudentRegisterThesis GSRT
+    Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.id)
 
 ELSE-- non gucian
-return (SELECT P.id, P.title, P.date, P.place, P.accepted, P.host
-From Publication P, ThesisHasPublication THP, NonGucianStudentPayForCourse GSRT
-Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.id);
+    (SELECT P.id, P.title, P.date, P.place, P.accepted, P.host
+    From Publication P, ThesisHasPublication THP, NonGUCStudentRegisterThesis GSRT
+    Where GSRT.sid = @StudentID AND GSRT.serial_no = THP.serialNO AND THP.pubid = P.id);
 
 
 GO
@@ -55,7 +53,7 @@ INSERT INTO Defense
 VALUES
     (@ThesisSerialNo, @DefenseDate, @DefenseLocation, NULL)
 
-GO;
+GO
 
 
 CREATE PROCEDURE AddDefenseNonGucian
@@ -71,7 +69,7 @@ VALUES
     (@ThesisSerialNo, @DefenseDate, @DefenseLocation, NULL)
 
 
-GO;
+GO
 
 -- 4f
 CREATE PROCEDURE AddExaminer
@@ -83,10 +81,13 @@ CREATE PROCEDURE AddExaminer
     @fieldOfWork varchar(20)
 AS
 Declare @ExaminerID int;
-INSERT INTO Examiner
-OUTPUT id into @ExaminerID
-VALUES
-    (@ExaminerName, @fieldOfWork, @National)
+
+SELECT @ExaminerID=id FROM Examiner WHERE name = @ExaminerName and fieldOfWork = @fieldOfWork and isNational = @National; 
+
+-- INSERT INTO Examiner(name,fieldOfWork,isNational)
+-- VALUES
+--     (@ExaminerName, @fieldOfWork, @National)
+-- DECLARE @ExaminerID INT = (SELECT MAX(id) FROM Examiner);
 
 -- set @ExaminerID = @@IDENTITY;
 
@@ -94,14 +95,14 @@ INSERT INTO ExaminerEvaluateDefense
 VALUES
     (@DefenseDate, @ThesisSerialNo, @ExaminerID, NULL)
 
-GO;
+GO
 
 -- 4g
 CREATE PROCEDURE CancelThesis
     @ThesisSerialNo int
 AS
 
-Declare @tmpeval TEXT;
+Declare @tmpeval varchar(50);
 
 -- gucian
 IF EXISTS (SELECT eval
@@ -145,7 +146,7 @@ END
 
 
 
-GO;
+GO
 
 -- 4h
 CREATE PROCEDURE AddGrade
@@ -158,7 +159,7 @@ BEGIN
 END
 
 
-GO;
+GO
 -- 5a
 
 CREATE PROCEDURE AddDefenseGrade
@@ -172,18 +173,18 @@ UPDATE Defense
 
 
 -- 5b
-GO;
+GO
 
-CREATE PROCEDURE AddCommentsGrade
+CREATE PROCEDURE AddCommentsGrade -- TODO: no examiner id
     @ThesisSerialNo int ,
-    @DefenseDate Datetime ,
+    @DefenseDate Datetime,
     @comments varchar(300)
 as
-UPDATE Defense
+UPDATE ExaminerEvaluateDefense
 SET comment = @comments
- WHERE serialNumber = @ThesisSerialNo and date = @DefenseDate
+ WHERE serialNo= @ThesisSerialNo and date = @DefenseDate
 
-GO;
+GO
 
 CREATE PROC viewMyProfile (@studentId INT) AS BEGIN
     SELECT * FROM PostGradUser
@@ -192,7 +193,7 @@ CREATE PROC viewMyProfile (@studentId INT) AS BEGIN
     WHERE PostGradUser.id = @studentId;
 END;
 
-GO;
+GO
 
 CREATE PROC editMyProfile (@studentId INT, @firstName VARCHAR(10), @lastName VARCHAR(10),
     @password VARCHAR(10),@email VARCHAR(10), @address VARCHAR(10), @type VARCHAR(10)) AS BEGIN
@@ -206,19 +207,19 @@ CREATE PROC editMyProfile (@studentId INT, @firstName VARCHAR(10), @lastName VAR
             WHERE id = @studentId;
 END;
 
-GO;
+GO
 
 CREATE PROC addUndergradID (@studentId INT, @undergradID VARCHAR(10)) AS BEGIN
     UPDATE GucianStudent SET undergradID = @undergradID WHERE id = @studentId;
 END;
 
-GO;
+GO
 
 CREATE PROC ViewCoursesGrades (@studentId INT) AS BEGIN
     SELECT Course.code, NonGUCianStudentTakeCourse.grade FROM NonGUCianStudentTakeCourse INNER JOIN Course ON NonGUCianStudentTakeCourse.cid = Course.id WHERE NonGUCianStudentTakeCourse.sid = @studentId;
 END;
 
-GO;
+GO
 
 CREATE PROC ViewCoursePaymentsInstall (@studentId INT) AS BEGIN
     SELECT NonGucianStudentPayForCourse.cid, Installment.* FROM NonGucianStudentPayForCourse
@@ -226,7 +227,7 @@ CREATE PROC ViewCoursePaymentsInstall (@studentId INT) AS BEGIN
     WHERE NonGucianStudentPayForCourse.sid = @studentId; 
 END;
 
-GO;
+GO
 
 CREATE PROC ViewThesisPaymentsInstall (@studentId INT) AS 
     SELECT Payment.*, Installment.* FROM Payment
@@ -235,7 +236,7 @@ CREATE PROC ViewThesisPaymentsInstall (@studentId INT) AS
     INNER JOIN GUCStudentRegisterThesis ON GUCStudentRegisterThesis.sid = @studentId
     INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.sid = @studentId;
 
-GO;
+GO
 
 CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
     SELECT Installment.*, Payment.id FROM Installment
@@ -245,7 +246,7 @@ CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
     INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND NonGUCStudentRegisterThesis.sid = @studentID
     WHERE Installment.[date] >= GETDATE();
 
-GO;
+GO
 
 CREATE PROC ViewMissedInstallments (@studentID INT) AS
     SELECT Installment.*, Payment.id FROM Installment
@@ -255,7 +256,7 @@ CREATE PROC ViewMissedInstallments (@studentID INT) AS
     INNER JOIN NonGUCStudentRegisterThesis ON NonGUCStudentRegisterThesis.serial_no=Thesis.serialNumber AND NonGUCStudentRegisterThesis.sid = @studentID
     WHERE Installment.[date] < GETDATE();
 
-GO;
+GO
 
 CREATE PROC AddProgressReport (@thesisSerialNo int, @progressReportDate date) AS BEGIN
     
@@ -274,7 +275,7 @@ CREATE PROC AddProgressReport (@thesisSerialNo int, @progressReportDate date) AS
     END;
 END;
 
-GO;
+GO
 
 CREATE PROC FillProgressReport (@thesisSerialNo int, @progressReportNo int, @state int, @description varchar(200)) AS BEGIN
     IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
@@ -285,7 +286,7 @@ CREATE PROC FillProgressReport (@thesisSerialNo int, @progressReportNo int, @sta
     END;
 END;
 
-GO;
+GO
 
 CREATE PROC ViewEvalProgressReport (@thesisSerialNo int, @progressReportNo int) AS 
     IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
@@ -295,16 +296,16 @@ CREATE PROC ViewEvalProgressReport (@thesisSerialNo int, @progressReportNo int) 
         SELECT * FROM NonGUCianProgressReport WHERE NonGUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND NonGUCianProgressReport.no = @progressReportNo;
     END;
 
-GO;
+GO
 
 CREATE PROC addPublication (@title varchar(50), @pubDate datetime, @host varchar(50), @place varchar(50), @accepted bit) AS BEGIN
     INSERT INTO Publication (title, [date], host, place, accepted) VALUES (@title, @pubDate, @host, @place, @accepted);
 END;
 
-GO;
+GO
 
 CREATE PROC linkPubThesis (@pubId int, @thesisSerialNo int) AS BEGIN
     INSERT INTO ThesisHasPublication (pubId, serialNo) VALUES (@pubId, @thesisSerialNo);
 END;
 
-GO;
+GO

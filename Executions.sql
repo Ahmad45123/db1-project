@@ -1,5 +1,25 @@
-EXECUTE StudentRegister 'GUC', 'Sucks', 'forgotten', 'Computer Science', 1, 
-'guc.sucks@student.guc.edu.eg', 'tagamo3';
+
+USE dbProject3;
+
+GO
+
+EXEC StudentRegister 'john', 'smith', '123456', 'Computer Science', 1, 
+'john.smith@student.guc.edu.eg', 'tagamo3 5th street';
+
+EXEC StudentRegister 'billy', 'smith', '123456', 'Pharmacy', 0, 
+'billy.smith@student.guc.edu.eg', 'tagamo3 5th street';
+
+EXEC SupervisorRegister 'mohamed','ahmed','mypassword', 'Pharmacy', 'yeet@gmail.com'
+
+
+DECLARE @bla BIT;
+EXEC userLogin 51, '123456', @bla OUTPUT;
+
+EXEC addMobile 1,'01002129311'
+
+EXEC AdminListSup
+
+
 ---------------------------------
 EXECUTE AdminUpdateExtension 1;
 GO

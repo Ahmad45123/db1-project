@@ -6,8 +6,8 @@ GO
 
 CREATE TABLE PostGradUser (
     id INT PRIMARY KEY IDENTITY,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(20) NOT NULL
+    email VARCHAR(50)  ,
+    password VARCHAR(20)  
 ); 
 
 CREATE TABLE Admin(
@@ -16,107 +16,107 @@ CREATE TABLE Admin(
 
 CREATE TABLE GucianStudent (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
-    firstName VARCHAR(20) NOT NULL,
-    lastName VARCHAR(20) NOT NULL,
-    type VARCHAR(10) NOT NULL,
-    faculty VARCHAR(20) NOT NULL,
-    address VARCHAR(50) NOT NULL,
-    GPA DECIMAL(10,2) NOT NULL,
-    undergradID VARCHAR(10) NOT NULL,
+    firstName VARCHAR(20)  ,
+    lastName VARCHAR(20)  ,
+    type VARCHAR(10)  ,
+    faculty VARCHAR(20)  ,
+    address VARCHAR(50)  ,
+    GPA DECIMAL(10,2)  ,
+    undergradID VARCHAR(10)  ,
 );
 
 CREATE TABLE NonGucianStudent (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
-    firstName VARCHAR(20) NOT NULL,
-    lastName VARCHAR(20) NOT NULL,
-    type VARCHAR(10) NOT NULL,
-    faculty VARCHAR(20) NOT NULL,
-    address VARCHAR(50) NOT NULL,
-    GPA DECIMAL(10,2) NOT NULL
+    firstName VARCHAR(20)  ,
+    lastName VARCHAR(20)  ,
+    type VARCHAR(10)  ,
+    faculty VARCHAR(20)  ,
+    address VARCHAR(50)  ,
+    GPA DECIMAL(10,2)  
 );
 
 CREATE TABLE GUCStudentPhoneNumber (
     id INT REFERENCES GucianStudent(id),
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(20)  ,
     PRIMARY KEY(id, phone)
 );
 
 CREATE TABLE NonGUCStudentPhoneNumber (
     id INT REFERENCES NonGucianStudent(id),
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(20)  ,
     PRIMARY KEY(id, phone)
 );
 
 CREATE TABLE Course (
     id INT PRIMARY KEY IDENTITY,
-    fees DECIMAL(10,2) NOT NULL,
-    creditHours INT NOT NULL,
-    code VARCHAR(10) NOT NULL UNIQUE
+    fees DECIMAL(10,2)  ,
+    creditHours INT  ,
+    code VARCHAR(10)   UNIQUE
 );
 
 CREATE TABLE Supervisor (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
-    name VARCHAR(50) NOT NULL,
-    faculty VARCHAR(20) NOT NULL
+    name VARCHAR(50)  ,
+    faculty VARCHAR(20)  
 );
 
 CREATE TABLE Payment (
     id INT PRIMARY KEY IDENTITY,
-    amount DECIMAL(10,2) NOT NULL,
-    no_Installments INT NOT NULL,
-    fundPercentage DECIMAL(10,2) NOT NULL
+    amount DECIMAL(10,2)  ,
+    no_Installments INT  ,
+    fundPercentage DECIMAL(10,2)  
 );
 
 CREATE TABLE Installment (
-    date DATE NOT NULL,
+    date DATE  ,
     paymentId INT REFERENCES Payment(id),
-    amount DECIMAL(10,2) NOT NULL,
-    done INT NOT NULL,
+    amount DECIMAL(10,2)  ,
+    done INT  ,
     PRIMARY KEY (date, paymentId)
 );
 
 CREATE TABLE Thesis (
     serialNumber INT PRIMARY KEY IDENTITY,
-    field VARCHAR(50) NOT NULL,
-    type VARCHAR(50) NOT NULL,
-    title VARCHAR(50) NOT NULL,
-    startDate DATE NOT NULL,
-    endDate DATE NOT NULL,
-    defenseDate Datetime NOT NULL,
+    field VARCHAR(50)  ,
+    type VARCHAR(50)  ,
+    title VARCHAR(50)  ,
+    startDate DATE  ,
+    endDate DATE  ,
+    defenseDate Datetime  ,
     years AS DATEDIFF(YEAR, endDate, startDate),
-    grade DECIMAL(10,2) NOT NULL,
+    grade DECIMAL(10,2)  ,
     payment_id INT REFERENCES Payment(id),
-    noExtension INT NOT NULL
+    noExtension INT  
 );
 
 CREATE Table Publication(
     id INT PRIMARY KEY IDENTITY,
-    title VARCHAR(50) NOT NULL,
-    date DATE NOT NULL,
-    place VARCHAR(50) NOT NULL,
-    accepted BIT NOT NULL,
-    host VARCHAR(50) NOT NULL
+    title VARCHAR(50)  ,
+    date DATE  ,
+    place VARCHAR(50)  ,
+    accepted BIT  ,
+    host VARCHAR(50)  
 );
 
 CREATE TABLE Examiner (
     id INT PRIMARY KEY REFERENCES PostGradUser(id),
-    name VARCHAR(50) NOT NULL,
-    fieldOfWork VARCHAR(50) NOT NULL,
-    isNational BIT NOT NULL
+    name VARCHAR(50)  ,
+    fieldOfWork VARCHAR(50)  ,
+    isNational BIT  
 );
 
 CREATE TABLE Defense (
     serialNumber INT REFERENCES Thesis(serialNumber),
-    date Datetime NOT NULL,
-    location varchar(15) NOT NULL,
+    date Datetime  ,
+    location varchar(15)  ,
     grade DECIMAL(10,2),
     PRIMARY KEY(serialNumber, date)
 );
 
 CREATE TABLE GUCianProgressReport (
     sid INT REFERENCES GucianStudent(id),
-    no INT NOT NULL,
-    date DATE NOT NULL,
+    no INT  ,
+    date DATE  ,
     eval INT NULL,
     state VARCHAR(50) NULL,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
@@ -126,10 +126,10 @@ CREATE TABLE GUCianProgressReport (
 
 CREATE TABLE NonGUCianProgressReport (
     sid INT REFERENCES NonGucianStudent(id),
-    no INT NOT NULL,
-    date DATE NOT NULL,
-    eval INT NOT NULL,
-    state VARCHAR(50) NOT NULL,
+    no INT  ,
+    date DATE  ,
+    eval INT  ,
+    state VARCHAR(50)  ,
     thesisSerialNumber INT REFERENCES Thesis(serialNumber),
     supid INT REFERENCES Supervisor(id),
     PRIMARY KEY (sid, no)
@@ -164,7 +164,7 @@ CREATE TABLE NonGUCStudentRegisterThesis (
 );
 
 CREATE TABLE ExaminerEvaluateDefense (
-    date DATE NOT NULL,
+    date Datetime,
     serialNo INT REFERENCES Thesis(serialNumber),
     examinerId INT REFERENCES Examiner(id),
     comment varchar(300),

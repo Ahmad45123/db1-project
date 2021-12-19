@@ -1,3 +1,7 @@
+USE dbProject3;
+
+GO
+
 -- (3-G) Update the number of thesis extension by 1
 CREATE PROCEDURE AdminUpdateExtension
 @ThesisSerialNo INT
@@ -157,6 +161,8 @@ INNER JOIN
 Thesis T
 ON T.serialNumber = regist.serial_no
 WHERE T.defenseDate = @defenseDate
+
+GO
 
 -- (4-A) Evaluate a student’s progress report, 
 -- and give evaluation value 0 to 3.
