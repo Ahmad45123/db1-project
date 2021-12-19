@@ -1,7 +1,8 @@
 USE dbProject3;
 GO
 
--- 4c
+-- 4 c)
+-- View profile of a a supervisor.
 CREATE PROCEDURE SupViewProfile
     @supervisorID int
 AS
@@ -12,6 +13,8 @@ WHERE id = @supervisorID;
 
 GO
 
+-- 4 c)
+-- Updat personal information of a supervisor.
 CREATE PROCEDURE UpdateSupProfile
     @supervisorID int,
     @name varchar(20),
@@ -25,7 +28,7 @@ WHERE id = @supervisorID;
 GO
 
 -- 4d
-
+-- View all publications of a student.
 CREATE PROCEDURE ViewAStudentPublications
     @StudentID int
 AS
@@ -43,7 +46,8 @@ ELSE-- non gucian
 
 GO
 
--- 4e
+-- 4 e)
+-- Add defense for a thesis.
 CREATE PROCEDURE AddDefenseGucian
     @ThesisSerialNo int ,
     @DefenseDate Datetime ,
@@ -56,6 +60,8 @@ VALUES
 GO
 
 
+-- 4 e)
+-- Add defense for a thesis, for nonGucian students all courses’ grades should be greater than 50 percent.
 CREATE PROCEDURE AddDefenseNonGucian
     @ThesisSerialNo int ,
     @DefenseDate Datetime ,
@@ -74,9 +80,9 @@ VALUES
 
 GO
 
--- 4f
+-- 4 f)
+-- Add examiner to a defense with entered data.
 CREATE PROCEDURE AddExaminer
-    -- TODO: an examiner is created every time since there is no way to identify a repeat
     @ThesisSerialNo int ,
     @DefenseDate Datetime ,
     @ExaminerName varchar(20),
@@ -100,7 +106,8 @@ VALUES
 
 GO
 
--- 4g
+-- 4 g)
+-- Cancel a Thesis if the evaluation of the last progress report is zero.
 CREATE PROCEDURE CancelThesis
     @ThesisSerialNo int
 AS
@@ -146,12 +153,10 @@ BEGIN
 END
 
 
-
-
-
 GO
 
--- 4h
+-- 4 h)
+-- Add a grade for a thesis.
 CREATE PROCEDURE AddGrade
     @ThesisSerialNo int, @grade DECIMAL(3,2) -- assumed that an extra grade parameter is needed
 AS
@@ -163,8 +168,9 @@ END
 
 
 GO
--- 5a
 
+-- 5 a)
+-- Add a grade to a defense.
 CREATE PROCEDURE AddDefenseGrade
     @ThesisSerialNo int ,
     @DefenseDate Datetime ,
@@ -174,10 +180,10 @@ UPDATE Defense
  SET grade = @grade
  WHERE serialNumber = @ThesisSerialNo and date = @DefenseDate
 
-
--- 5b
 GO
 
+-- 5 b)
+-- Add a comment to a defense.
 CREATE PROCEDURE AddCommentsGrade -- TODO: no examiner id
     @ThesisSerialNo int ,
     @DefenseDate Datetime,
