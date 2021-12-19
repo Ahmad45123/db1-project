@@ -105,7 +105,7 @@ CREATE PROCEDURE CancelThesis
     @ThesisSerialNo int
 AS
 
-Declare @tmpeval varchar(50);
+Declare @tmpeval int;
 
 -- gucian
 IF EXISTS (SELECT eval
@@ -189,6 +189,8 @@ SET comment = @comments
 
 GO
 
+-- 6 a)
+-- Displays information of a profile from studentid
 CREATE PROC viewMyProfile (@studentId INT) AS BEGIN
     IF EXISTS (SELECT * FROM PostGradUser
     INNER JOIN GucianStudent ON GucianStudent.id = PostGradUser.id
@@ -204,6 +206,8 @@ END;
 
 GO
 
+-- 6 b)
+-- Edit information of a profile from studentid.
 CREATE PROC editMyProfile (@studentId INT, @firstName VARCHAR(10), @lastName VARCHAR(10),
     @password VARCHAR(10),@email VARCHAR(10), @address VARCHAR(10), @type VARCHAR(10)) AS BEGIN
     
@@ -218,18 +222,24 @@ END;
 
 GO
 
+-- 6 c)
+-- Add undergradid to a profile with studentid.
 CREATE PROC addUndergradID (@studentId INT, @undergradID VARCHAR(10)) AS BEGIN
     UPDATE GucianStudent SET undergradID = @undergradID WHERE id = @studentId;
 END;
 
 GO
 
+-- 6 d)
+-- View grades of a courage that a nongican takes.
 CREATE PROC ViewCoursesGrades (@studentId INT) AS BEGIN
     SELECT Course.code, NonGUCianStudentTakeCourse.grade FROM NonGUCianStudentTakeCourse INNER JOIN Course ON NonGUCianStudentTakeCourse.cid = Course.id WHERE NonGUCianStudentTakeCourse.sid = @studentId;
 END;
 
 GO
 
+-- 6 e)
+-- View the payments of courses of a studentid.
 CREATE PROC ViewCoursePaymentsInstall (@studentId INT) AS BEGIN
     SELECT NonGucianStudentPayForCourse.cid, Installment.* FROM NonGucianStudentPayForCourse
     INNER JOIN Installment ON Installment.paymentId = NonGucianStudentPayForCourse.paymentNo
@@ -238,6 +248,8 @@ END;
 
 GO
 
+-- 6 e)
+-- View all the installments of a studentid.
 CREATE PROC ViewThesisPaymentsInstall (@studentId INT) AS 
 
     IF EXISTS (SELECT * FROM GucianStudent WHERE GucianStudent.id = @studentId)
@@ -254,6 +266,8 @@ CREATE PROC ViewThesisPaymentsInstall (@studentId INT) AS
         WHERE NonGUCStudentRegisterThesis.sid = @studentId;
 GO
 
+-- 6 e)
+-- View all the upcoming installments of a studentid.
 CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
     IF EXISTS (SELECT * FROM GucianStudent WHERE GucianStudent.id = @studentId)
         SELECT Installment.*, Payment.id FROM Installment
@@ -269,6 +283,8 @@ CREATE PROC ViewUpcomingInstallments (@studentID INT) AS
         WHERE Installment.[date] >= GETDATE() AND NonGUCStudentRegisterThesis.sid = @studentID;
 GO
 
+-- 6 e)
+-- View all the missed installments of a studentid.
 CREATE PROC ViewMissedInstallments (@studentID INT) AS
     IF EXISTS (SELECT * FROM GucianStudent WHERE GucianStudent.id = @studentId)    
         SELECT Installment.*, Payment.id FROM Installment
@@ -284,6 +300,8 @@ CREATE PROC ViewMissedInstallments (@studentID INT) AS
         WHERE Installment.[date] < GETDATE() AND NonGUCStudentRegisterThesis.sid = @studentID;
 GO
 
+-- 6 f)
+-- Create a progress report for a thesis with certain serial number.
 CREATE PROC AddProgressReport (@thesisSerialNo int, @progressReportDate date) AS BEGIN
     
     DECLARE @supId INT;
@@ -308,17 +326,21 @@ END;
 
 GO
 
+-- 6 f)
+-- Fill details of a progress report of a thesis with certain serial and no.
 CREATE PROC FillProgressReport (@thesisSerialNo int, @progressReportNo int, @state int, @description varchar(200)) AS BEGIN
     IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
-        UPDATE GUCianProgressReport SET state = @state, eval = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
+        UPDATE GUCianProgressReport SET state = @state, report_description = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
     END;
     ELSE BEGIN
-        UPDATE NonGUCianProgressReport SET state = @state, eval = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
+        UPDATE NonGUCianProgressReport SET state = @state, report_description = @description WHERE thesisSerialNumber = @thesisSerialNo AND no = @progressReportNo;
     END;
 END;
 
 GO
 
+-- 6 g)
+-- View progress report with certain number of a thesis.
 CREATE PROC ViewEvalProgressReport (@thesisSerialNo int, @progressReportNo int) AS 
     IF EXISTS (SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo) BEGIN
         SELECT * FROM GUCianProgressReport WHERE GUCianProgressReport.thesisSerialNumber = @thesisSerialNo AND GUCianProgressReport.no = @progressReportNo;
@@ -329,12 +351,16 @@ CREATE PROC ViewEvalProgressReport (@thesisSerialNo int, @progressReportNo int) 
 
 GO
 
+-- 6 h)
+-- Create new publication with given info.
 CREATE PROC addPublication (@title varchar(50), @pubDate datetime, @host varchar(50), @place varchar(50), @accepted bit) AS BEGIN
     INSERT INTO Publication (title, [date], host, place, accepted) VALUES (@title, @pubDate, @host, @place, @accepted);
 END;
 
 GO
 
+-- 6 i)
+-- Link a publication to a thesis.
 CREATE PROC linkPubThesis (@pubId int, @thesisSerialNo int) AS BEGIN
     INSERT INTO ThesisHasPublication (pubId, serialNo) VALUES (@pubId, @thesisSerialNo);
 END;
