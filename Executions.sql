@@ -1,8 +1,3 @@
-
-USE dbProject3;
-
-GO
-
 EXEC StudentRegister 'john', 'smith', '123456', 'Computer Science', 1, 
 'john.smith@student.guc.edu.eg', 'tagamo3 5th street';
 
@@ -60,7 +55,8 @@ GO
 EXECUTE ViewExamSupDefense '2018-9-7';
 GO
 ---------------------------------
--- EXECUTE EvaluateProgressReport 33, 
+EXECUTE EvaluateProgressReport 39, 1, 1, 3;
+SELECT * FROM GUCianProgressReport;
 ---------------------------------
 EXECUTE ViewSupStudentsYears 33;
 GO
