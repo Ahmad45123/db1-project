@@ -10,6 +10,7 @@ using System.Data.SqlTypes;
 using System.Data.Sql;
 using System.Diagnostics;
 using System.Data;
+using PostgradSystem;
 
 namespace supervisorcomponent
 {
@@ -27,7 +28,7 @@ namespace supervisorcomponent
 
         protected void ListStudentInfo_Click(object sender, EventArgs e)
         {
-            DataTable queryInfo = DbManager.CallProc("ViewSupStudentsYears", new SqlParameter("@supervisorID", Session["userId"].toString()));
+            DataTable queryInfo = DbManager.CallProc("ViewSupStudentsYears", new SqlParameter("@supervisorID", Session["userId"].ToString()));
             this.outputGrid.DataSource = queryInfo;
             this.outputGrid.DataBind();
         }
@@ -89,8 +90,8 @@ namespace supervisorcomponent
             new SqlParameter("@DefenseDate", DefenseDate),
             new SqlParameter("@ExaminerName", ExamninerName),
             new SqlParameter("@Password", Password),
-            new SqlParameter("@National", National.toString()),
-            new SqlParameter("@fieldOfWork", fieldOfWork);
+            new SqlParameter("@National", National.ToString()),
+            new SqlParameter("@fieldOfWork", fieldOfWork));
             this.outputGrid.DataSource = queryInfo;
             this.outputGrid.DataBind();
         }
@@ -102,7 +103,7 @@ namespace supervisorcomponent
             string Evaluation = this.Evaluation.Text;
 
             DataTable queryInfo = DbManager.CallProc("EvaluateProgressReport",
-            new SqlParameter("@supervisorID", Session["userId"].toString()),
+            new SqlParameter("@supervisorID", Session["userId"].ToString()),
             new SqlParameter("@thesisSerialNo", ThesisSerialNo),
             new SqlParameter("@progressReportNo", ProgressReportNo),
             new SqlParameter("@evaluation", Evaluation)
@@ -115,7 +116,7 @@ namespace supervisorcomponent
         {
             string ThesisSerialNo = this.CancelNumber.Text;
 
-            DataTable queryInfo = DbManager.CallProc("CancelThesis", new SqlParameter("@ThesisSerialNo", ThesisSerialNo);
+            DataTable queryInfo = DbManager.CallProc("CancelThesis", new SqlParameter("@ThesisSerialNo", ThesisSerialNo));
             this.outputGrid.DataSource = queryInfo;
             this.outputGrid.DataBind();
         }
