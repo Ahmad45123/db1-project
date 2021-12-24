@@ -13,5 +13,20 @@ namespace PostgradSystem
         {
 
         }
+
+        protected void studentSubmit_OnServerClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void supervisorRegsister_OnClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void examinerRegister_OnClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
