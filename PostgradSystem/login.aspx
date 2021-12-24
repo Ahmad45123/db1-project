@@ -14,10 +14,12 @@
                                     </div>
 
                                     <h5>Please login to your account</h5>
-                                    
+
+                                    <asp:Label runat="server" ID="errorLabel" CssClass="alert alert-danger d-block" role="alert" Visible="false"/>
+
                                     <form id="loginForm" runat="server">
                                         <div class="mb-4">
-                                            <label class="form-label">Username</label>
+                                            <label class="form-label">Email</label>
                                             <asp:TextBox id="emailTextBox" type="email" CssClass="form-control" runat="server"/>
                                         </div>
 
@@ -27,7 +29,7 @@
                                         </div>
 
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <asp:Button Text="Login" type="button" CssClass="btn btn-primary mb-3" runat="server"/>
+                                            <asp:Button ID="loginButton" Text="Login" type="button" CssClass="btn btn-primary mb-3" OnClick="loginButton_OnClick" runat="server"/>
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-center pb-4">

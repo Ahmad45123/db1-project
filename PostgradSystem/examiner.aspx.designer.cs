@@ -11,7 +11,7 @@ namespace PostgradSystem
 {
 
 
-    public partial class register
+    public partial class examiner
     {
     }
 }
