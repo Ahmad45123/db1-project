@@ -159,6 +159,15 @@ namespace PostgradSystem
         protected global::System.Web.UI.HtmlControls.HtmlInputText examinerLastName;
 
         /// <summary>
+        /// examinerPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword examinerPassword;
+
+        /// <summary>
         /// examinerField control.
         /// </summary>
         /// <remarks>
@@ -184,5 +193,14 @@ namespace PostgradSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button examinerRegister;
+
+        /// <summary>
+        /// alreadyHaveAccountBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button alreadyHaveAccountBtn;
     }
 }

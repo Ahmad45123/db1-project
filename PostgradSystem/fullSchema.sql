@@ -1201,3 +1201,29 @@ DELETE FROM PostGradUser
 WHERE id in (
                 SELECT id FROM deleted
             )
+GO
+
+CREATE proc examinerRegister
+    @first_name varchar(20),
+    @last_name varchar(20),
+    @password varchar(20),
+    @email varchar(50),
+    @fieldOfWork varchar(50),
+    @isNational BIT
+AS
+BEGIN
+    INSERT INTO PostGradUser
+    (
+        email,
+        password
+    )
+    VALUES
+    (@email, @password)
+    DECLARE @id int
+    SELECT @id = SCOPE_IDENTITY()
+    DECLARE @name varchar(50)
+    SET @name = CONCAT(@first_name, @last_name)
+    INSERT INTO Examiner VALUES
+    (@id, @name, @fieldOfWork, @isNational);
+END
+GO
