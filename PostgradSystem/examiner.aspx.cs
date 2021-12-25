@@ -15,13 +15,16 @@ namespace PostgradSystem
 
             refreshListBtn_OnClick(this, EventArgs.Empty);
 
-            var info = DbManager.CallProc("getExaminerData", new SqlParameter("@id", Session["userId"]));
-            examinerFirstName.Value = info.Rows[0]["name"].ToString().Split(' ')[0];
-            examinerLastName.Value = info.Rows[0]["name"].ToString().Split(' ')[1];
-            exmainerEmail.Value = info.Rows[0]["email"].ToString();
-            examinerPassword.Value = info.Rows[0]["password"].ToString();
-            examinerField.Value = info.Rows[0]["fieldOfWork"].ToString();
-            exmainerIsNational.Checked = info.Rows[0]["isNational"].ToString() == "True";
+            if (!this.IsPostBack)
+            {
+                var info = DbManager.CallProc("getExaminerData", new SqlParameter("@id", Session["userId"]));
+                examinerFirstName.Value = info.Rows[0]["name"].ToString().Split(' ')[0];
+                examinerLastName.Value = info.Rows[0]["name"].ToString().Split(' ')[1];
+                exmainerEmail.Value = info.Rows[0]["email"].ToString();
+                examinerPassword.Value = info.Rows[0]["password"].ToString();
+                examinerField.Value = info.Rows[0]["fieldOfWork"].ToString();
+                exmainerIsNational.Checked = info.Rows[0]["isNational"].ToString() == "True";
+            }
         }
 
         void ListSupervisors(int thesisId)
