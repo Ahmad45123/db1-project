@@ -3,47 +3,115 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head runat="server">
     <title></title>
 </head>
-<body>
-    <form id="inputForm" runat="server">
-        <asp:Label ID="MainLabel" Text="Supervisor Page" runat="server"></asp:Label>
+
+<body style="background-color:rgb(30,51,86); background-image: linear-gradient(to right, rgb(30,51,86), rgb(54,65,83)); ">
+    
+    <form id="inputForm"  runat="server">
+
+        <!--- Page label  --->
+
+        <div style="background-color: rgb(37, 39, 117); text-align: center;">
+        <asp:Label ID="MainLabel" style="color:white; font: 900 24px/1.4 -system-ui, sans-serif; " Text="Supervisor Page" runat="server"></asp:Label>
+        </div>
+
+
+         <!--- List all my student names label and inputs  --->
+
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+            <label> List all my students' names and years spent in the thesis </label>
+        </div>
+        <br/>
+
+        <div style="text-align:center;" >
+        <asp:Button ID="ListStudentInfo" runat="server" style="font-family: 'Lucida Console'" onClick="ListStudentInfo_Click" Text="List Student Names and Thesis Years"/>
+        </div>
         <br />
+
+
+        <!--- View all student publications label and inputs  --->
+
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+        <label> View all publications of a student </label>
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+        <asp:TextBox ID="StudentIDBox" placeholder="Student ID" style="margin-right: 30px;" runat="server"></asp:TextBox>
+        <asp:Button ID="ViewStudentPublications" runat="server" style="font-family: 'Lucida Console';margin: auto;" onClick="ViewStudentPublications_Click" Text="View Student Publications" />
+        </div>
         <br />
-        <asp:Button ID="ListStudentInfo" runat="server" onClick="ListStudentInfo_Click" Text="List Student Names and Thesis Years" />
+
+        <!--- Add defense for thesis label and inputs  --->
+
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+        <label> Add a defense for a thesis </label>
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+        <asp:TextBox ID="AddDefenseThesis" runat="server" style="margin-right: 30px;" placeholder="Thesis Serial Number"></asp:TextBox>
+        <asp:Textbox ID="AddDefenseDatetime" placeholder="Defense Datetime" style="margin-right: 30px;" runat="server"></asp:Textbox>
+        <asp:TextBox ID="AddDefenseLocation" style="margin-right: 30px;" runat="server" placeholder="Defense Location"></asp:TextBox>
+        <asp:Button ID="AddDefense" runat="server"  style="font-family: 'Lucida Console'" onClick="AddDefense_Click" Text="Add Defend to Thesis" />
+        </div>
         <br />
+        
+        <!--- Add examiner for defense label and inputs  --->
+        
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+        <label> Add examiner for the defense. </label>
+        </div>
+        <br/>
+        
+        <div style="text-align:center;">
+        <asp:TextBox ID="AddExaminerThesis" style="margin-right: 30px;" runat="server" placeholder="Thesis Serial Number"></asp:TextBox>
+        <asp:TextBox ID="AddExaminerDate"  style="margin-right: 30px;" placeholder="Defense Datetime" runat="server"></asp:TextBox>
+        <asp:TextBox ID="AddExaminerName"  style="margin-right: 30px;" runat="server" placeholder="Examiner Name"></asp:TextBox>
+        <asp:TextBox ID="AddExaminerPassword" style="margin-right: 30px;" placeholder="Examiner Password" runat="server"></asp:TextBox>
+        <asp:CheckBox ID="AddExaminerNational" style="margin-right: 30px; color: white; font-family: 'Lucida Console'"  runat="server" Text="National"></asp:CheckBox>
+        <asp:TextBox ID="AddExaminerField" runat="server" style="margin-right: 30px;" placeholder="Examiner Field of Work"></asp:TextBox>
+        <asp:Button ID="AddExaminer" style="font-family: 'Lucida Console'" runat="server" onClick="AddExaminer_Click" Text="Add Examiner to Defense" />
+        </div>
         <br />
-        <asp:TextBox ID="StudentIDBox" placeholder="Student ID" runat="server"></asp:TextBox>
-        <asp:Button ID="ViewStudentPublications" runat="server" onClick="ViewStudentPublications_Click" Text="View Student Publications" />
+
+        <!--- Evaluate progress report label and inputs  --->
+
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+        <label> Evaluate a progress report of a student, and give evaluation value 0 to 3 </label>
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+        <asp:TextBox ID="EvaluateThesis"  style="margin-right: 30px;" runat="server" placeholder="Thesis Serial Number"></asp:TextBox>
+        <asp:TextBox ID="EvaluateProgressNo"  style="margin-right: 30px;" runat="server" placeholder="Progress Report Number"></asp:TextBox>
+        <asp:TextBox ID="Evaluation" style="margin-right: 30px;"  runat="server" placeholder="Evaluation (0-3)"></asp:TextBox>
+        <asp:Button ID="EvaluateReport"   style="font-family: 'Lucida Console'"  runat="server" onClick="EvaluateReport_Click" Text="Evaluate Progress Report" />
+        </div>
         <br />
-        <br />
-        <asp:TextBox ID="AddDefenseThesis" runat="server" placeholder="Thesis Serial Number"></asp:TextBox>
-        <asp:Textbox ID="AddDefenseDatetime" placeholder="Defense Datetime" runat="server"></asp:Textbox>
-        <asp:TextBox ID="AddDefenseLocation" runat="server" placeholder="Defense Location"></asp:TextBox>
-        <asp:Button ID="AddDefense" runat="server" onClick="AddDefense_Click" Text="Add Defend to Thesis" />
-        <br />
-        <br />
-        <asp:TextBox ID="AddExaminerThesis" runat="server" placeholder="Thesis Serial Number"></asp:TextBox>
-        <asp:TextBox ID="AddExaminerDate" placeholder="Defense Datetime" runat="server"></asp:TextBox>
-        <asp:TextBox ID="AddExaminerName" runat="server" placeholder="Examiner Name"></asp:TextBox>
-        <asp:TextBox ID="AddExaminerPassword" placeholder="Examiner Password" runat="server"></asp:TextBox>
-        <asp:CheckBox ID="AddExaminerNational" runat="server" Text="National"></asp:CheckBox>
-        <asp:TextBox ID="AddExaminerField" runat="server" placeholder="Examiner Field of Work"></asp:TextBox>
-        <asp:Button ID="AddExaminer" runat="server" onClick="AddExaminer_Click" Text="Add Examiner to Defense" />
-        <br />
-        <br />
-        <asp:TextBox ID="EvaluateThesis" runat="server" placeholder="Thesis Serial Number"></asp:TextBox>
-        <asp:TextBox ID="EvaluateProgressNo" runat="server" placeholder="Progress Report Number"></asp:TextBox>
-        <asp:TextBox ID="Evaluation" runat="server" placeholder="Evaluation (0-3)"></asp:TextBox>
-        <asp:Button ID="EvaluateReport" runat="server" onClick="EvaluateReport_Click" Text="Evaluate Progress Report" />
-        <br />
-        <br />
-        <asp:TextBox ID="CancelNumber" placeholder="Thesis Serial Number"  runat="server"></asp:TextBox>
-        <asp:Button ID="CancelThesis" onClick="CancelThesis_Click" runat="server" Text="Cancel Thesis" />
-        <br />
+
+        <!--- Cancel a thesis label and inputs  --->
+
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+        <label> Cancel a Thesis if the evaluation of the last progress report is zero </label>
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+        <asp:TextBox ID="CancelNumber" style="margin-right: 30px;"  placeholder="Thesis Serial Number"  runat="server"></asp:TextBox>
+        <asp:Button ID="CancelThesis" style="font-family: 'Lucida Console'"  onClick="CancelThesis_Click" runat="server" Text="Cancel Thesis" />
+        </div>
         <br /> 
-        <asp:GridView ID="outputGrid" runat="server"></asp:GridView>
+
+        <!--- Output grid of the page  --->
+        
+        <div>
+        <asp:GridView ID="outputGrid" style="color:white; font-family: 'Lucida Console';" runat="server"></asp:GridView>
+        </div>
+    
     </form>
     </body>
 </html>
