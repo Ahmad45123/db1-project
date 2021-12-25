@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.Configuration;
-using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using System.Data.Sql;
-using System.Diagnostics;
+﻿using PostgradSystem;
+using System;
 using System.Data;
-using PostgradSystem;
+using System.Data.SqlClient;
 
 namespace supervisorcomponent
 {
     public partial class Supervisor : System.Web.UI.Page
     {
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "supervisor")
             {
-               Response.Redirect("login.aspx");
+                Response.Redirect("login.aspx");
             }
-            
+
         }
 
         protected void ListStudentInfo_Click(object sender, EventArgs e)
@@ -37,7 +28,7 @@ namespace supervisorcomponent
         {
             string studentId = this.StudentIDBox.Text;
 
-            DataTable queryInfo = DbManager.CallProc("ViewAStudentPublications", new SqlParameter("@StudentID",studentId));
+            DataTable queryInfo = DbManager.CallProc("ViewAStudentPublications", new SqlParameter("@StudentID", studentId));
             this.outputGrid.DataSource = queryInfo;
             this.outputGrid.DataBind();
         }
@@ -52,25 +43,25 @@ namespace supervisorcomponent
             DataTable temp = DbManager.Query($"SELECT * FROM Thesis T INNER JOIN GUCianStudentRegisterThesis G ON T.serialNumber=G.serial_no WHERE T.serialNumber=\'{ThesisSerialNo}\'");
             if (temp.Rows.Count > 0)
             {
-               //GucianStudent
-               DataTable queryInfo = DbManager.CallProc("AddDefenseGucian",
-               new SqlParameter("@ThesisSerialNo", ThesisSerialNo),
-               new SqlParameter("@DefenseDate", DefenseDate),
-               new SqlParameter("@DefenseLocation", DefenseLocation)
-               );
-               this.outputGrid.DataSource = queryInfo;
-               this.outputGrid.DataBind();
+                //GucianStudent
+                DataTable queryInfo = DbManager.CallProc("AddDefenseGucian",
+                new SqlParameter("@ThesisSerialNo", ThesisSerialNo),
+                new SqlParameter("@DefenseDate", DefenseDate),
+                new SqlParameter("@DefenseLocation", DefenseLocation)
+                );
+                this.outputGrid.DataSource = queryInfo;
+                this.outputGrid.DataBind();
             }
             else
             {
-               //Non-Gucian Student;
-               DataTable queryInfo = DbManager.CallProc("AddDefenseNonGucian",
-               new SqlParameter("@ThesisSerialNo", ThesisSerialNo),
-               new SqlParameter("@DefenseDate", DefenseDate),
-               new SqlParameter("@DefenseLocation", DefenseLocation)
-               );
-               this.outputGrid.DataSource = queryInfo;
-               this.outputGrid.DataBind();
+                //Non-Gucian Student;
+                DataTable queryInfo = DbManager.CallProc("AddDefenseNonGucian",
+                new SqlParameter("@ThesisSerialNo", ThesisSerialNo),
+                new SqlParameter("@DefenseDate", DefenseDate),
+                new SqlParameter("@DefenseLocation", DefenseLocation)
+                );
+                this.outputGrid.DataSource = queryInfo;
+                this.outputGrid.DataBind();
 
             }
 

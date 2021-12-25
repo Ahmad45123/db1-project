@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PostgradSystem
 {
@@ -23,7 +18,7 @@ namespace PostgradSystem
 
         protected void loginButton_OnClick(object sender, EventArgs e)
         {
-            var result = new SqlParameter("@id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            var result = new SqlParameter("@id", SqlDbType.Int) { Direction = ParameterDirection.Output };
             DbManager.CallProc("userLogin", new SqlParameter("@email", emailTextBox.Text),
                 new SqlParameter("@password", passwordTextBox.Text), result);
             if ((int)result.Value != -1)

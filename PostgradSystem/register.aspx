@@ -40,16 +40,16 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
+                                                <label for="studentEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="studentEmail" runat="server" />
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="studentPassword" class="form-label">Password</label>
                                                 <input type="password" class="form-control" id="studentPassword" runat="server" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="studentFaculty" class="form-label">Faculty</label>
                                                 <input type="text" class="form-control" id="studentFaculty" runat="server" />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="studentEmail" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="studentEmail" runat="server" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="studentAddress" class="form-label">Address</label>
@@ -75,16 +75,16 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
+                                                <label for="supervisorEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="supervisorEmail" runat="server" />
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="supervisorPassword" class="form-label">Password</label>
                                                 <input type="password" class="form-control" id="supervisorPassword" runat="server" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="supervisorFaculty" class="form-label">Faculty</label>
                                                 <input type="text" class="form-control" id="supervisorFaculty" runat="server" />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="supervisorEmail" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="supervisorEmail" runat="server" />
                                             </div>
                                             <asp:Button ID="supervisorRegsister" type="submit" CssClass="btn btn-primary float-start w-25" OnClick="supervisorRegsister_OnClick" Text="Register" runat="server" />
                                         </div>
@@ -100,6 +100,10 @@
                                                     <label for="examinerLastName" class="form-label">Last Name</label>
                                                     <input type="text" class="form-control" id="examinerLastName" runat="server" />
                                                 </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exmainerEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="exmainerEmail" runat="server" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="examinerPassword" class="form-label">Password</label>

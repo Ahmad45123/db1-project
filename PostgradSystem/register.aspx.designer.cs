@@ -33,6 +33,15 @@ namespace PostgradSystem
         protected global::System.Web.UI.HtmlControls.HtmlInputText studentLastName;
 
         /// <summary>
+        /// studentEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl studentEmail;
+
+        /// <summary>
         /// studentPassword control.
         /// </summary>
         /// <remarks>
@@ -49,15 +58,6 @@ namespace PostgradSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText studentFaculty;
-
-        /// <summary>
-        /// studentEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl studentEmail;
 
         /// <summary>
         /// studentAddress control.
@@ -105,6 +105,15 @@ namespace PostgradSystem
         protected global::System.Web.UI.HtmlControls.HtmlInputText supervisorLastName;
 
         /// <summary>
+        /// supervisorEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl supervisorEmail;
+
+        /// <summary>
         /// supervisorPassword control.
         /// </summary>
         /// <remarks>
@@ -121,15 +130,6 @@ namespace PostgradSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText supervisorFaculty;
-
-        /// <summary>
-        /// supervisorEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl supervisorEmail;
 
         /// <summary>
         /// supervisorRegsister control.
@@ -157,6 +157,15 @@ namespace PostgradSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText examinerLastName;
+
+        /// <summary>
+        /// exmainerEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl exmainerEmail;
 
         /// <summary>
         /// examinerPassword control.

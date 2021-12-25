@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PostgradSystem
 {
@@ -39,7 +34,7 @@ namespace PostgradSystem
         {
             DbManager.CallProc("examinerRegister", new SqlParameter("@first_name", examinerFirstName.Value),
                 new SqlParameter("@last_name", examinerLastName.Value),
-                new SqlParameter("@password", examinerPassword.Value), new SqlParameter("@email", supervisorEmail.Value),
+                new SqlParameter("@password", examinerPassword.Value), new SqlParameter("@email", exmainerEmail.Value),
                 new SqlParameter("@fieldOfWork", examinerField.Value),
                 new SqlParameter("@isNational", exmainerIsNational.Checked));
             Response.Redirect("login.aspx");

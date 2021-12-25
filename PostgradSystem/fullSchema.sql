@@ -1227,3 +1227,38 @@ BEGIN
     (@id, @name, @fieldOfWork, @isNational);
 END
 GO
+
+CREATE PROC examinerListData (@examId INT) AS BEGIN
+    SELECT Thesis.serialNumber, Thesis.title, (GucianStudent.firstName + ' ' + GucianStudent.lastName) AS 'Name' FROM ExaminerEvaluateDefense
+        INNER JOIN Thesis ON ExaminerEvaluateDefense.serialNo = Thesis.serialNumber
+        INNER JOIN GUCianStudentRegisterThesis ON GUCianStudentRegisterThesis.serial_no = Thesis.serialNumber
+        INNER JOIN GucianStudent ON GucianStudent.id = GUCianStudentRegisterThesis.sid
+        WHERE ExaminerEvaluateDefense.examinerId = @examId
+    UNION
+    SELECT Thesis.serialNumber, Thesis.title, (NonGucianStudent.firstName + ' ' + NonGucianStudent.lastName) AS 'Name' FROM ExaminerEvaluateDefense
+        INNER JOIN Thesis ON ExaminerEvaluateDefense.serialNo = Thesis.serialNumber
+        INNER JOIN NonGUCianStudentRegisterThesis ON NonGUCianStudentRegisterThesis.serial_no = Thesis.serialNumber
+        INNER JOIN NonGucianStudent ON NonGucianStudent.id = NonGUCianStudentRegisterThesis.sid
+        WHERE ExaminerEvaluateDefense.examinerId = @examId;
+END
+GO
+
+CREATE PROC listSupervisors (@thesisId INT) AS BEGIN
+    SELECT Supervisor.id, Supervisor.name FROM Supervisor
+        INNER JOIN GUCianStudentRegisterThesis ON GUCianStudentRegisterThesis.supid = Supervisor.id
+        WHERE GUCianStudentRegisterThesis.serial_no = @thesisId
+    UNION
+    SELECT Supervisor.id, Supervisor.name FROM Supervisor
+        INNER JOIN NonGUCianStudentRegisterThesis ON NonGUCianStudentRegisterThesis.supid = Supervisor.id
+        WHERE NonGUCianStudentRegisterThesis.serial_no = @thesisId;
+END
+GO
+
+CREATE PROC getExaminerData (@id INT) AS SELECT * FROM Examiner INNER JOIN PostGradUser ON PostGradUser.id = Examiner.id WHERE Examiner.id = @id;
+GO
+
+CREATE PROC updateExaminerData (@id INT, @email VARCHAR(50), @password VARCHAR(20), @name VARCHAR(50), @fieldOfWork VARCHAR(50), @isNational BIT) AS BEGIN
+    UPDATE PostGradUser SET email = @email, password = @password WHERE id = @id;
+    UPDATE Examiner SET name = @name, fieldOfWork = @fieldOfWork, isNational = @isNational WHERE id = @id;
+END;
+GO
