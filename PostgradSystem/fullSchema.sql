@@ -1262,3 +1262,6 @@ CREATE PROC updateExaminerData (@id INT, @email VARCHAR(50), @password VARCHAR(2
     UPDATE Examiner SET name = @name, fieldOfWork = @fieldOfWork, isNational = @isNational WHERE id = @id;
 END;
 GO
+
+CREATE PROC searchThesis (@keyword VARCHAR(50)) AS SELECT * FROM Thesis WHERE title LIKE '%' + @keyword + '%';
+GO

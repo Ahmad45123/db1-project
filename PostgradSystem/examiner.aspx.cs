@@ -61,5 +61,32 @@ namespace PostgradSystem
             errorLabel.Visible = true;
             errorLabel.Text = "Saved successfully!";
         }
+
+        protected void SaveCommentBtn_OnClick(object sender, EventArgs e)
+        {
+            DbManager.CallProc("AddCommentsGrade",
+                new SqlParameter("@ThesisSerialNo", int.Parse(commentThesisInput.Value)),
+                new SqlParameter("@DefenseDate", commentDateTimeInput.Value),
+                new SqlParameter("@comments", commentsTextArea.Value));
+            addCommentLabel.Text = "Added successfully!";
+            addCommentLabel.Visible = true;
+        }
+
+        protected void saveGradeBtn_OnClick(object sender, EventArgs e)
+        {
+            DbManager.CallProc("AddDefenseGrade",
+                new SqlParameter("@ThesisSerialNo", int.Parse(gradeThesisInput.Value)),
+                new SqlParameter("@DefenseDate", gradeDefenseDate.Value),
+                new SqlParameter("@grade", int.Parse(gradeValueInput.Value)));
+            gradeLabel.Text = "Added successfully!";
+            gradeLabel.Visible = true;
+        }
+
+        protected void searchBtn_OnClick(object sender, EventArgs e)
+        {
+            searchResults.DataSource =
+                DbManager.CallProc("searchThesis", new SqlParameter("@keyword", searchText.Value));
+            searchResults.DataBind();
+        }
     }
 }

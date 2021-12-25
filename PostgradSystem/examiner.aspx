@@ -69,7 +69,7 @@
                             <input type="checkbox" class="form-check-input" id="exmainerIsNational" runat="server" />
                             <label class="form-check-label" for="exmainerIsNational">Is National ?</label>
                         </div>
-                        <asp:Button ID="examinerRegister" type="submit" CssClass="btn btn-primary float-start w-25" OnClick="examinerRegister_OnClick" Text="Save Data" runat="server" />
+                        <asp:Button ID="examinerRegister" type="submit" CssClass="btn btn-primary w-25" OnClick="examinerRegister_OnClick" Text="Save Data" runat="server" />
                         <asp:Label runat="server" ID="errorLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/>             
                     </div>
                 </div>
@@ -83,17 +83,56 @@
                 </div>
                 <div class="tab-pane fade h-100" id="v-pills-addComment" role="tabpanel" aria-labelledby="v-pills-addComment-tab">
                     <div class="card p-2 h-100">
-                        
+                        <div class="mb-3">
+                            <label for="commentThesisInput" class="form-label">Thesis Serial</label>
+                            <input type="number" class="form-control" id="commentThesisInput" runat="server" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentDateTimeInput" class="form-label">Defense Date</label>
+                            <input type="datetime" class="form-control" id="commentDateTimeInput" runat="server" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentsTextArea" class="form-label">Comments</label>
+                            <textarea class="form-control" id="commentsTextArea" rows="3" runat="server"></textarea>
+                        </div>
+                        <asp:Button ID="SaveCommentBtn" type="submit" CssClass="btn btn-primary w-25" Text="Save Comment" OnClick="SaveCommentBtn_OnClick" runat="server" />
+                        <asp:Label runat="server" ID="addCommentLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 
+
                     </div>
                 </div>
                 <div class="tab-pane fade h-100" id="v-pills-addGrade" role="tabpanel" aria-labelledby="v-pills-addComment-tab">
                     <div class="card p-2 h-100">
-                        
+                        <div class="mb-3">
+                            <label for="gradeThesisInput" class="form-label">Thesis Serial</label>
+                            <input type="number" class="form-control" id="gradeThesisInput" runat="server" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="gradeDefenseDate" class="form-label">Defense Date</label>
+                            <input type="datetime" class="form-control" id="gradeDefenseDate" runat="server" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="gradeValueInput" class="form-label">Grade</label>
+                            <input type="number" class="form-control" id="gradeValueInput" runat="server" />
+                        </div>
+                        <asp:Button ID="saveGradeBtn" type="submit" CssClass="btn btn-primary w-25" Text="Save Grade" OnClick="saveGradeBtn_OnClick" runat="server" />
+                        <asp:Label runat="server" ID="gradeLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 
+
                     </div>
                 </div>
                 <div class="tab-pane fade h-100" id="v-pills-search" role="tabpanel" aria-labelledby="v-pills-search-tab">
                     <div class="card p-2 h-100">
-                        
+                        <div class="d-flex flex-column">
+                            <div class="h-25">
+                                <label for="searchText" class="form-label">Search For: </label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control w-75 me-2" id="searchText" runat="server" />
+                                    <asp:Button ID="searchBtn" type="submit" CssClass="btn btn-primary w-25" OnClick="searchBtn_OnClick" Text="Search" runat="server" />
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <asp:GridView CssClass="table table-borderless table-striped" runat="server" ID="searchResults"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
