@@ -21,9 +21,9 @@ namespace supervisorcomponent
         {
             if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "supervisor")
             {
-               Response.Redirect("login.aspx");
+                Response.Redirect("login.aspx");
             }
-            
+
         }
 
         protected void ListStudentInfo_Click(object sender, EventArgs e)
