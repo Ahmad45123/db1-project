@@ -13,7 +13,7 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (false && ( Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "admin"))
+            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "admin")
             {
                 Response.Redirect("login.aspx");
             }
@@ -22,53 +22,51 @@ namespace PostgradSystem
         protected void listSup_Click(object sender, EventArgs e)
         {
             DataTable queryInfo = DbManager.CallProc("AdminListSup");
-            this.outputGrid.DataSource = queryInfo;
-            this.outputGrid.DataBind();
+            this.supOutputGrid.DataSource = queryInfo;
+            this.supOutputGrid.DataBind();
         }
 
         protected void listThes_Click(object sender, EventArgs e)
         {
             DataTable queryInfo = DbManager.CallProc("AdminViewAllTheses");
-            this.outputGrid.DataSource = queryInfo;
-            this.outputGrid.DataBind();
+            this.thesisGrid.DataSource = queryInfo;
+            this.thesisGrid.DataBind();
 
-
+                
             var result = new SqlParameter("@thesesCount", SqlDbType.Int) { Direction = ParameterDirection.Output };
             DbManager.CallProc("AdminViewOnGoingTheses", result);
-
-            this.textOut.Text = "Ongoing Theses: " + result;
-            this.textOut.DataBind();
-
+            countLabel.InnerText = "Ongoing Theses: " + result.Value.ToString();
         }
 
         protected void ThesPay_Click(object sender, EventArgs e)
         {
+            DbManager.CallProc("AdminIssueThesisPayment",
+            new SqlParameter("@ThesisSerialNo", int.Parse(paymentThesisSerial.Value)),
+            new SqlParameter("@amount", float.Parse(paymentAmount.Value)),
+            new SqlParameter("@noOfInstallments", int.Parse(paymentNoInstallments.Value)),
+            new SqlParameter("@fundPercentage", float.Parse(paymentFuncPerc.Value)));
 
-
-            DataTable queryInfo = DbManager.CallProc("AdminIssueThesisPayment",
-            new SqlParameter("@ThesisSerialNo", this.ThesisSerialNo.Text),
-            new SqlParameter("@amount", this.amount.Text),
-            new SqlParameter("@noOfInstallments", this.noOfInstallments.Text),
-            new SqlParameter("@fundPercentage", this.fundPercentage.Text));
-
+            savePaymentLabel.Text = "Successfully saved payment!";
+            savePaymentLabel.Visible = true;
         }
 
         protected void IsuInsta_Click(object sender, EventArgs e)
         {
+            DbManager.CallProc("AdminIssueInstallPayment",
+            new SqlParameter("@paymentID", int.Parse(installmentPaymentId.Value)),
+            new SqlParameter("@InstallStartDate", installmentDate.Value));
 
-
-            DataTable queryInfo = DbManager.CallProc("AdminIssueInstallPayment",
-            new SqlParameter("@paymentID", this.paymentID.Text),
-            new SqlParameter("@InstallStartDate", this.InstallStartDate.Text));
-
-
+            installmentLabel.Text = "Successfully saved installment!";
+            installmentLabel.Visible = true;
         }
 
         protected void AdminUpdateExtension_Click(object sender, EventArgs e)
-        {
-            DataTable queryInfo = DbManager.CallProc("AdminUpdateExtension",
-       new SqlParameter("@ThesisSerialNo", this.ThesisSerialNo2.Text));
+        { 
+            DbManager.CallProc("AdminUpdateExtension",
+               new SqlParameter("@ThesisSerialNo", int.Parse(this.extensionThesisSerial.Value)));
 
+            updateExtensionLabel.Text = "Successfully updated thesis extension.";
+            updateExtensionLabel.Visible = true;
         }
     }
 }

@@ -15,13 +15,13 @@ namespace PostgradSystem
     {
 
         /// <summary>
-        /// form1 control.
+        /// hidTAB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.HiddenField hidTAB;
 
         /// <summary>
         /// listSup control.
@@ -33,6 +33,15 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button listSup;
 
         /// <summary>
+        /// supOutputGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView supOutputGrid;
+
+        /// <summary>
         /// listThes control.
         /// </summary>
         /// <remarks>
@@ -42,31 +51,58 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button listThes;
 
         /// <summary>
-        /// Button1 control.
+        /// countLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl countLabel;
 
         /// <summary>
-        /// textOut control.
+        /// thesisGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label textOut;
+        protected global::System.Web.UI.WebControls.GridView thesisGrid;
 
         /// <summary>
-        /// outputGrid control.
+        /// paymentThesisSerial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView outputGrid;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl paymentThesisSerial;
+
+        /// <summary>
+        /// paymentAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl paymentAmount;
+
+        /// <summary>
+        /// paymentNoInstallments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl paymentNoInstallments;
+
+        /// <summary>
+        /// paymentFuncPerc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl paymentFuncPerc;
 
         /// <summary>
         /// ThesPay control.
@@ -78,40 +114,31 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button ThesPay;
 
         /// <summary>
-        /// ThesisSerialNo control.
+        /// savePaymentLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ThesisSerialNo;
+        protected global::System.Web.UI.WebControls.Label savePaymentLabel;
 
         /// <summary>
-        /// amount control.
+        /// installmentPaymentId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox amount;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl installmentPaymentId;
 
         /// <summary>
-        /// noOfInstallments control.
+        /// installmentDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox noOfInstallments;
-
-        /// <summary>
-        /// fundPercentage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fundPercentage;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl installmentDate;
 
         /// <summary>
         /// IsuInsta control.
@@ -123,22 +150,22 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button IsuInsta;
 
         /// <summary>
-        /// paymentID control.
+        /// installmentLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox paymentID;
+        protected global::System.Web.UI.WebControls.Label installmentLabel;
 
         /// <summary>
-        /// InstallStartDate control.
+        /// extensionThesisSerial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox InstallStartDate;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl extensionThesisSerial;
 
         /// <summary>
         /// AdminUpdateExtension control.
@@ -150,12 +177,12 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button AdminUpdateExtension;
 
         /// <summary>
-        /// ThesisSerialNo2 control.
+        /// updateExtensionLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ThesisSerialNo2;
+        protected global::System.Web.UI.WebControls.Label updateExtensionLabel;
     }
 }
