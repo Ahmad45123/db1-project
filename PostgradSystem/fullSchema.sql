@@ -944,11 +944,10 @@ UPDATE GucianStudent
 SET undergradID = @undergradID
 WHERE id = @studentID
 GO
-CREATE proc ViewCoursesGrades @studentID int
-AS
-SELECT grade
-FROM NonGucianStudentTakeCourse
-WHERE sid = @studentID
+CREATE PROC ViewCoursesGrades (@studentId INT) AS BEGIN
+    SELECT Course.code, NonGUCianStudentTakeCourse.grade FROM NonGUCianStudentTakeCourse INNER JOIN 
+    Course ON NonGUCianStudentTakeCourse.cid = Course.id WHERE NonGUCianStudentTakeCourse.sid = @studentId;
+END;
 GO
 CREATE proc ViewCoursePaymentsInstall @studentID int
 AS
