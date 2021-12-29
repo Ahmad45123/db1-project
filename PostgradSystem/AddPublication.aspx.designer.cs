@@ -11,97 +11,88 @@ namespace PostgradSystem
 {
 
 
-    public partial class student
+    public partial class AddPublication
     {
 
         /// <summary>
-        /// frontEnd control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frontEnd;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Welcome control.
+        /// invalid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
+        protected global::System.Web.UI.WebControls.Label invalid;
 
         /// <summary>
-        /// fullName control.
+        /// Title control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fullName;
+        protected global::System.Web.UI.WebControls.TextBox Title;
 
         /// <summary>
-        /// ID control.
+        /// Date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ID;
+        protected global::System.Web.UI.WebControls.Calendar Date;
 
         /// <summary>
-        /// Type control.
+        /// Host control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Type;
+        protected global::System.Web.UI.WebControls.TextBox Host;
 
         /// <summary>
-        /// Faculty control.
+        /// Place control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Faculty;
+        protected global::System.Web.UI.WebControls.TextBox Place;
 
         /// <summary>
-        /// Address control.
+        /// Accept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Address;
+        protected global::System.Web.UI.WebControls.CheckBox Accept;
 
         /// <summary>
-        /// GPA control.
+        /// Submit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl GPA;
+        protected global::System.Web.UI.WebControls.Button Submit;
 
         /// <summary>
-        /// Theses control.
+        /// Cancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Theses;
-
-        /// <summary>
-        /// Courses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Courses;
+        protected global::System.Web.UI.WebControls.Button Cancel;
     }
 }

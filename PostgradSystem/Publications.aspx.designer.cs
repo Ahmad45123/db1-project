@@ -11,80 +11,53 @@ namespace PostgradSystem
 {
 
 
-    public partial class student
+    public partial class Publications
     {
 
         /// <summary>
-        /// frontEnd control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frontEnd;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Welcome control.
+        /// Publication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
+        protected global::System.Web.UI.WebControls.Table Publication;
 
         /// <summary>
-        /// fullName control.
+        /// add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fullName;
+        protected global::System.Web.UI.WebControls.Button add;
 
         /// <summary>
-        /// ID control.
+        /// PublicationID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ID;
+        protected global::System.Web.UI.WebControls.TextBox PublicationID;
 
         /// <summary>
-        /// Type control.
+        /// Link control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Type;
-
-        /// <summary>
-        /// Faculty control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Faculty;
-
-        /// <summary>
-        /// Address control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Address;
-
-        /// <summary>
-        /// GPA control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl GPA;
+        protected global::System.Web.UI.WebControls.Button Link;
 
         /// <summary>
         /// Theses control.
@@ -96,12 +69,12 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button Theses;
 
         /// <summary>
-        /// Courses control.
+        /// invalid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Courses;
+        protected global::System.Web.UI.WebControls.Label invalid;
     }
 }
