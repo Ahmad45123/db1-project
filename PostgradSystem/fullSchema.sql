@@ -1,4 +1,4 @@
-﻿CREATE DATABASE PostGradOffice;
+CREATE DATABASE PostGradOffice;
 GO
 USE PostGradOffice;
 CREATE TABLE PostGradUser
@@ -945,8 +945,10 @@ SET undergradID = @undergradID
 WHERE id = @studentID
 GO
 CREATE PROC ViewCoursesGrades (@studentId INT) AS BEGIN
-    SELECT Course.code, NonGUCianStudentTakeCourse.grade FROM NonGUCianStudentTakeCourse INNER JOIN 
-    Course ON NonGUCianStudentTakeCourse.cid = Course.id WHERE NonGUCianStudentTakeCourse.sid = @studentId;
+    SELECT Course.code, NonGUCianStudentTakeCourse.grade, Course.creditHours
+    FROM NonGUCianStudentTakeCourse INNER JOIN 
+    Course ON NonGUCianStudentTakeCourse.cid = Course.id 
+    WHERE NonGUCianStudentTakeCourse.sid = @studentId;
 END;
 GO
 CREATE proc ViewCoursePaymentsInstall @studentID int
@@ -1166,12 +1168,23 @@ VALUES
 GO
 CREATE proc linkPubThesis
     @PubID int,
-    @thesisSerialNo int
+    @thesisSerialNo int,
+    @success BIT OUTPUT
 AS
-INSERT INTO ThesisHasPublication
-VALUES
-(@thesisSerialNo, @PubID)
+BEGIN
+    IF EXISTS(SELECT * FROM ThesisHasPublication
+    WHERE serialNo = @thesisSerialNo AND pubid = @PubID)
+    BEGIN
+        SET @success = 0;
+    END
+    ELSE BEGIN
+        INSERT INTO ThesisHasPublication
+        VALUES (@thesisSerialNo, @PubID);
+        SET @success = 1;
+    END
+END
 GO
+
 CREATE TRIGGER deleteSupervisor
 ON Supervisor
 INSTEAD OF DELETE
@@ -1263,4 +1276,118 @@ END;
 GO
 
 CREATE PROC searchThesis (@keyword VARCHAR(50)) AS SELECT * FROM Thesis WHERE title LIKE '%' + @keyword + '%';
+GO
+
+CREATE PROCEDURE getStudentTheses
+@studentID INT
+AS
+BEGIN
+    IF(@studentID in (SELECT id from GucianStudent)) BEGIN
+        SELECT Thesis.* FROM Thesis
+        INNER JOIN GUCianStudentRegisterThesis GUC
+        ON Thesis.serialNumber = GUC.serial_no
+        WHERE GUC.sid = @studentID;
+    END
+    ELSE BEGIN
+        SELECT Thesis.* FROM Thesis
+        INNER JOIN NonGUCianStudentRegisterThesis nonGUC
+        ON Thesis.serialNumber = nonGUC.serial_no
+        WHERE nonGUC.sid = @studentID;
+    END
+END
+GO
+
+CREATE PROCEDURE getOngoingThesis
+@studentID INT
+AS
+BEGIN
+    IF(@studentID in (SELECT id from GucianStudent)) BEGIN
+        SELECT Thesis.* FROM Thesis
+        INNER JOIN GUCianStudentRegisterThesis GUC
+        ON Thesis.serialNumber = GUC.serial_no
+        WHERE GUC.sid = @studentID AND 
+        Thesis.endDate < GETDATE();
+    END
+    ELSE BEGIN
+        SELECT Thesis.* FROM Thesis
+        INNER JOIN NonGUCianStudentRegisterThesis nonGUC
+        ON Thesis.serialNumber = nonGUC.serial_no
+        WHERE nonGUC.sid = @studentID AND 
+        Thesis.endDate < GETDATE();
+    END
+END
+GO
+
+CREATE PROCEDURE getOngoingThesisSerialNo
+@studentID INT,
+@success BIT OUTPUT,
+@ThesisSN BIT OUTPUT
+AS
+BEGIN
+    IF(@studentID in (SELECT id from GucianStudent)) BEGIN
+        IF EXISTS(SELECT Thesis.* FROM Thesis
+        INNER JOIN GUCianStudentRegisterThesis GUC
+        ON Thesis.serialNumber = GUC.serial_no
+        WHERE GUC.sid = @studentID AND 
+        Thesis.endDate < GETDATE()) BEGIN
+            SELECT @ThesisSN = Thesis.serialNumber FROM Thesis
+            INNER JOIN GUCianStudentRegisterThesis GUC
+            ON Thesis.serialNumber = GUC.serial_no
+            WHERE GUC.sid = @studentID AND 
+            Thesis.endDate < GETDATE();
+            SET @success = 1;
+        END
+        ELSE BEGIN
+            SET @success = 0;
+        END
+    END
+    ELSE BEGIN
+        IF EXISTS(SELECT Thesis.* FROM Thesis
+        INNER JOIN NonGUCianStudentRegisterThesis GUC
+        ON Thesis.serialNumber = nonGUC.serial_no
+        WHERE nonGUC.sid = @studentID AND 
+        Thesis.endDate < GETDATE()) BEGIN
+            SELECT Thesis.* FROM Thesis
+            INNER JOIN NonGUCianStudentRegisterThesis GUC
+            ON Thesis.serialNumber = nonGUC.serial_no
+            WHERE nonGUC.sid = @studentID AND 
+            Thesis.endDate < GETDATE();
+            SET @success = 1;
+        END
+        ELSE BEGIN
+            SET @success = 0;
+        END
+    END
+END
+GO
+
+CREATE PROCEDURE isGUCian
+@studentId INT,
+@GUCian BIT OUTPUT
+AS
+BEGIN
+    IF (@studentID IN (SELECT id FROM GucianStudent)) BEGIN
+        SET @GUCian = 1;
+    END
+    ELSE BEGIN
+        SET @GUCian = 0;
+    END
+END;
+GO
+
+CREATE PROCEDURE LinkPublicationToOngoingThesis
+@sID INT,
+@pubID INT,
+@success BIT OUTPUT
+AS
+BEGIN
+DECLARE @ThesisSN INT;
+EXECUTE getOngoingThesisSerialNo @sID, @success OUTPUT, @ThesisSN OUTPUT;
+EXECUTE linkPubThesis @pubID, @ThesisSN, @success OUTPUT;
+END
+GO
+
+CREATE PROCEDURE ViewAllPublications
+AS
+SELECT * FROM Publication;
 GO
