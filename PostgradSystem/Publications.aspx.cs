@@ -14,8 +14,6 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            invalid.Visible = false;
-
             String connectionString = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -85,8 +83,11 @@ namespace PostgradSystem
             connection.Open();
             linkPublication.ExecuteNonQuery();
             connection.Close();
-            if((int) success.Value == 0)
-                invalid.Visible = true;
+
+            if ((int)success.Value == 0)
+                Response.Write("Error: You either have no ongoing Thesis or entered a wrong publication ID.");
+            else
+                Response.Write("Done");
         }
 
         protected void add_Click(object sender, EventArgs e)

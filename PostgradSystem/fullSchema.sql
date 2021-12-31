@@ -1,7 +1,4 @@
-CREATE DATABASE PostGradOffice;
-GO
-USE PostGradOffice;
-CREATE TABLE PostGradUser
+﻿CREATE TABLE PostGradUser
 (
     id int PRIMARY KEY identity(1, 1),
     email varchar(50) NOT NULL,
@@ -1172,8 +1169,7 @@ CREATE proc linkPubThesis
     @success BIT OUTPUT
 AS
 BEGIN
-    IF EXISTS(SELECT * FROM ThesisHasPublication
-    WHERE serialNo = @thesisSerialNo AND pubid = @PubID)
+    IF EXISTS(SELECT * FROM ThesisHasPublication WHERE serialNo = @thesisSerialNo AND pubid = @PubID)
     BEGIN
         SET @success = 0;
     END
@@ -1343,12 +1339,12 @@ BEGIN
     END
     ELSE BEGIN
         IF EXISTS(SELECT Thesis.* FROM Thesis
-        INNER JOIN NonGUCianStudentRegisterThesis GUC
+        INNER JOIN NonGUCianStudentRegisterThesis nonGUC
         ON Thesis.serialNumber = nonGUC.serial_no
         WHERE nonGUC.sid = @studentID AND 
         Thesis.endDate < GETDATE()) BEGIN
             SELECT Thesis.* FROM Thesis
-            INNER JOIN NonGUCianStudentRegisterThesis GUC
+            INNER JOIN NonGUCianStudentRegisterThesis nonGUC
             ON Thesis.serialNumber = nonGUC.serial_no
             WHERE nonGUC.sid = @studentID AND 
             Thesis.endDate < GETDATE();
@@ -1381,9 +1377,14 @@ CREATE PROCEDURE LinkPublicationToOngoingThesis
 @success BIT OUTPUT
 AS
 BEGIN
-DECLARE @ThesisSN INT;
-EXECUTE getOngoingThesisSerialNo @sID, @success OUTPUT, @ThesisSN OUTPUT;
-EXECUTE linkPubThesis @pubID, @ThesisSN, @success OUTPUT;
+DECLARE @ThesisSN INT, @success1 BIT;
+EXECUTE getOngoingThesisSerialNo @sID, @success1 OUTPUT, @ThesisSN OUTPUT;
+IF @success1 = 1 BEGIN
+    EXECUTE linkPubThesis @pubID, @ThesisSN, @success OUTPUT;
+END
+ELSE BEGIN
+    SET @success = 0;
+END
 END
 GO
 
@@ -1391,3 +1392,4 @@ CREATE PROCEDURE ViewAllPublications
 AS
 SELECT * FROM Publication;
 GO
+

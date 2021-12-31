@@ -14,7 +14,7 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student"){
+            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student") {
                 Response.Redirect("login.aspx");
             }
 
@@ -30,7 +30,7 @@ namespace PostgradSystem
             id.Value = Session["userId"];
             SqlParameter gucian = new SqlParameter("@GUCian", SqlDbType.Bit);
             gucian.Direction = ParameterDirection.Output;
-            
+
             profile.Parameters.Add(id);
             isGUCian.Parameters.Add(id);
             isGUCian.Parameters.Add(isGUCian);
@@ -39,13 +39,8 @@ namespace PostgradSystem
             SqlDataReader reader = profile.ExecuteReader();
             isGUCian.ExecuteNonQuery();
             database.Close();
-
-            if ((int)gucian.Value == 1)
-            {
-                Courses.Visible = false;
-                Courses.Enabled = false;
-            }
             reader.Read();
+
             String first = reader.GetString(reader.GetOrdinal("firstName"));
             String last = reader.GetString(reader.GetOrdinal("lastName"));
             String type = reader.GetString(reader.GetOrdinal("type"));
@@ -58,8 +53,13 @@ namespace PostgradSystem
             Faculty.InnerText = "Faculty: " + faculty;
             Address.InnerText = "Address: " + address;
             GPA.InnerText = "GPA: " + gpa;
-            Courses.Visible = false;
-            Courses.Enabled = false;
+
+            if((int)gucian.Value == 1)
+            {
+                Courses.Visible = false;
+                Courses.Enabled = false;
+                underGradID.InnerText = "UnderGrad ID: " + reader.GetInt64(reader.GetOrdinal("undergradID"));
+            }
         }
 
         protected void ShowTheses(object sender, EventArgs e)

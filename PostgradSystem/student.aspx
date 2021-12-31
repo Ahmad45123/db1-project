@@ -2,7 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="BodyContent" runat="server">
 <body>
-    <form id="frontEnd" runat="server">
+    <form id="form1" runat="server">
         <p id ="Welcome" runat ="server"> </p>
         <p id ="fullName" runat ="server"> </p>
         <p id ="ID" runat ="server"> </p>
@@ -10,6 +10,7 @@
         <p id ="Faculty" runat ="server"> </p>
         <p id ="Address" runat ="server"> </p>
         <p id ="GPA" runat ="server"> </p>
+        <p id ="underGradID" runat ="server"> </p>
         <div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>

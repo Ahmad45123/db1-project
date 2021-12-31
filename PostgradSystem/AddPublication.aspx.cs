@@ -14,16 +14,13 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            invalid.Visible = false;
+           
         }
 
         protected void Submit_Click(object sender, EventArgs e)
         {
             if(Title.Text.Length == 0 || Date.SelectedDate.Date == DateTime.MinValue)
-            {
-                invalid.Visible = true;
-                return;
-            }
+                Response.Write("Please Enter Title and Date");
             String connectionString = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
             SqlConnection connection = new SqlConnection(connectionString);
 

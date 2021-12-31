@@ -9,11 +9,6 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Label ID="invalid" runat="server">
-                <font color="#F00" size="6px"> Invalid Title/Date </font>
-            </asp:Label>
-            <br />
-            <br />
             <asp:Label runat="server" Text="Title:"></asp:Label>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="Title" runat="server" Width="600px"></asp:TextBox>

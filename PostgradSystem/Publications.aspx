@@ -33,10 +33,5 @@
         <br />
         <asp:Button ID="Theses" runat="server" Text="Back To Theses" OnClick="Theses_Click" />
     </form>
-    <asp:Label ID="invalid" runat="server">
-        <font color="#F00" size="4px"> Error: You either have No Ongoing Thesis
-            or You Entered a wrong publication ID.
-        </font>
-    </asp:Label>
 </body>
 </html>
