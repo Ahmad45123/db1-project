@@ -1393,3 +1393,80 @@ AS
 SELECT * FROM Publication;
 GO
 
+CREATE PROCEDURE viewStudentProgressReports
+@studentID INT
+AS
+    SELECT pg1.*
+    FROM GUCianProgressReport pg1
+    INNER JOIN GucianStudent guc
+    ON guc.id = pg1.sid
+    WHERE guc.id = @studentID
+
+    UNION
+
+    SELECT pg2.*
+    FROM NonGUCianProgressReport pg2
+    INNER JOIN GucianStudent nonGuc
+    ON nonGuc.id = pg2.sid
+    WHERE nonGuc.id = @studentID
+GO
+
+CREATE PROCEDURE AddProgressReportToOngoingThesis
+@studentID INT,
+@Date DATETIME,
+@ReportNo INT,
+@success BIT OUTPUT
+AS
+BEGIN
+    DECLARE @thesisSN INT;
+    EXECUTE getOngoingThesisSerialNo @studentID, @success OUT, @thesisSN OUT
+    IF @success = 1 BEGIN
+        IF NOT EXISTS(
+            SELECT * FROM
+            GUCianProgressReport
+            WHERE sid = @studentID AND [NO] = @ReportNo
+
+            UNION
+
+            SELECT * FROM
+            NonGUCianProgressReport
+            WHERE sid = @studentID AND [NO] = @ReportNo
+        ) BEGIN
+            SET @success = 0;
+        END
+        ELSE BEGIN
+            EXECUTE AddProgressReport @thesisSN, @Date, @studentID, @ReportNo;
+        END
+    END
+END
+GO
+
+CREATE PROCEDURE FillProgressReportForOngoingThesis
+@ReportNo int,
+@state int,
+@description varchar(200),
+@studentID int,
+@success BIT OUTPUT
+AS
+BEGIN
+    DECLARE @thesisSN INT;
+    EXECUTE getOngoingThesisSerialNo @studentID, @success OUT, @thesisSN OUT
+    IF @success = 1 BEGIN
+        IF NOT EXISTS(
+            SELECT * FROM
+            GUCianProgressReport
+            WHERE sid = @studentID AND [NO] = @ReportNo
+
+            UNION
+
+            SELECT * FROM
+            NonGUCianProgressReport
+            WHERE sid = @studentID AND [NO] = @ReportNo
+        ) BEGIN
+            SET @success = 0;
+        END
+        ELSE BEGIN
+            EXECUTE FillProgressReport @thesisSN, @ReportNo, @state, @description, @studentID;
+        END
+    END
+END

@@ -71,8 +71,16 @@ namespace PostgradSystem
             SqlParameter sid = new SqlParameter("@StudentID", SqlDbType.Int);
             sid.Value = (int)Session["userId"];
 
-            SqlParameter pubID = new SqlParameter("@pubID", SqlDbType.Int);
-            sid.Value = PublicationID.Text;
+            SqlParameter pubID;
+            try
+            {
+                pubID = new SqlParameter("@pubID", SqlDbType.Int);
+                sid.Value = Int32.Parse(PublicationID.Text);
+            }catch(Exception ex)
+            {
+                Response.Write("Error: You either have no ongoing Thesis or entered a wrong publication ID.");
+                return;
+            }
 
             SqlParameter success = new SqlParameter("@success", SqlDbType.Bit);
             success.Direction = ParameterDirection.Output;

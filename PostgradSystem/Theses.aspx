@@ -27,7 +27,7 @@
         <p>
     <asp:Button ID="Publication" runat="server" Text="View Publications" OnClick="Publication_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="ProgressReport" runat="server" Text="Add Progress Report to Ongoing Thesis" OnClick="ProgressReport_Click"/>
+    <asp:Button ID="ProgressReport" runat="server" Text="View Progress Reports" OnClick="ProgressReport_Click"/>
         </p>
         <asp:Button ID="Student" runat="server" Text="Back to Profile" OnClick="Student_Click"/>
     </form>

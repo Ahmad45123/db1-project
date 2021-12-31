@@ -26,13 +26,15 @@ namespace PostgradSystem
 
             SqlCommand isGUCian = new SqlCommand("isGUCian", database);
 
-            SqlParameter id = new SqlParameter("@studentID", SqlDbType.Int);
-            id.Value = Session["userId"];
+            SqlParameter id1 = new SqlParameter("@studentID", SqlDbType.Int);
+            id1.Value = Session["userId"];
+            SqlParameter id2 = new SqlParameter("@studentID", SqlDbType.Int);
+            id2.Value = Session["userId"];
             SqlParameter gucian = new SqlParameter("@GUCian", SqlDbType.Bit);
             gucian.Direction = ParameterDirection.Output;
 
-            profile.Parameters.Add(id);
-            isGUCian.Parameters.Add(id);
+            profile.Parameters.Add(id1);
+            isGUCian.Parameters.Add(id2);
             isGUCian.Parameters.Add(isGUCian);
 
             database.Open();
