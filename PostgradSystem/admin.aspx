@@ -65,15 +65,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="paymentAmount" class="form-label">Amount</label>
-                            <input type="text" class="form-control" id="paymentAmount" runat="server" />
+                            <input type="number" step="0.01" min="0" max="99999.99" class="form-control" id="paymentAmount" runat="server" />
                         </div>
                         <div class="mb-3">
                             <label for="paymentNoInstallments" class="form-label">No. Of Installments</label>
-                            <input type="number" class="form-control" id="paymentNoInstallments" runat="server" />
+                            <input type="number" min="1" class="form-control" id="paymentNoInstallments" runat="server" />
                         </div>
                         <div class="mb-3">
                             <label for="paymentFuncPerc" class="form-label">Fund Percentage</label>
-                            <input type="text" class="form-control" id="paymentFuncPerc" runat="server" />
+                            <input type="number" step="0.01" min="0" max="99.99" class="form-control" id="paymentFuncPerc" runat="server" />
                         </div>
                         <asp:Button ID="ThesPay" type="submit" CssClass="btn btn-primary w-25" Text="Save Payment" OnClick="ThesPay_Click" runat="server" />
                         <asp:Label runat="server" ID="savePaymentLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 

@@ -463,7 +463,7 @@ BEGIN
     WHERE serialNumber = @ThesisSerialNo
 END
 ELSE BEGIN;
-THROW 1, 'Thesis Serial Number does not exist', 1;
+THROW 51001, 'Thesis Serial Number does not exist', 51002;
 END
 GO
 
@@ -491,7 +491,7 @@ BEGIN
 END
 ELSE
 BEGIN;
-THROW 1, 'Thesis Serial Number does not exist', 1
+THROW 51001, 'Thesis Serial Number does not exist', 51002
 END
 GO
 CREATE Proc AdminViewStudentProfile @sid int
@@ -577,7 +577,7 @@ BEGIN
 END
 ELSE
 BEGIN;
-THROW 1, 'Payment ID does not exist', 1;
+THROW 51001, 'Payment ID does not exist', 51002;
 END
 GO
 CREATE Proc AdminListAcceptPublication
