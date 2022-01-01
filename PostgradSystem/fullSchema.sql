@@ -81,7 +81,7 @@ CREATE TABLE Thesis
     endDate date NOT NULL,
     defenseDate date,
     years AS (year(endDate) - year(startDate)),
-    grade decimal(4, 2),
+    grade decimal(5, 2),
     payment_id int
         FOREIGN KEY REFERENCES payment ON DELETE CASCADE ON UPDATE CASCADE,
     noOfExtensions int
@@ -100,7 +100,7 @@ CREATE TABLE Defense
     serialNumber int,
     date datetime,
     LOCATION varchar(15),
-    grade decimal(4, 2),
+    grade decimal(5, 2),
     PRIMARY KEY
     (
         serialNumber,
@@ -180,7 +180,7 @@ CREATE TABLE NonGucianStudentTakeCourse
         FOREIGN KEY REFERENCES NonGUCianStudent ON DELETE CASCADE ON UPDATE CASCADE,
     cid int
         FOREIGN KEY REFERENCES Course ON DELETE CASCADE ON UPDATE CASCADE,
-    grade decimal(4, 2),
+    grade decimal(5, 2),
     PRIMARY KEY
     (
         sid,
@@ -858,7 +858,7 @@ END
 GO
 CREATE proc AddGrade @ThesisSerialNo int
 AS
-DECLARE @grade decimal(4, 2)
+DECLARE @grade decimal(5, 2)
 SELECT @grade = grade
 FROM Defense
 WHERE serialNumber = @ThesisSerialNo
@@ -869,7 +869,7 @@ GO
 CREATE proc AddDefenseGrade
     @ThesisSerialNo int,
     @DefenseDate Datetime,
-    @grade decimal(4, 2)
+    @grade decimal(5, 2)
 AS
 UPDATE Defense
 SET grade = @grade

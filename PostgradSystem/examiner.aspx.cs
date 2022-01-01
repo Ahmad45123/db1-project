@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
@@ -66,7 +67,7 @@ namespace PostgradSystem
         {
             DbManager.CallProc("AddCommentsGrade",
                 new SqlParameter("@ThesisSerialNo", int.Parse(commentThesisInput.Value)),
-                new SqlParameter("@DefenseDate", commentDateTimeInput.Value),
+                new SqlParameter("@DefenseDate", DateTime.Parse(commentDateTimeInput.Value).ToString("G")),
                 new SqlParameter("@comments", commentsTextArea.Value));
             addCommentLabel.Text = "Added successfully!";
             addCommentLabel.Visible = true;
@@ -74,12 +75,21 @@ namespace PostgradSystem
 
         protected void saveGradeBtn_OnClick(object sender, EventArgs e)
         {
-            DbManager.CallProc("AddDefenseGrade",
-                new SqlParameter("@ThesisSerialNo", int.Parse(gradeThesisInput.Value)),
-                new SqlParameter("@DefenseDate", gradeDefenseDate.Value),
-                new SqlParameter("@grade", int.Parse(gradeValueInput.Value)));
-            gradeLabel.Text = "Added successfully!";
-            gradeLabel.Visible = true;
+            try
+            {
+                DbManager.CallProc("AddDefenseGrade",
+                    new SqlParameter("@ThesisSerialNo", int.Parse(gradeThesisInput.Value)),
+                    new SqlParameter("@DefenseDate", DateTime.Parse(gradeDefenseDate.Value).ToString("G")),
+                    new SqlParameter("@grade", SqlDbType.Decimal) { Value = decimal.Parse(gradeValueInput.Value) });
+                gradeLabel.Text = "Added successfully!";
+                gradeLabel.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                gradeLabel.Text = "Error: Grade was not in correct format.\n" + ex.Message;
+                gradeLabel.Visible = true;
+            }
+            
         }
 
         protected void searchBtn_OnClick(object sender, EventArgs e)
@@ -87,6 +97,12 @@ namespace PostgradSystem
             searchResults.DataSource =
                 DbManager.CallProc("searchThesis", new SqlParameter("@keyword", searchText.Value));
             searchResults.DataBind();
+        }
+
+        protected void logOutButton_OnClick(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("login.aspx");
         }
     }
 }

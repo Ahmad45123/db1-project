@@ -15,6 +15,15 @@ namespace PostgradSystem
     {
 
         /// <summary>
+        /// logOutButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button logOutButton;
+
+        /// <summary>
         /// hidTAB control.
         /// </summary>
         /// <remarks>
@@ -192,7 +201,7 @@ namespace PostgradSystem
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl gradeValueInput;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText gradeValueInput;
 
         /// <summary>
         /// saveGradeBtn control.

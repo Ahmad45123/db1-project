@@ -39,6 +39,7 @@
             <button class="nav-link" id="v-pills-search-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search" type="button" role="tab" aria-controls="v-pills-search" aria-selected="false">Search for thesis</button>
         </div>
         <form runat="server" class="w-100 h-100">
+            <asp:Button ID="logOutButton" class="btn btn-primary m-2 align-self-end" Text="Log Out" OnClick="logOutButton_OnClick" runat="server"/>
             <asp:HiddenField ID="hidTAB" runat="server" Value="v-pills-info" />
             <div class="tab-content h-100" id="v-pills-tabContent">
                 <div class="tab-pane fade h-100" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
@@ -89,7 +90,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="commentDateTimeInput" class="form-label">Defense Date</label>
-                            <input type="datetime" class="form-control" id="commentDateTimeInput" runat="server" />
+                            <input type="date" class="form-control" id="commentDateTimeInput" runat="server" />
                         </div>
                         <div class="mb-3">
                             <label for="commentsTextArea" class="form-label">Comments</label>
@@ -108,11 +109,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="gradeDefenseDate" class="form-label">Defense Date</label>
-                            <input type="datetime" class="form-control" id="gradeDefenseDate" runat="server" />
+                            <input type="date" class="form-control" id="gradeDefenseDate" runat="server" />
                         </div>
                         <div class="mb-3">
                             <label for="gradeValueInput" class="form-label">Grade</label>
-                            <input type="number" class="form-control" id="gradeValueInput" runat="server" />
+                            <input type="text" class="form-control" id="gradeValueInput" runat="server" />
                         </div>
                         <asp:Button ID="saveGradeBtn" type="submit" CssClass="btn btn-primary w-25" Text="Save Grade" OnClick="saveGradeBtn_OnClick" runat="server" />
                         <asp:Label runat="server" ID="gradeLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 
