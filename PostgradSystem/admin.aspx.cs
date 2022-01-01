@@ -13,8 +13,9 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs ea)
         {
-            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "admin")
-            {
+            if (
+                //false && 
+                (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "admin"))            {
                 Response.Redirect("login.aspx");
             }
         }
@@ -92,6 +93,30 @@ namespace PostgradSystem
         {
             Session.Clear();
             Response.Redirect("~/login.aspx");
+        }
+
+        protected void addPhoneButton_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                var result = new SqlParameter("@thesesCount", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                DbManager.CallProc("AdminViewOnGoingTheses",
+                    new SqlParameter("@userID", int.Parse(userIDPhone.Value)),
+                    new SqlParameter("@phoneNo", phoneNoPhone.Value),
+                    result);
+
+
+                if ((bool)result.Value == false)
+                    throw new Exception("UserId not found");
+         
+                PhoneNoAlert.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                PhoneNoAlert.Text = "Error: " + ex.Message;
+                PhoneNoAlert.Visible = true;
+            }
         }
     }
 }

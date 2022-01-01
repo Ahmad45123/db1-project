@@ -42,6 +42,10 @@
         <form runat="server" class="w-100 h-100">
             <p>
                 <asp:Button ID="LogOut" runat="server" Text="Log Out" OnClick="LogOut_Click" />
+                userID: <input type="number"  class="form-control" id="userIDPhone" runat="server" />
+                phoneNo: <input type="number"  class="form-control" id="phoneNoPhone" runat="server" />
+                <asp:Button ID="addPhoneButton" runat="server" Text="addPhone" OnClick="addPhoneButton_Click" />
+                <asp:Label runat="server" ID="PhoneNoAlert" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/>
             </p>
             <asp:HiddenField ID="hidTAB" runat="server" Value="v-pills-listThesisSups" />
             <div class="tab-content h-100" id="v-pills-tabContent">
