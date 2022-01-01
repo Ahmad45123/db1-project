@@ -1310,18 +1310,18 @@ CREATE PROCEDURE getOngoingThesis
 AS
 BEGIN
     IF(@studentID in (SELECT id from GucianStudent)) BEGIN
-        SELECT Thesis.* FROM Thesis
+        SELECT DISTINCT Thesis.* FROM Thesis
         INNER JOIN GUCianStudentRegisterThesis GUC
         ON Thesis.serialNumber = GUC.serial_no
         WHERE GUC.sid = @studentID AND 
-        Thesis.endDate < GETDATE();
+        Thesis.endDate >= GETDATE();
     END
     ELSE BEGIN
-        SELECT Thesis.* FROM Thesis
+        SELECT DISTINCT Thesis.* FROM Thesis
         INNER JOIN NonGUCianStudentRegisterThesis nonGUC
         ON Thesis.serialNumber = nonGUC.serial_no
         WHERE nonGUC.sid = @studentID AND 
-        Thesis.endDate < GETDATE();
+        Thesis.endDate >= GETDATE();
     END
 END
 GO
@@ -1337,12 +1337,12 @@ BEGIN
         INNER JOIN GUCianStudentRegisterThesis GUC
         ON Thesis.serialNumber = GUC.serial_no
         WHERE GUC.sid = @studentID AND 
-        Thesis.endDate < GETDATE()) BEGIN
+        Thesis.endDate >= GETDATE()) BEGIN
             SELECT @ThesisSN = Thesis.serialNumber FROM Thesis
             INNER JOIN GUCianStudentRegisterThesis GUC
             ON Thesis.serialNumber = GUC.serial_no
             WHERE GUC.sid = @studentID AND 
-            Thesis.endDate < GETDATE();
+            Thesis.endDate >= GETDATE();
             SET @success = 1;
         END
         ELSE BEGIN
@@ -1354,12 +1354,12 @@ BEGIN
         INNER JOIN NonGUCianStudentRegisterThesis nonGUC
         ON Thesis.serialNumber = nonGUC.serial_no
         WHERE nonGUC.sid = @studentID AND 
-        Thesis.endDate < GETDATE()) BEGIN
-            SELECT Thesis.* FROM Thesis
+        Thesis.endDate >= GETDATE()) BEGIN
+            SELECT @ThesisSN = Thesis.serialNumber FROM Thesis
             INNER JOIN NonGUCianStudentRegisterThesis nonGUC
             ON Thesis.serialNumber = nonGUC.serial_no
             WHERE nonGUC.sid = @studentID AND 
-            Thesis.endDate < GETDATE();
+            Thesis.endDate >= GETDATE();
             SET @success = 1;
         END
         ELSE BEGIN
@@ -1393,9 +1393,6 @@ DECLARE @ThesisSN INT, @success1 BIT;
 EXECUTE getOngoingThesisSerialNo @sID, @success1 OUTPUT, @ThesisSN OUTPUT;
 IF @success1 = 1 BEGIN
     EXECUTE linkPubThesis @pubID, @ThesisSN, @success OUTPUT;
-END
-ELSE BEGIN
-    SET @success = 0;
 END
 END
 GO
@@ -1433,7 +1430,7 @@ BEGIN
     DECLARE @thesisSN INT;
     EXECUTE getOngoingThesisSerialNo @studentID, @success OUT, @thesisSN OUT
     IF @success = 1 BEGIN
-        IF NOT EXISTS(
+        IF EXISTS(
             SELECT * FROM
             GUCianProgressReport
             WHERE sid = @studentID AND [NO] = @ReportNo
