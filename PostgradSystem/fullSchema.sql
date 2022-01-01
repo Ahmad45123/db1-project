@@ -462,6 +462,10 @@ BEGIN
     SET noOfExtensions = @noOfExtensions + 1
     WHERE serialNumber = @ThesisSerialNo
 END
+ELSE
+BEGIN
+THROW 1, 'Thesis Serial Number does not exist'
+END
 GO
 CREATE Proc AdminIssueThesisPayment
     @ThesisSerialNo int,
@@ -484,6 +488,10 @@ BEGIN
     UPDATE Thesis
     SET payment_id = @id
     WHERE serialNumber = @ThesisSerialNo
+END
+ELSE
+BEGIN
+THROW 1, 'Thesis Serial Number does not exist'
 END
 GO
 CREATE Proc AdminViewStudentProfile @sid int
@@ -566,6 +574,10 @@ BEGIN
         END
         SET @counter = @counter + 1
     END
+END
+ELSE
+BEGIN
+THROW 1, 'Payment ID does not exist'
 END
 GO
 CREATE Proc AdminListAcceptPublication
