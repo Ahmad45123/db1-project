@@ -92,7 +92,7 @@ namespace PostgradSystem
             linkPublication.ExecuteNonQuery();
             connection.Close();
 
-            if ((int)success.Value == 0)
+            if ((bool)success.Value)
                 Response.Write("Error: You either have no ongoing Thesis or entered a wrong publication ID.");
             else
                 Response.Write("Done");

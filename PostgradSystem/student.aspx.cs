@@ -25,6 +25,7 @@ namespace PostgradSystem
             profile.CommandType = CommandType.StoredProcedure;
 
             SqlCommand isGUCian = new SqlCommand("isGUCian", database);
+            isGUCian.CommandType = CommandType.StoredProcedure;
 
             SqlParameter id1 = new SqlParameter("@studentID", SqlDbType.Int);
             id1.Value = Session["userId"];
@@ -38,9 +39,8 @@ namespace PostgradSystem
             isGUCian.Parameters.Add(isGUCian);
 
             database.Open();
-            SqlDataReader reader = profile.ExecuteReader();
             isGUCian.ExecuteNonQuery();
-            database.Close();
+            SqlDataReader reader = profile.ExecuteReader();
             reader.Read();
 
             String first = reader.GetString(reader.GetOrdinal("firstName"));
@@ -48,7 +48,7 @@ namespace PostgradSystem
             String type = reader.GetString(reader.GetOrdinal("type"));
             String faculty = reader.GetString(reader.GetOrdinal("faculty"));
             String address = reader.GetString(reader.GetOrdinal("address"));
-            double gpa = reader.GetDouble(reader.GetOrdinal("GPA"));
+            decimal gpa = reader.GetDecimal(reader.GetOrdinal("GPA"));
             Welcome.InnerText = "Welcome " + first;
             fullName.InnerText = "Name: " + first + " " + last;
             Type.InnerText = "Type: " + type;
@@ -56,12 +56,13 @@ namespace PostgradSystem
             Address.InnerText = "Address: " + address;
             GPA.InnerText = "GPA: " + gpa;
 
-            if((int)gucian.Value == 1)
+            if((bool) gucian.Value)
             {
                 Courses.Visible = false;
                 Courses.Enabled = false;
-                underGradID.InnerText = "UnderGrad ID: " + reader.GetInt64(reader.GetOrdinal("undergradID"));
+                underGradID.InnerText = "UnderGrad ID: " + reader.GetInt32(reader.GetOrdinal("undergradID"));
             }
+            database.Close();
         }
 
         protected void ShowTheses(object sender, EventArgs e)
