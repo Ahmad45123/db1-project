@@ -74,5 +74,12 @@ namespace PostgradSystem
         {
             Response.Redirect("~/Courses.aspx");
         }
+
+        protected void LogOut_Click(Object sender, EventArgs e)
+        {
+            Session["userId"] = null;
+            Session["userType"] = null;
+            Response.Redirect("~/login.aspx");
+        }
     }
 }

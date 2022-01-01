@@ -23,6 +23,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="Courses" runat="server" OnClick ="ShowCourses" Text="View Courses"/>
         </p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <asp:Button ID="LogOut" runat="server" Text="Log Out" OnClick="LogOut_Click" />
+        </p>
     </form>
 </body>
 </asp:Content>
