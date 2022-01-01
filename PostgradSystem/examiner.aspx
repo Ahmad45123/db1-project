@@ -113,7 +113,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="gradeValueInput" class="form-label">Grade</label>
-                            <input type="text" class="form-control" id="gradeValueInput" runat="server" />
+                            <input type="number" min="0" max="100" step="0.01" class="form-control" id="gradeValueInput" runat="server" />
                         </div>
                         <asp:Button ID="saveGradeBtn" type="submit" CssClass="btn btn-primary w-25" Text="Save Grade" OnClick="saveGradeBtn_OnClick" runat="server" />
                         <asp:Label runat="server" ID="gradeLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 
