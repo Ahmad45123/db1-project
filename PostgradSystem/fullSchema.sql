@@ -1279,13 +1279,13 @@ CREATE PROCEDURE getStudentTheses
 AS
 BEGIN
     IF(@studentID in (SELECT id from GucianStudent)) BEGIN
-        SELECT Thesis.* FROM Thesis
+        SELECT DISTINCT Thesis.* FROM Thesis
         INNER JOIN GUCianStudentRegisterThesis GUC
         ON Thesis.serialNumber = GUC.serial_no
         WHERE GUC.sid = @studentID;
     END
     ELSE BEGIN
-        SELECT Thesis.* FROM Thesis
+        SELECT DISTINCT Thesis.* FROM Thesis
         INNER JOIN NonGUCianStudentRegisterThesis nonGUC
         ON Thesis.serialNumber = nonGUC.serial_no
         WHERE nonGUC.sid = @studentID;

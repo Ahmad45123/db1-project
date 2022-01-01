@@ -14,6 +14,11 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student")
+            {
+                Response.Redirect("login.aspx");
+            }
+
             String connectionString = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -22,7 +27,7 @@ namespace PostgradSystem
 
             connection.Open();
             SqlDataReader table = getPublications.ExecuteReader();
-            connection.Close();
+            
             while (table.Read())
             {
                 TableRow row = new TableRow();
@@ -40,7 +45,7 @@ namespace PostgradSystem
                 place.Text = "" + table.GetString(table.GetOrdinal("place"));
                 
                 TableCell accepted = new TableCell();
-                accepted.Text = "" + (table.GetInt32(table.GetOrdinal("accepted")) == 1 ? "YES" : "NO");
+                accepted.Text = "" + (table.GetBoolean(table.GetOrdinal("accepted")) == true ? "YES" : "NO");
                 
                 TableCell HOST = new TableCell();
                 HOST.Text = "" + table.GetString(table.GetOrdinal("HOST"));
@@ -53,11 +58,13 @@ namespace PostgradSystem
                 row.Cells.Add(HOST);
                 Publication.Rows.Add(row);
             }
+
+            connection.Close();
         }
 
         protected void Theses_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Thesis.aspx");
+            Response.Redirect("~/Theses.aspx");
         }
 
         protected void Link_Click(object sender, EventArgs e)
@@ -68,14 +75,14 @@ namespace PostgradSystem
             SqlCommand linkPublication = new SqlCommand("LinkPublicationToOngoingThesis", connection);
             linkPublication.CommandType = System.Data.CommandType.StoredProcedure;
 
-            SqlParameter sid = new SqlParameter("@StudentID", SqlDbType.Int);
+            SqlParameter sid = new SqlParameter("@sID", SqlDbType.Int);
             sid.Value = (int)Session["userId"];
 
             SqlParameter pubID;
             try
             {
                 pubID = new SqlParameter("@pubID", SqlDbType.Int);
-                sid.Value = Int32.Parse(PublicationID.Text);
+                pubID.Value = Int32.Parse(PublicationID.Text);
             }catch(Exception ex)
             {
                 Response.Write("Error: You either have no ongoing Thesis or entered a wrong publication ID.");
@@ -87,15 +94,18 @@ namespace PostgradSystem
 
             linkPublication.Parameters.Add(sid);
             linkPublication.Parameters.Add(pubID);
+            linkPublication.Parameters.Add(success);
 
             connection.Open();
             linkPublication.ExecuteNonQuery();
             connection.Close();
 
-            if ((bool)success.Value)
-                Response.Write("Error: You either have no ongoing Thesis or entered a wrong publication ID.");
+            if (!(bool)success.Value)
+                Response.Write("Error: You either have no ongoing Thesis or entered invalid publication ID.");
             else
-                Response.Write("Done");
+            {
+                Response.Write("<script language=javascript>alert('Done');</script>");
+            }
         }
 
         protected void add_Click(object sender, EventArgs e)

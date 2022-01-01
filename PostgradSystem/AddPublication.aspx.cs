@@ -14,7 +14,10 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student")
+            {
+                Response.Redirect("login.aspx");
+            }
         }
 
         protected void Submit_Click(object sender, EventArgs e)

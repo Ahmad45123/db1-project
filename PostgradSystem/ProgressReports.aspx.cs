@@ -14,6 +14,11 @@ namespace PostgradSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student")
+            {
+                Response.Redirect("login.aspx");
+            }
+
             String connectionString = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
             SqlConnection connection = new SqlConnection(connectionString);
 

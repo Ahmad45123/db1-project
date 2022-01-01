@@ -88,6 +88,7 @@
     <Content Include="Courses.aspx" />
     <Content Include="examiner.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="ProgressReports.aspx" />
     <Content Include="Publications.aspx" />
     <Content Include="register.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProgressReports.aspx.cs">
+      <DependentUpon>ProgressReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProgressReports.aspx.designer.cs">
+      <DependentUpon>ProgressReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publications.aspx.cs">

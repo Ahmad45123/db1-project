@@ -15,7 +15,7 @@
             <br />
             <br />
             <asp:Label runat="server" Text="Publication Date:"></asp:Label>
-            <asp:Calendar ID="Date" runat="server" OnSelectionChanged="Date_SelectionChanged"></asp:Calendar>
+            <asp:Calendar ID="Date" runat="server"></asp:Calendar>
             <br />
             <br />
             <asp:Label runat="server" Text="Host:"></asp:Label>
