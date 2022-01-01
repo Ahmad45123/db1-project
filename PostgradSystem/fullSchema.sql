@@ -69,7 +69,7 @@ CREATE TABLE Payment
     id int PRIMARY KEY identity(1, 1),
     amount decimal(7, 2),
     noOfInstallments int,
-    fundPercentage decimal(4, 2)
+    fundPercentage decimal(5, 2)
 )
 CREATE TABLE Thesis
 (
