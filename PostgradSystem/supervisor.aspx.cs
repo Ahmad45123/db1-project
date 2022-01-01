@@ -21,29 +21,35 @@ namespace PostgradSystem
         {
 
             Response.Redirect("login.aspx");
+            Session["userId"] = null;
+            Session["userType"] = null;
 
         }
 
         protected void ListStudentInfo_Click(object sender, EventArgs e)
         {
-            try{
+            try
+            {
                 DataTable queryInfo = DbManager.CallProc("ViewSupStudentsYears", new SqlParameter("@supervisorID", Session["userId"].ToString()));
                 this.outputGrid.DataSource = queryInfo;
                 this.outputGrid.DataBind();
-                if (queryInfo.Rows.Count < 1){
+                if (queryInfo.Rows.Count < 1)
+                {
                     Response.Write("<script language=javascript>alert('Executed Successfully, Empty Table.');</script>");
                 }
             }
-            catch (Exception ex){
-                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: "+ ex.Message.ToString() +"');</script>");
+            catch (Exception ex)
+            {
+                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: " + ex.Message.ToString() + "');</script>");
             }
         }
 
         protected void ViewStudentPublications_Click(object sender, EventArgs e)
         {
-            
 
-            try{
+
+            try
+            {
                 string studentId = this.StudentIDBox.Text;
                 DataTable queryInfo = DbManager.CallProc("ViewAStudentPublications", new SqlParameter("@StudentID", studentId));
                 this.outputGrid.DataSource = queryInfo;
@@ -53,7 +59,8 @@ namespace PostgradSystem
                     Response.Write("<script language=javascript>alert('Executed Successfully, Empty Table due to invalid input.');</script>");
                 }
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
         }
@@ -61,7 +68,8 @@ namespace PostgradSystem
         protected void AddDefense_Click(object sender, EventArgs e)
         {
 
-            try{
+            try
+            {
                 int ThesisSerialNo = int.Parse(this.AddDefenseThesis.Text);
                 string DefenseDate = DateTime.Parse(this.AddDefenseDatetime.Value).ToString("G");
                 string DefenseLocation = this.AddDefenseLocation.Text;
@@ -82,10 +90,12 @@ namespace PostgradSystem
 
                     int newTableRowCount = DbManager.Query($"SELECT * FROM Defense").Rows.Count;
 
-                    if (tableRowCount==newTableRowCount){
+                    if (tableRowCount == newTableRowCount)
+                    {
                         Response.Write("<script language=javascript>alert('Failed to execute successfully due to invalid input');</script>");
                     }
-                    else{
+                    else
+                    {
                         Response.Write("<script language=javascript>alert('Executed Successfully');</script>");
                     }
                 }
@@ -105,28 +115,32 @@ namespace PostgradSystem
 
                     int newTableRowCount = DbManager.Query($"SELECT * FROM Defense").Rows.Count;
 
-                    if (tableRowCount == newTableRowCount){
+                    if (tableRowCount == newTableRowCount)
+                    {
                         Response.Write("<script language=javascript>alert('Failed to execute successfully due to invalid input');</script>");
                     }
-                    else{
+                    else
+                    {
                         Response.Write("<script language=javascript>alert('Executed Successfully');</script>");
                     }
 
                 }
-            
+
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Response.Write(@"<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
 
 
         }
 
-        
+
 
         protected void AddExaminer_Click(object sender, EventArgs e)
         {
-            try{
+            try
+            {
                 int ThesisSerialNo = int.Parse(this.AddExaminerThesis.Text);
                 string DefenseDate = DateTime.Parse(AddExaminerDate.Value).ToString("G");
                 string ExamninerName = this.AddExaminerName.Text;
@@ -158,15 +172,17 @@ namespace PostgradSystem
                 }
 
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
-            
+
         }
 
         protected void EvaluateReport_Click(object sender, EventArgs e)
         {
-            try{
+            try
+            {
                 int ThesisSerialNo = int.Parse(this.EvaluateThesis.Text);
                 string ProgressReportNo = this.EvaluateProgressNo.Text;
                 string Evaluation = this.Evaluation.Text;
@@ -188,7 +204,8 @@ namespace PostgradSystem
                 DataTable newTempGucian = DbManager.Query($"SELECT * FROM GUCianProgressReport");
                 DataTable newTempNonGucian = DbManager.Query($"SELECT * FROM NonGUCianProgressReport");
 
-                if (tempGucian.Equals(newTempGucian) && tempNonGucian.Equals(newTempNonGucian)){
+                if (tempGucian.Equals(newTempGucian) && tempNonGucian.Equals(newTempNonGucian))
+                {
                     Response.Write("<script language=javascript>alert('Failed to change table successfully(evaluation same as current or invalid input');</script>");
                 }
                 else
@@ -197,7 +214,8 @@ namespace PostgradSystem
                 }
 
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
 
@@ -205,7 +223,8 @@ namespace PostgradSystem
 
         protected void CancelThesis_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 int ThesisSerialNo = int.Parse(this.CancelNumber.Text);
 
                 int tempThesisRowCount = DbManager.Query($"SELECT * FROM Thesis").Rows.Count;
@@ -216,15 +235,18 @@ namespace PostgradSystem
 
                 int newTempThesisRowCount = DbManager.Query($"SELECT * FROM Thesis").Rows.Count;
 
-                if (tempThesisRowCount == newTempThesisRowCount){
+                if (tempThesisRowCount == newTempThesisRowCount)
+                {
                     Response.Write("<script language=javascript>alert('Failed to cancel thesis due to invalid inputs or cancel requirements not being met');</script>");
                 }
-                else{
+                else
+                {
                     Response.Write("<script language=javascript>alert('Executed Successfully');</script>");
                 }
 
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
         }

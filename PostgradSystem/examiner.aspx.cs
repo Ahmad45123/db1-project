@@ -30,47 +30,79 @@ namespace PostgradSystem
 
         void ListSupervisors(int thesisId)
         {
-            var res = DbManager.CallProc("listSupervisors", new SqlParameter("@thesisId", thesisId));
-            supList.DataSource = res;
-            supList.DataBind();
+            try{
+                DataTable res = DbManager.CallProc("listSupervisors", new SqlParameter("@thesisId", thesisId));
+                supList.DataSource = res;
+                supList.DataBind();
+
+                if (res.Rows.Count < 1)
+                {
+                    Response.Write("<script language=javascript>alert('Executed Successfully, Empty Table.');</script>");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
+            }
         }
 
         protected void refreshListBtn_OnClick(object sender, EventArgs e)
         {
-            var res = DbManager.CallProc("examinerListData", new SqlParameter("@examId", Session["userId"].ToString()));
-            lstGrid.DataSource = res;
-            lstGrid.DataBind();
-            lstGrid.HeaderRow.Cells.Add(new TableHeaderCell() { Text = "Action" });
-            foreach (GridViewRow lstGridRow in lstGrid.Rows)
-            {
-                Button theCtrl = new Button() { Text = "View Supervisors", CssClass = "btn btn-secondary" };
-                theCtrl.Click += (o, args) =>
+            try{
+                var res = DbManager.CallProc("examinerListData", new SqlParameter("@examId", Session["userId"].ToString()));
+                lstGrid.DataSource = res;
+                lstGrid.DataBind();
+                lstGrid.HeaderRow.Cells.Add(new TableHeaderCell() { Text = "Action" });
+                foreach (GridViewRow lstGridRow in lstGrid.Rows)
                 {
-                    ListSupervisors(int.Parse(lstGridRow.Cells[0].Text));
-                };
-                lstGridRow.Cells.Add(new TableCell() { Controls = { theCtrl } });
+                    Button theCtrl = new Button() { Text = "View Supervisors", CssClass = "btn btn-secondary" };
+                    theCtrl.Click += (o, args) =>
+                    {
+                        ListSupervisors(int.Parse(lstGridRow.Cells[0].Text));
+                    };
+                    lstGridRow.Cells.Add(new TableCell() { Controls = { theCtrl } });
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
         }
 
         protected void examinerRegister_OnClick(object sender, EventArgs e)
         {
-            DbManager.CallProc("updateExaminerData", new SqlParameter("@id", int.Parse(Session["userId"].ToString())),
-                new SqlParameter("@email", exmainerEmail.Value), new SqlParameter("@password", examinerPassword.Value),
-                new SqlParameter("@name", examinerFirstName.Value + " " + examinerLastName.Value),
-                new SqlParameter("@fieldOfWork", examinerField.Value),
-                new SqlParameter("@isNational", exmainerIsNational.Checked));
-            errorLabel.Visible = true;
-            errorLabel.Text = "Saved successfully!";
+            try
+            {
+                DbManager.CallProc("updateExaminerData", new SqlParameter("@id", int.Parse(Session["userId"].ToString())),
+                    new SqlParameter("@email", exmainerEmail.Value), new SqlParameter("@password", examinerPassword.Value),
+                    new SqlParameter("@name", examinerFirstName.Value + " " + examinerLastName.Value),
+                    new SqlParameter("@fieldOfWork", examinerField.Value),
+                    new SqlParameter("@isNational", exmainerIsNational.Checked));
+                errorLabel.Visible = true;
+                errorLabel.Text = "Saved successfully!";
+
+            }
+            catch
+            {
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
+            }
         }
 
         protected void SaveCommentBtn_OnClick(object sender, EventArgs e)
         {
-            DbManager.CallProc("AddCommentsGrade",
-                new SqlParameter("@ThesisSerialNo", int.Parse(commentThesisInput.Value)),
-                new SqlParameter("@DefenseDate", DateTime.Parse(commentDateTimeInput.Value).ToString("G")),
-                new SqlParameter("@comments", commentsTextArea.Value));
-            addCommentLabel.Text = "Added successfully!";
-            addCommentLabel.Visible = true;
+            try
+            {
+                DbManager.CallProc("AddCommentsGrade",
+                    new SqlParameter("@ThesisSerialNo", int.Parse(commentThesisInput.Value)),
+                    new SqlParameter("@DefenseDate", DateTime.Parse(commentDateTimeInput.Value).ToString("G")),
+                    new SqlParameter("@comments", commentsTextArea.Value));
+                addCommentLabel.Text = "Added successfully!";
+                addCommentLabel.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
+            }
         }
 
         protected void saveGradeBtn_OnClick(object sender, EventArgs e)
@@ -88,15 +120,23 @@ namespace PostgradSystem
             {
                 gradeLabel.Text = "Error: Grade was not in correct format.\n" + ex.Message;
                 gradeLabel.Visible = true;
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
             
         }
 
         protected void searchBtn_OnClick(object sender, EventArgs e)
         {
-            searchResults.DataSource =
-                DbManager.CallProc("searchThesis", new SqlParameter("@keyword", searchText.Value));
-            searchResults.DataBind();
+            try
+            {
+                searchResults.DataSource =
+                    DbManager.CallProc("searchThesis", new SqlParameter("@keyword", searchText.Value));
+                searchResults.DataBind()
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
+            }
         }
 
         protected void logOutButton_OnClick(object sender, EventArgs e)
