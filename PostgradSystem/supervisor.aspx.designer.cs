@@ -84,7 +84,7 @@ namespace PostgradSystem
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AddDefenseDatetime;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl AddDefenseDatetime;
 
         /// <summary>
         /// AddDefenseLocation control.
@@ -120,7 +120,7 @@ namespace PostgradSystem
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AddExaminerDate;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl AddExaminerDate;
 
         /// <summary>
         /// AddExaminerName control.

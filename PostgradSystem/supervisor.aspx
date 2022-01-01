@@ -49,7 +49,7 @@
 
         <div style="text-align:center;">
         <asp:TextBox ID="AddDefenseThesis" runat="server" style="margin-right: 30px;" placeholder="Thesis Serial Number"></asp:TextBox>
-        <asp:Textbox ID="AddDefenseDatetime" placeholder="Defense Datetime" style="margin-right: 30px;" runat="server"></asp:Textbox>
+        <Input ID="AddDefenseDatetime" type="date" placeholder="Defense Date" style="margin-right: 30px;" runat="server"/>
         <asp:TextBox ID="AddDefenseLocation" style="margin-right: 30px;" runat="server" placeholder="Defense Location"></asp:TextBox>
         <asp:Button ID="AddDefense" runat="server"  style="font-family: 'Lucida Console'" onClick="AddDefense_Click" Text="Add Defend to Thesis" />
         </div>
@@ -64,7 +64,7 @@
         
         <div style="text-align:center;">
         <asp:TextBox ID="AddExaminerThesis" style="margin-right: 30px;" runat="server" placeholder="Thesis Serial Number"></asp:TextBox>
-        <asp:TextBox ID="AddExaminerDate"  style="margin-right: 30px;" placeholder="Defense Datetime" runat="server"></asp:TextBox>
+        <Input ID="AddExaminerDate" type="date" style="margin-right: 30px;" placeholder="Defense Datetime" runat="server"></Input>
         <asp:TextBox ID="AddExaminerName"  style="margin-right: 30px;" runat="server" placeholder="Examiner Name"></asp:TextBox>
         <asp:TextBox ID="AddExaminerPassword" style="margin-right: 30px;" placeholder="Examiner Password" runat="server"></asp:TextBox>
         <asp:CheckBox ID="AddExaminerNational" style="margin-right: 30px; color: white; font-family: 'Lucida Console'"  runat="server" Text="National"></asp:CheckBox>

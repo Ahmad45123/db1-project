@@ -43,8 +43,8 @@ namespace PostgradSystem
         protected void AddDefense_Click(object sender, EventArgs e)
         {
 
-            string ThesisSerialNo = this.AddDefenseThesis.Text;
-            string DefenseDate = this.AddDefenseDatetime.Text;
+            int ThesisSerialNo = int.Parse(this.AddDefenseThesis.Text);
+            string DefenseDate = DateTime.Parse(this.AddDefenseDatetime.Value).ToString("G");
             string DefenseLocation = this.AddDefenseLocation.Text;
 
             DataTable temp = DbManager.Query($"SELECT * FROM Thesis T INNER JOIN GUCianStudentRegisterThesis G ON T.serialNumber=G.serial_no WHERE T.serialNumber=\'{ThesisSerialNo}\'");
@@ -76,8 +76,8 @@ namespace PostgradSystem
 
         protected void AddExaminer_Click(object sender, EventArgs e)
         {
-            string ThesisSerialNo = this.AddExaminerThesis.Text;
-            string DefenseDate = this.AddExaminerDate.Text;
+            int ThesisSerialNo = int.Parse(this.AddExaminerThesis.Text);
+            string DefenseDate = DateTime.Parse(AddExaminerDate.Value).ToString("G");
             string ExamninerName = this.AddExaminerName.Text;
             string Password = this.AddExaminerPassword.Text;
             int National = this.AddExaminerNational.Checked ? 1 : 0;
@@ -96,7 +96,7 @@ namespace PostgradSystem
 
         protected void EvaluateReport_Click(object sender, EventArgs e)
         {
-            string ThesisSerialNo = this.EvaluateThesis.Text;
+            int ThesisSerialNo = int.Parse(this.EvaluateThesis.Text);
             string ProgressReportNo = this.EvaluateProgressNo.Text;
             string Evaluation = this.Evaluation.Text;
 
@@ -112,7 +112,7 @@ namespace PostgradSystem
 
         protected void CancelThesis_Click(object sender, EventArgs e)
         {
-            string ThesisSerialNo = this.CancelNumber.Text;
+            int ThesisSerialNo = int.Parse(this.CancelNumber.Text);
 
             DataTable queryInfo = DbManager.CallProc("CancelThesis", new SqlParameter("@ThesisSerialNo", ThesisSerialNo));
             this.outputGrid.DataSource = queryInfo;
