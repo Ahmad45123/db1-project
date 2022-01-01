@@ -40,33 +40,52 @@ namespace PostgradSystem
 
         protected void ThesPay_Click(object sender, EventArgs e)
         {
-            DbManager.CallProc("AdminIssueThesisPayment",
-            new SqlParameter("@ThesisSerialNo", int.Parse(paymentThesisSerial.Value)),
-            new SqlParameter("@amount", float.Parse(paymentAmount.Value)),
-            new SqlParameter("@noOfInstallments", int.Parse(paymentNoInstallments.Value)),
-            new SqlParameter("@fundPercentage", float.Parse(paymentFuncPerc.Value)));
 
-            savePaymentLabel.Text = "Successfully saved payment!";
-            savePaymentLabel.Visible = true;
+            try{
+                DbManager.CallProc("AdminIssueThesisPayment",
+                new SqlParameter("@ThesisSerialNo", int.Parse(paymentThesisSerial.Value)),
+                new SqlParameter("@amount", float.Parse(paymentAmount.Value)),
+                new SqlParameter("@noOfInstallments", int.Parse(paymentNoInstallments.Value)),
+                new SqlParameter("@fundPercentage", float.Parse(paymentFuncPerc.Value)));
+
+                savePaymentLabel.Text = "Successfully saved payment!";
+                savePaymentLabel.Visible = true;
+            }catch(Exception e){
+                savePaymentLabel.Text = "Error: " + e.Message;
+                savePaymentLabel.Visible = true;
+            }
         }
 
         protected void IsuInsta_Click(object sender, EventArgs e)
         {
+            try{
             DbManager.CallProc("AdminIssueInstallPayment",
             new SqlParameter("@paymentID", int.Parse(installmentPaymentId.Value)),
             new SqlParameter("@InstallStartDate", installmentDate.Value));
 
             installmentLabel.Text = "Successfully saved installment!";
             installmentLabel.Visible = true;
+            }catch(Exception e){
+
+            installmentLabel.Text = "Error: " + e.Message;
+            installmentLabel.Visible = true;
+            }
+    
         }
 
         protected void AdminUpdateExtension_Click(object sender, EventArgs e)
         { 
+            try{
             DbManager.CallProc("AdminUpdateExtension",
                new SqlParameter("@ThesisSerialNo", int.Parse(this.extensionThesisSerial.Value)));
 
             updateExtensionLabel.Text = "Successfully updated thesis extension.";
             updateExtensionLabel.Visible = true;
+            }catch(Exception e){
+
+            updateExtensionLabel.Text = "Error: " + e.Message;
+            updateExtensionLabel.Visible = true;
+            }
         }
     }
 }
