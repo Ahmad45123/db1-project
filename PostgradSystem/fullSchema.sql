@@ -4,6 +4,16 @@
     email varchar(50) NOT NULL,
     password varchar(30) NOT NULL
 )
+
+
+CREATE TABLE PostGradPhoneNumber(
+phone VARCHAR(20),
+id INT,
+PRIMARY KEY(id, phone),
+FOREIGN KEY(id) references PostGradUser ON DELETE CASCADE ON UPDATE CASCADE
+)
+
+
 CREATE TABLE Admin (   id int PRIMARY KEY
                            FOREIGN KEY REFERENCES PostGradUser ON DELETE CASCADE ON UPDATE CASCADE
                    )
@@ -1479,3 +1489,22 @@ BEGIN
         END
     END
 END
+
+GO
+
+CREATE PROC AddUserPhone
+@userID INT,
+@phoneNo VARCHAR(20),
+@success BIT OUTPUT
+AS
+BEGIN
+    SET @sucess = 0;
+    IF EXISTS(SELECT * FROM PostGradUser WHERE id = @userID) AND 
+    NOT EXISTS(SELECT * FROM PostGradPhoneNumber WHERE id = @userID AND phone = @phoneNo) 
+    BEGIN
+        SET @success = 1;
+        INSERT INTO PostGradPhoneNumber VALUES(@phoneNo, @userID);
+    END
+END
+
+GO
