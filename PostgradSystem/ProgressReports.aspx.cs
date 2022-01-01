@@ -25,8 +25,13 @@ namespace PostgradSystem
             SqlCommand getPublications = new SqlCommand("viewStudentProgressReports", connection);
             getPublications.CommandType = System.Data.CommandType.StoredProcedure;
 
+            getPublications.Parameters.Add(new SqlParameter("@studentID", Session["userId"]));
+
             connection.Open();
             SqlDataReader table = getPublications.ExecuteReader();
+
+            while(Report.Rows.Count > 1) Report.Rows.RemoveAt(Report.Rows.Count-1);
+
             while (table.Read())
             {
                 TableRow row = new TableRow();
@@ -35,18 +40,20 @@ namespace PostgradSystem
                 no.Text = "" + table.GetInt32(table.GetOrdinal("NO"));
 
                 TableCell description = new TableCell();
-                description.Text = "" + table.GetString(table.GetOrdinal("description"));
+                description.Text = "" + (table.IsDBNull(table.GetOrdinal("description")) ? "NULL" : table.GetString(table.GetOrdinal("description")));
 
                 TableCell date = new TableCell();
                 date.Text = "" + table.GetDateTime(table.GetOrdinal("date"));
 
                 TableCell state = new TableCell();
-                state.Text = "" + table.GetString(table.GetOrdinal("state"));
+                state.Text = table.IsDBNull(table.GetOrdinal("state")) ? "NULL" : "" + table.GetInt32(table.GetOrdinal("state"));
 
                 row.Cells.Add(no);
                 row.Cells.Add(description);
                 row.Cells.Add(date);
                 row.Cells.Add(state);
+
+                Report.Rows.Add(row);
             }
             connection.Close();
         }
@@ -91,10 +98,12 @@ namespace PostgradSystem
             add.ExecuteNonQuery();
             connection.Close();
 
-            if((bool) success.Value)
+            if(!(bool) success.Value)
                 Response.Write("You either entered an invalid report number or don't have an ongoing Thesis");
             else
                 Response.Write("Done");
+
+            Page_Load(this, EventArgs.Empty);
         }
 
         protected void Theses_Click(object sender, EventArgs e)
@@ -132,7 +141,7 @@ namespace PostgradSystem
             des.Value = description.Text;
             fill.Parameters.Add(id);
             fill.Parameters.Add(no);
-            fill.Parameters.Add(description);
+            fill.Parameters.Add(des);
             fill.Parameters.Add(st);
             fill.Parameters.Add(success);
 
@@ -140,10 +149,12 @@ namespace PostgradSystem
             fill.ExecuteNonQuery();
             connection.Close();
 
-            if ((bool) success.Value)
+            if (!(bool) success.Value)
                 Response.Write("Invalid Report Number");
             else
                 Response.Write("Done");
+
+            Page_Load(this, EventArgs.Empty);
         }
     }
 }

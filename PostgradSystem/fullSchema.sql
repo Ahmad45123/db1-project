@@ -1406,7 +1406,7 @@ AS
 
     SELECT pg2.*
     FROM NonGUCianProgressReport pg2
-    INNER JOIN GucianStudent nonGuc
+    INNER JOIN NonGucianStudent nonGuc
     ON nonGuc.id = pg2.sid
     WHERE nonGuc.id = @studentID
 GO

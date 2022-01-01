@@ -17,7 +17,7 @@
                 </asp:TableRow>
             </asp:Table>
         </div>
-    </form>
     <asp:Button ID="Student" runat="server" Text="Back To Profile" OnClick="Student_Click" />
+    </form>
 </body>
 </html>
