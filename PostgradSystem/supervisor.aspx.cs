@@ -54,7 +54,7 @@ namespace PostgradSystem
                 }
             }
             catch (Exception ex){
-                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: " + ex.Message.ToString() + "');</script>");
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
         }
 
@@ -116,7 +116,7 @@ namespace PostgradSystem
             
             }
             catch (Exception ex) {
-                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: " + ex.Message.ToString() + "');</script>");
+                Response.Write(@"<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
 
 
@@ -159,7 +159,7 @@ namespace PostgradSystem
 
             }
             catch (Exception ex){
-                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: " + ex.Message.ToString() + "');</script>");
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
             
         }
@@ -198,7 +198,7 @@ namespace PostgradSystem
 
             }
             catch (Exception ex){
-                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: " + ex.Message.ToString() + "');</script>");
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
 
         }
@@ -225,7 +225,7 @@ namespace PostgradSystem
 
             }
             catch (Exception ex){
-                Response.Write("<script language=javascript>alert('Error Encountered, Error Message: " + ex.Message.ToString() + "');</script>");
+                Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
         }
 
