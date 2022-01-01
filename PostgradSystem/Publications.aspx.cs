@@ -12,6 +12,34 @@ namespace PostgradSystem
 {
     public partial class Publications : System.Web.UI.Page
     {
+        protected String getString(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return reader.GetString(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDecimal(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDecimal(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDate(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDateTime(reader.GetOrdinal(parameter));
+        }
+
+        protected String getInt(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetInt32(reader.GetOrdinal(parameter));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student")
@@ -33,22 +61,22 @@ namespace PostgradSystem
                 TableRow row = new TableRow();
                 
                 TableCell id = new TableCell();
-                id.Text = "" + table.GetInt32(table.GetOrdinal("id"));
+                id.Text = getInt(table, "id");
                 
                 TableCell title = new TableCell();
-                title.Text = "" + table.GetString(table.GetOrdinal("title"));
+                title.Text = getString(table, "title");
                 
                 TableCell dateOfPublication = new TableCell();
-                dateOfPublication.Text = "" + table.GetDateTime(table.GetOrdinal("dateOfPublication"));
+                dateOfPublication.Text = getDate(table, "dateOfPublication");
                 
                 TableCell place = new TableCell();
-                place.Text = "" + table.GetString(table.GetOrdinal("place"));
-                
+                place.Text = getString(table, "place");
+
                 TableCell accepted = new TableCell();
-                accepted.Text = "" + (table.GetBoolean(table.GetOrdinal("accepted")) == true ? "YES" : "NO");
+                accepted.Text = (table.GetBoolean(table.GetOrdinal("accepted")) == true ? "YES" : "NO");
                 
                 TableCell HOST = new TableCell();
-                HOST.Text = "" + table.GetString(table.GetOrdinal("HOST"));
+                HOST.Text = getString(table, "HOST");
 
                 row.Cells.Add(id);
                 row.Cells.Add(title);

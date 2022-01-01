@@ -12,6 +12,34 @@ namespace PostgradSystem
 {
     public partial class Courses : System.Web.UI.Page
     {
+        protected String getString(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return reader.GetString(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDecimal(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDecimal(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDate(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDateTime(reader.GetOrdinal(parameter));
+        }
+
+        protected String getInt(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetInt32(reader.GetOrdinal(parameter));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
@@ -31,14 +59,14 @@ namespace PostgradSystem
                 TableRow row = new TableRow();
                 
                 TableCell code = new TableCell();
-                code.Text = "" + table.GetString(table.GetOrdinal("code"));
+                code.Text = getString(table, "code");
                 
                 TableCell grade = new TableCell();
-                grade.Text = "" + table.GetDecimal(table.GetOrdinal("grade"));
-                
+                grade.Text = getDecimal(table, "grade");
+
                 TableCell creditHours = new TableCell();
-                creditHours.Text = "" + table.GetInt32(table.GetOrdinal("creditHours"));
-                
+                creditHours.Text = getInt(table, "grade");
+
                 row.Cells.Add(code);
                 row.Cells.Add(grade);
                 row.Cells.Add(creditHours);

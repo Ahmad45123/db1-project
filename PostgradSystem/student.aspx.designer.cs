@@ -114,6 +114,24 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button Courses;
 
         /// <summary>
+        /// Phone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Phone;
+
+        /// <summary>
+        /// addPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button addPhone;
+
+        /// <summary>
         /// LogOut control.
         /// </summary>
         /// <remarks>

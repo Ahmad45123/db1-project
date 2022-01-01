@@ -12,6 +12,34 @@ namespace PostgradSystem
 {
     public partial class Theses : System.Web.UI.Page
     {
+        protected String getString(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return reader.GetString(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDecimal(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDecimal(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDate(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDateTime(reader.GetOrdinal(parameter));
+        }
+
+        protected String getInt(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetInt32(reader.GetOrdinal(parameter));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student")
@@ -36,31 +64,31 @@ namespace PostgradSystem
                 TableRow row = new TableRow();
                 
                 TableCell serialNumber = new TableCell();
-                serialNumber.Text = "" + table.GetInt32(table.GetOrdinal("serialNumber"));
+                serialNumber.Text = getInt(table, "serialNumber");
                 
                 TableCell field = new TableCell();
-                field.Text = "" + table.GetString(table.GetOrdinal("field"));
+                field.Text = getString(table, "field");
                 
                 TableCell type = new TableCell();
-                type.Text = "" + table.GetString(table.GetOrdinal("TYPE"));
+                type.Text = getString(table, "TYPE");
                 
                 TableCell title = new TableCell();
-                title.Text = "" + table.GetString(table.GetOrdinal("title"));
+                title.Text = getString(table, "title");
                 
                 TableCell startDate = new TableCell();
-                startDate.Text = "" + table.GetDateTime(table.GetOrdinal("startDate"));
+                startDate.Text = getDate(table, "startDate");
                 
                 TableCell endDate = new TableCell();
-                endDate.Text = "" + table.GetDateTime(table.GetOrdinal("endDate"));
-                
+                endDate.Text = getDate(table, "endDate");
+
                 TableCell defenseDate = new TableCell();
-                defenseDate.Text = "" + table.GetDateTime(table.GetOrdinal("defenseDate"));
-                
+                defenseDate.Text = getDate(table, "defenseDate");
+
                 TableCell grade = new TableCell();
-                grade.Text = "" + table.GetDecimal(table.GetOrdinal("Grade"));
+                grade.Text = getDecimal(table, "Grade");
                 
                 TableCell extensions = new TableCell();
-                extensions.Text = "" + table.GetInt32(table.GetOrdinal("noOfExtensions"));
+                extensions.Text = getInt(table, "noOfExtensions");
                 
                 row.Cells.Add(serialNumber);
                 row.Cells.Add(field);

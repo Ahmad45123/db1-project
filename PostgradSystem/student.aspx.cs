@@ -12,6 +12,34 @@ namespace PostgradSystem
 {
     public partial class student : System.Web.UI.Page
     {
+        protected String getString(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return reader.GetString(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDecimal(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDecimal(reader.GetOrdinal(parameter));
+        }
+
+        protected String getDate(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetDateTime(reader.GetOrdinal(parameter));
+        }
+
+        protected String getInt(SqlDataReader reader, String parameter)
+        {
+            if (reader.IsDBNull(reader.GetOrdinal(parameter)))
+                return "NULL";
+            return "" + reader.GetInt32(reader.GetOrdinal(parameter));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student") {
@@ -43,18 +71,17 @@ namespace PostgradSystem
             SqlDataReader reader = profile.ExecuteReader();
             reader.Read();
 
-            String first = reader.GetString(reader.GetOrdinal("firstName"));
-            String last = reader.GetString(reader.GetOrdinal("lastName"));
-            String type = reader.GetString(reader.GetOrdinal("type"));
-            String faculty = reader.GetString(reader.GetOrdinal("faculty"));
-            String address = reader.GetString(reader.GetOrdinal("address"));
-            decimal gpa = reader.GetDecimal(reader.GetOrdinal("GPA"));
+            String first = getString(reader, "firstName");
+            String last = getString(reader, "lastName");
+            String type = getString(reader, "type");
+            String faculty = getString(reader, "faculty");
+            String address = getString(reader, "address");
             Welcome.InnerText = "Welcome " + first;
             fullName.InnerText = "Name: " + first + " " + last;
             Type.InnerText = "Type: " + type;
             Faculty.InnerText = "Faculty: " + faculty;
             Address.InnerText = "Address: " + address;
-            GPA.InnerText = "GPA: " + gpa;
+            GPA.InnerText = "GPA: " + getDecimal(reader, "GPA");
 
             if((bool) gucian.Value)
             {
@@ -80,6 +107,54 @@ namespace PostgradSystem
             Session["userId"] = null;
             Session["userType"] = null;
             Response.Redirect("~/login.aspx");
+        }
+
+        protected bool isNumber(String s)
+        {
+            for(int i = 0; i < s.Length; i++)
+            {
+                if (s[i] > '9' || s[i] < '0')
+                    return false;
+            }
+            return true;
+        }
+
+        protected void addPhone_Click(Object sender, System.EventArgs e)
+        {
+            String s = Phone.Text;
+            if(s.Length > 20 || !isNumber(s))
+            {
+                Response.Write("Invalid Phone Number");
+                return;
+            }
+
+            String connect = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
+            SqlConnection database = new SqlConnection(connect);
+
+            SqlCommand addPhone = new SqlCommand("AddUserPhone", database);
+            addPhone.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter id = new SqlParameter("@userID", SqlDbType.Int);
+            id.Value = Session["userId"];
+
+            SqlParameter number = new SqlParameter("@phoneNo", SqlDbType.Int);
+            number.Value = s;
+
+            SqlParameter success = new SqlParameter("@success", SqlDbType.Int);
+            success.Direction = ParameterDirection.Output;
+
+            addPhone.Parameters.Add(id);
+            addPhone.Parameters.Add(number);
+            addPhone.Parameters.Add(success);
+
+            database.Open();
+            addPhone.ExecuteNonQuery();
+            database.Close();
+
+            if((bool) success.Value)
+                Response.Write("Phone Number Already Recorded");
+            else
+                Response.Write("Done");
         }
     }
 }
