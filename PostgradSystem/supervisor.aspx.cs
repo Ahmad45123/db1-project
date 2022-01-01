@@ -17,6 +17,13 @@ namespace PostgradSystem
 
         }
 
+        protected void Logout_Click(object sender, EventArgs e)
+        {
+
+            Response.Redirect("login.aspx");
+
+        }
+
         protected void ListStudentInfo_Click(object sender, EventArgs e)
         {
             DataTable queryInfo = DbManager.CallProc("ViewSupStudentsYears", new SqlParameter("@supervisorID", Session["userId"].ToString()));
