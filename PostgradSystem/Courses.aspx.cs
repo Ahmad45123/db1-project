@@ -26,7 +26,6 @@ namespace PostgradSystem
             grades.Parameters.Add(id);
             connection.Open();
             SqlDataReader table = grades.ExecuteReader();
-            connection.Close();
             while (table.Read())
             {
                 TableRow row = new TableRow();
@@ -35,7 +34,7 @@ namespace PostgradSystem
                 code.Text = "" + table.GetString(table.GetOrdinal("code"));
                 
                 TableCell grade = new TableCell();
-                grade.Text = "" + table.GetDouble(table.GetOrdinal("grade"));
+                grade.Text = "" + table.GetDecimal(table.GetOrdinal("grade"));
                 
                 TableCell creditHours = new TableCell();
                 creditHours.Text = "" + table.GetInt32(table.GetOrdinal("creditHours"));
@@ -45,6 +44,8 @@ namespace PostgradSystem
                 row.Cells.Add(creditHours);
                 Course.Rows.Add(row);
             }
+
+            connection.Close();
         }
 
         protected void Student_Click(object sender, EventArgs e)

@@ -26,7 +26,6 @@ namespace PostgradSystem
             getTheses.Parameters.Add(id);
             connection.Open();
             SqlDataReader table = getTheses.ExecuteReader();
-            connection.Close();
             while (table.Read())
             {
                 TableRow row = new TableRow();
@@ -53,7 +52,7 @@ namespace PostgradSystem
                 defenseDate.Text = "" + table.GetDateTime(table.GetOrdinal("defenseDate"));
                 
                 TableCell grade = new TableCell();
-                grade.Text = "" + table.GetDouble(table.GetOrdinal("Grade"));
+                grade.Text = "" + table.GetDecimal(table.GetOrdinal("Grade"));
                 
                 TableCell extensions = new TableCell();
                 extensions.Text = "" + table.GetInt32(table.GetOrdinal("noOfExtensions"));
@@ -69,6 +68,7 @@ namespace PostgradSystem
                 row.Cells.Add(extensions);
                 Thesis.Rows.Add(row);
             }
+            connection.Close();
         }
 
         protected void Publication_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace PostgradSystem
 
         protected void ProgressReport_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/ProgressReport.aspx");
+            Response.Redirect("~/ProgressReports.aspx");
         }
 
         protected void Student_Click(object sender, EventArgs e)

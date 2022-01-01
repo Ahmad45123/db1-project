@@ -40,7 +40,6 @@ namespace PostgradSystem
 
             database.Open();
             isGUCian.ExecuteNonQuery();
-
             SqlDataReader reader = profile.ExecuteReader();
             reader.Read();
 
@@ -57,13 +56,12 @@ namespace PostgradSystem
             Address.InnerText = "Address: " + address;
             GPA.InnerText = "GPA: " + gpa;
 
-            if((bool)gucian.Value == true)
+            if((bool) gucian.Value)
             {
                 Courses.Visible = false;
                 Courses.Enabled = false;
                 underGradID.InnerText = "UnderGrad ID: " + reader.GetInt32(reader.GetOrdinal("undergradID"));
             }
-
             database.Close();
         }
 

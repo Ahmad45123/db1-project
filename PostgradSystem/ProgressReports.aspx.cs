@@ -22,7 +22,6 @@ namespace PostgradSystem
 
             connection.Open();
             SqlDataReader table = getPublications.ExecuteReader();
-            connection.Close();
             while (table.Read())
             {
                 TableRow row = new TableRow();
@@ -44,6 +43,7 @@ namespace PostgradSystem
                 row.Cells.Add(date);
                 row.Cells.Add(state);
             }
+            connection.Close();
         }
 
         protected void Add_Click(object sender, EventArgs e)
@@ -82,7 +82,11 @@ namespace PostgradSystem
             add.Parameters.Add(date);
             add.Parameters.Add(success);
 
-            if((int) success.Value == 0)
+            connection.Open();
+            add.ExecuteNonQuery();
+            connection.Close();
+
+            if((bool) success.Value)
                 Response.Write("You either entered an invalid report number or don't have an ongoing Thesis");
             else
                 Response.Write("Done");
@@ -127,7 +131,11 @@ namespace PostgradSystem
             fill.Parameters.Add(st);
             fill.Parameters.Add(success);
 
-            if ((int)success.Value == 0)
+            connection.Open();
+            fill.ExecuteNonQuery();
+            connection.Close();
+
+            if ((bool) success.Value)
                 Response.Write("Invalid Report Number");
             else
                 Response.Write("Done");
