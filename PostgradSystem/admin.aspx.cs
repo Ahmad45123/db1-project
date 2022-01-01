@@ -87,5 +87,11 @@ namespace PostgradSystem
                 updateExtensionLabel.Visible = true;
             }
         }
+
+        protected void LogOut_Click(Object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("~/login.aspx");
+        }
     }
 }
