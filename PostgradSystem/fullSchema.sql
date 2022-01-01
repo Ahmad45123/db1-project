@@ -462,11 +462,11 @@ BEGIN
     SET noOfExtensions = @noOfExtensions + 1
     WHERE serialNumber = @ThesisSerialNo
 END
-ELSE
-BEGIN
-THROW 1, 'Thesis Serial Number does not exist'
+ELSE BEGIN;
+THROW 1, 'Thesis Serial Number does not exist', 1;
 END
 GO
+
 CREATE Proc AdminIssueThesisPayment
     @ThesisSerialNo int,
     @amount decimal,
@@ -490,8 +490,8 @@ BEGIN
     WHERE serialNumber = @ThesisSerialNo
 END
 ELSE
-BEGIN
-THROW 1, 'Thesis Serial Number does not exist'
+BEGIN;
+THROW 1, 'Thesis Serial Number does not exist', 1
 END
 GO
 CREATE Proc AdminViewStudentProfile @sid int
@@ -543,12 +543,12 @@ BEGIN
     WHERE id = @paymentID
     DECLARE @Counter INT
     SET @Counter = 1
+    DECLARE @instdate date
+    SET @instdate = @InstallStartDate
+    DECLARE @instAmount int
+    SET @instAmount = @payAmount / @numOfInst
     WHILE (@counter <= @numOfInst)
     BEGIN
-        DECLARE @instdate date
-        SET @instdate = @InstallStartDate
-        DECLARE @instAmount int
-        SET @instAmount = @payAmount / @numOfInst
         if (@counter = 1)
             INSERT INTO Installment
             (
@@ -576,8 +576,8 @@ BEGIN
     END
 END
 ELSE
-BEGIN
-THROW 1, 'Payment ID does not exist'
+BEGIN;
+THROW 1, 'Payment ID does not exist', 1;
 END
 GO
 CREATE Proc AdminListAcceptPublication

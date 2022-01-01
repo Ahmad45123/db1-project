@@ -65,7 +65,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="paymentAmount" class="form-label">Amount</label>
-                            <input type="number" class="form-control" id="paymentAmount" runat="server" />
+                            <input type="text" class="form-control" id="paymentAmount" runat="server" />
                         </div>
                         <div class="mb-3">
                             <label for="paymentNoInstallments" class="form-label">No. Of Installments</label>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="paymentFuncPerc" class="form-label">Fund Percentage</label>
-                            <input type="number" class="form-control" id="paymentFuncPerc" runat="server" />
+                            <input type="text" class="form-control" id="paymentFuncPerc" runat="server" />
                         </div>
                         <asp:Button ID="ThesPay" type="submit" CssClass="btn btn-primary w-25" Text="Save Payment" OnClick="ThesPay_Click" runat="server" />
                         <asp:Label runat="server" ID="savePaymentLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 
@@ -88,7 +88,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="installmentDate" class="form-label">Installment Start Date</label>
-                            <input type="datetime" class="form-control" id="installmentDate" runat="server" />
+                            <input type="date" class="form-control" id="installmentDate" runat="server" />
                         </div>
                         <asp:Button ID="IsuInsta" type="submit" CssClass="btn btn-primary w-25" Text="Issue Installment" OnClick="IsuInsta_Click" runat="server" />
                         <asp:Label runat="server" ID="installmentLabel" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/> 

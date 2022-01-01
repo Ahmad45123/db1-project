@@ -11,7 +11,7 @@ namespace PostgradSystem
 {
     public partial class admin : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs ea)
         {
             if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "admin")
             {
@@ -19,14 +19,14 @@ namespace PostgradSystem
             }
         }
 
-        protected void listSup_Click(object sender, EventArgs e)
+        protected void listSup_Click(object sender, EventArgs ea)
         {
             DataTable queryInfo = DbManager.CallProc("AdminListSup");
             this.supOutputGrid.DataSource = queryInfo;
             this.supOutputGrid.DataBind();
         }
 
-        protected void listThes_Click(object sender, EventArgs e)
+        protected void listThes_Click(object sender, EventArgs ea)
         {
             DataTable queryInfo = DbManager.CallProc("AdminViewAllTheses");
             this.thesisGrid.DataSource = queryInfo;
@@ -38,15 +38,15 @@ namespace PostgradSystem
             countLabel.InnerText = "Ongoing Theses: " + result.Value.ToString();
         }
 
-        protected void ThesPay_Click(object sender, EventArgs e)
+        protected void ThesPay_Click(object sender, EventArgs ea)
         {
 
             try{
                 DbManager.CallProc("AdminIssueThesisPayment",
                 new SqlParameter("@ThesisSerialNo", int.Parse(paymentThesisSerial.Value)),
-                new SqlParameter("@amount", float.Parse(paymentAmount.Value)),
+                new SqlParameter("@amount", decimal.Parse(paymentAmount.Value)),
                 new SqlParameter("@noOfInstallments", int.Parse(paymentNoInstallments.Value)),
-                new SqlParameter("@fundPercentage", float.Parse(paymentFuncPerc.Value)));
+                new SqlParameter("@fundPercentage", decimal.Parse(paymentFuncPerc.Value)));
 
                 savePaymentLabel.Text = "Successfully saved payment!";
                 savePaymentLabel.Visible = true;
@@ -56,35 +56,35 @@ namespace PostgradSystem
             }
         }
 
-        protected void IsuInsta_Click(object sender, EventArgs e)
+        protected void IsuInsta_Click(object sender, EventArgs ea)
         {
             try{
-            DbManager.CallProc("AdminIssueInstallPayment",
-            new SqlParameter("@paymentID", int.Parse(installmentPaymentId.Value)),
-            new SqlParameter("@InstallStartDate", installmentDate.Value));
+                DbManager.CallProc("AdminIssueInstallPayment",
+                    new SqlParameter("@paymentID", int.Parse(installmentPaymentId.Value)),
+                    new SqlParameter("@InstallStartDate", DateTime.Parse(installmentDate.Value).ToString("G")));
 
-            installmentLabel.Text = "Successfully saved installment!";
-            installmentLabel.Visible = true;
+                installmentLabel.Text = "Successfully saved installment!";
+                installmentLabel.Visible = true;
             }catch(Exception e){
 
-            installmentLabel.Text = "Error: " + e.Message;
-            installmentLabel.Visible = true;
+                installmentLabel.Text = "Error: " + e.Message;
+                installmentLabel.Visible = true;
             }
     
         }
 
-        protected void AdminUpdateExtension_Click(object sender, EventArgs e)
+        protected void AdminUpdateExtension_Click(object sender, EventArgs ea)
         { 
             try{
-            DbManager.CallProc("AdminUpdateExtension",
-               new SqlParameter("@ThesisSerialNo", int.Parse(this.extensionThesisSerial.Value)));
+                DbManager.CallProc("AdminUpdateExtension",
+                    new SqlParameter("@ThesisSerialNo", int.Parse(this.extensionThesisSerial.Value)));
 
-            updateExtensionLabel.Text = "Successfully updated thesis extension.";
-            updateExtensionLabel.Visible = true;
+                updateExtensionLabel.Text = "Successfully updated thesis extension.";
+                updateExtensionLabel.Visible = true;
             }catch(Exception e){
 
-            updateExtensionLabel.Text = "Error: " + e.Message;
-            updateExtensionLabel.Visible = true;
+                updateExtensionLabel.Text = "Error: " + e.Message;
+                updateExtensionLabel.Visible = true;
             }
         }
     }
