@@ -14,8 +14,9 @@
 
         <!--- Page label  --->
 
-        <div style="background-color: rgb(37, 39, 117); text-align: center;">
-        <asp:Label ID="MainLabel" style="color:white; font: 900 24px/1.4 -system-ui, sans-serif; " Text="Supervisor Page" runat="server"></asp:Label>
+        <div style="background-color: rgb(37, 39, 117);">
+        <asp:Button style="margin:auto; font-family: 'Lucida Console'" ID="Logout" runat="server" onClick="Logout_Click" Text="Logout"/>
+        <asp:Label ID="MainLabel" style="color:white; font: 900 24px/1.4 -system-ui, sans-serif; margin-left:25em" Text="Supervisor Page" runat="server"></asp:Label>
         </div>
 
 
