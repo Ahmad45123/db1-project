@@ -69,7 +69,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="paymentNoInstallments" class="form-label">No. Of Installments</label>
-                            <input type="number" class="form-control" id="paymentNoInstallments" runat="server" />
+                            <input type="number" min="1" class="form-control" id="paymentNoInstallments" runat="server" />
                         </div>
                         <div class="mb-3">
                             <label for="paymentFuncPerc" class="form-label">Fund Percentage</label>

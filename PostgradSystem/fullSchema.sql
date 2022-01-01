@@ -69,7 +69,7 @@ CREATE TABLE Payment
     id int PRIMARY KEY identity(1, 1),
     amount decimal(7, 2),
     noOfInstallments int,
-    fundPercentage decimal(4, 2)
+    fundPercentage decimal(5, 2)
 )
 CREATE TABLE Thesis
 (
@@ -463,7 +463,7 @@ BEGIN
     WHERE serialNumber = @ThesisSerialNo
 END
 ELSE BEGIN;
-THROW 1, 'Thesis Serial Number does not exist', 1;
+THROW 51001, 'Thesis Serial Number does not exist', 51002;
 END
 GO
 
@@ -491,7 +491,7 @@ BEGIN
 END
 ELSE
 BEGIN;
-THROW 1, 'Thesis Serial Number does not exist', 1
+THROW 51001, 'Thesis Serial Number does not exist', 51002
 END
 GO
 CREATE Proc AdminViewStudentProfile @sid int
@@ -577,7 +577,7 @@ BEGIN
 END
 ELSE
 BEGIN;
-THROW 1, 'Payment ID does not exist', 1;
+THROW 51001, 'Payment ID does not exist', 51002;
 END
 GO
 CREATE Proc AdminListAcceptPublication
