@@ -84,7 +84,7 @@ namespace PostgradSystem
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText paymentAmount;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl paymentAmount;
 
         /// <summary>
         /// paymentNoInstallments control.
@@ -102,7 +102,7 @@ namespace PostgradSystem
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText paymentFuncPerc;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl paymentFuncPerc;
 
         /// <summary>
         /// ThesPay control.
