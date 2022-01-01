@@ -3,9 +3,9 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace supervisorcomponent
+namespace PostgradSystem
 {
-    public partial class Supervisor : System.Web.UI.Page
+    public partial class supervisor : System.Web.UI.Page
     {
 
         protected void Page_Load(object sender, EventArgs e)

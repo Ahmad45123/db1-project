@@ -1,14 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Supervisor.aspx.cs" Inherits="supervisorcomponent.Supervisor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="supervisor.aspx.cs" Inherits="PostgradSystem.supervisor" MasterPageFile="~/Base.Master" %>
 
-<!DOCTYPE html>
+<asp:Content ContentPlaceHolderID="BodyContent" runat="server">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head runat="server">
-    <title></title>
-</head>
-
-<body style="background-color:rgb(30,51,86); background-image: linear-gradient(to right, rgb(30,51,86), rgb(54,65,83)); ">
+<div style="background-color:rgb(30,51,86); background-image: linear-gradient(to right, rgb(30,51,86), rgb(54,65,83)); ">
     
     <form id="inputForm"  runat="server">
 
@@ -109,9 +103,9 @@
         <!--- Output grid of the page  --->
         
         <div>
-        <asp:GridView ID="outputGrid" style="color:white; font-family: 'Lucida Console';" runat="server"></asp:GridView>
+        <asp:GridView ID="outputGrid" CssClass="table table-borderless table-striped mt-2 bg-white" runat="server"></asp:GridView>
         </div>
     
     </form>
-    </body>
-</html>
+    </div>
+</asp:Content>

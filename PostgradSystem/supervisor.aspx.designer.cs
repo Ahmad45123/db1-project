@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace supervisorcomponent
+namespace PostgradSystem
 {
 
 
-    public partial class Supervisor
+    public partial class supervisor
     {
 
         /// <summary>
