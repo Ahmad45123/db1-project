@@ -42,6 +42,11 @@ namespace PostgradSystem
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["userId"] == null || Session["userType"] == null || (string)Session["userType"] != "student")
+            {
+                Response.Redirect("login.aspx");
+            }
+
             String connectionString = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -65,7 +70,7 @@ namespace PostgradSystem
                 grade.Text = getDecimal(table, "grade");
 
                 TableCell creditHours = new TableCell();
-                creditHours.Text = getInt(table, "grade");
+                creditHours.Text = getInt(table, "creditHours");
 
                 row.Cells.Add(code);
                 row.Cells.Add(grade);

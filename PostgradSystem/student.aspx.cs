@@ -121,40 +121,7 @@ namespace PostgradSystem
 
         protected void addPhone_Click(Object sender, System.EventArgs e)
         {
-            String s = Phone.Text;
-            if(s.Length > 20 || !isNumber(s))
-            {
-                Response.Write("Invalid Phone Number");
-                return;
-            }
-
-            String connect = WebConfigurationManager.ConnectionStrings["PostGradOffice"].ToString();
-            SqlConnection database = new SqlConnection(connect);
-
-            SqlCommand addPhone = new SqlCommand("AddUserPhone", database);
-            addPhone.CommandType = CommandType.StoredProcedure;
-
-            SqlParameter id = new SqlParameter("@userID", SqlDbType.Int);
-            id.Value = Session["userId"];
-
-            SqlParameter number = new SqlParameter("@phoneNo", SqlDbType.Int);
-            number.Value = s;
-
-            SqlParameter success = new SqlParameter("@success", SqlDbType.Int);
-            success.Direction = ParameterDirection.Output;
-
-            addPhone.Parameters.Add(id);
-            addPhone.Parameters.Add(number);
-            addPhone.Parameters.Add(success);
-
-            database.Open();
-            addPhone.ExecuteNonQuery();
-            database.Close();
-
-            if((bool) success.Value)
-                Response.Write("Phone Number Already Recorded");
-            else
-                Response.Write("Done");
+            Response.Redirect("ManagePhones.aspx");
         }
     }
 }
