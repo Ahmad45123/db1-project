@@ -46,5 +46,24 @@ namespace PostgradSystem
                 Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
         }
+
+        protected void backButton_OnClick(object sender, EventArgs e)
+        {
+            switch ((string)Session["userType"])
+            {
+                case "student":
+                    Response.Redirect("student.aspx");
+                    break;
+                case "examiner":
+                    Response.Redirect("examiner.aspx");
+                    break;
+                case "supervisor":
+                    Response.Redirect("supervisor.aspx");
+                    break;
+                case "admin":
+                    Response.Redirect("admin.aspx");
+                    break;
+            }
+        }
     }
 }
