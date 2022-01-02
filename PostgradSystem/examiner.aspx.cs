@@ -82,7 +82,7 @@ namespace PostgradSystem
                 errorLabel.Text = "Saved successfully!";
 
             }
-            catch
+            catch(Exception ex)
             {
                 Response.Write("<script language=javascript>alert(`Error Encountered, Error Message: " + ex.Message.ToString() + "`);</script>");
             }
@@ -131,7 +131,7 @@ namespace PostgradSystem
             {
                 searchResults.DataSource =
                     DbManager.CallProc("searchThesis", new SqlParameter("@keyword", searchText.Value));
-                searchResults.DataBind()
+                searchResults.DataBind();
             }
             catch (Exception ex)
             {
