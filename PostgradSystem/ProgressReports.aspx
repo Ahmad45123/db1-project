@@ -48,7 +48,7 @@
         <br />
         <br />
         Description:<br />
-        <asp:TextBox ID="description" runat="server" Height="200px" Width="600px"></asp:TextBox>
+        <asp:TextBox TextMode="MultiLine" ID="description" runat="server" Height="200px" Width="600px"></asp:TextBox>
         <br />
         <br />
         <asp:Button ID="fill" runat="server" Text="Fill Report" OnClick="fill_Click"/>

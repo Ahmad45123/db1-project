@@ -92,6 +92,12 @@ namespace PostgradSystem
         {
             try
             {
+                bool isExists = DbManager.Query($"SELECT * FROM ExaminerEvaluateDefense WHERE serialNo={commentThesisInput.Value} AND date='{DateTime.Parse(commentDateTimeInput.Value).ToString("G")}'").Rows.Count > 0;
+                if (!isExists)
+                {
+                    Response.Write("<script language=javascript>alert(`Couldn't find this defense.`);</script>");
+                }
+
                 DbManager.CallProc("AddCommentsGrade",
                     new SqlParameter("@ThesisSerialNo", int.Parse(commentThesisInput.Value)),
                     new SqlParameter("@DefenseDate", DateTime.Parse(commentDateTimeInput.Value).ToString("G")),
@@ -109,6 +115,12 @@ namespace PostgradSystem
         {
             try
             {
+                bool isExists = DbManager.Query($"SELECT * FROM ExaminerEvaluateDefense WHERE serialNo={gradeThesisInput.Value} AND date='{DateTime.Parse(gradeDefenseDate.Value).ToString("G")}'").Rows.Count > 0;
+                if (!isExists)
+                {
+                    Response.Write("<script language=javascript>alert(`Couldn't find this defense.`);</script>");
+                }
+
                 DbManager.CallProc("AddDefenseGrade",
                     new SqlParameter("@ThesisSerialNo", int.Parse(gradeThesisInput.Value)),
                     new SqlParameter("@DefenseDate", DateTime.Parse(gradeDefenseDate.Value).ToString("G")),
