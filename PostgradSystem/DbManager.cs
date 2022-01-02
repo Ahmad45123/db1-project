@@ -9,7 +9,7 @@ namespace PostgradSystem
 
         static DbManager()
         {
-            sqlCon = new SqlConnection("Data Source=localhost;Initial Catalog=PostGradOffice;Integrated Security=True");
+            sqlCon = new SqlConnection("Data Source=localhost;Initial Catalog=PostGradT494934;Integrated Security=True");
             sqlCon.Open();
         }
 

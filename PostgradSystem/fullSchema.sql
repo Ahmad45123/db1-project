@@ -1,4 +1,10 @@
-﻿CREATE TABLE PostGradUser
+﻿CREATE DATABASE PostGradT494934
+GO
+
+USE PostGradT494934
+GO
+
+CREATE TABLE PostGradUser
 (
     id int PRIMARY KEY identity(1, 1),
     email varchar(50) NOT NULL,
@@ -761,9 +767,10 @@ SET name = @name,
     faculty = @faculty
 WHERE id = @supervisorID
 GO
+
 CREATE proc ViewAStudentPublications @StudentID int
 AS
-SELECT P.*
+SELECT DISTINCT P.*
 FROM GUCianStudentRegisterThesis GUC
     INNER JOIN Thesis T
         ON GUC.serial_no = T.serialNumber
@@ -773,7 +780,7 @@ FROM GUCianStudentRegisterThesis GUC
         ON P.id = TP.pubid
 WHERE GUC.sid = @StudentID
 UNION ALL
-SELECT P.*
+SELECT DISTINCT P.*
 FROM NonGUCianStudentRegisterThesis NON
     INNER JOIN Thesis T
         ON NON.serial_no = T.serialNumber
@@ -783,6 +790,8 @@ FROM NonGUCianStudentRegisterThesis NON
         ON P.id = TP.pubid
 WHERE NON.sid = @StudentID
 GO
+
+
 CREATE proc AddDefenseGucian
     @ThesisSerialNo int,
     @DefenseDate Datetime,
@@ -1339,7 +1348,7 @@ GO
 CREATE PROCEDURE getOngoingThesisSerialNo
 @studentID INT,
 @success BIT OUTPUT,
-@ThesisSN BIT OUTPUT
+@ThesisSN INT OUTPUT
 AS
 BEGIN
     IF(@studentID in (SELECT id from GucianStudent)) BEGIN
@@ -1348,7 +1357,7 @@ BEGIN
         ON Thesis.serialNumber = GUC.serial_no
         WHERE GUC.sid = @studentID AND 
         Thesis.endDate >= GETDATE()) BEGIN
-            SELECT @ThesisSN = Thesis.serialNumber FROM Thesis
+            SELECT DISTINCT @ThesisSN = Thesis.serialNumber FROM Thesis
             INNER JOIN GUCianStudentRegisterThesis GUC
             ON Thesis.serialNumber = GUC.serial_no
             WHERE GUC.sid = @studentID AND 
@@ -1365,7 +1374,7 @@ BEGIN
         ON Thesis.serialNumber = nonGUC.serial_no
         WHERE nonGUC.sid = @studentID AND 
         Thesis.endDate >= GETDATE()) BEGIN
-            SELECT @ThesisSN = Thesis.serialNumber FROM Thesis
+            SELECT DISTINCT @ThesisSN = Thesis.serialNumber FROM Thesis
             INNER JOIN NonGUCianStudentRegisterThesis nonGUC
             ON Thesis.serialNumber = nonGUC.serial_no
             WHERE nonGUC.sid = @studentID AND 
@@ -1378,6 +1387,8 @@ BEGIN
     END
 END
 GO
+
+
 
 CREATE PROCEDURE isGUCian
 @studentId INT,
@@ -1404,8 +1415,12 @@ EXECUTE getOngoingThesisSerialNo @sID, @success1 OUTPUT, @ThesisSN OUTPUT;
 IF @success1 = 1 BEGIN
     EXECUTE linkPubThesis @pubID, @ThesisSN, @success OUTPUT;
 END
+ELSE BEGIN
+    SET @success = 0;
+END
 END
 GO
+
 
 CREATE PROCEDURE ViewAllPublications
 AS
