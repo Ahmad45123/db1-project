@@ -99,7 +99,20 @@
         <asp:TextBox ID="CancelNumber" style="margin-right: 30px;"  placeholder="Thesis Serial Number"  runat="server"></asp:TextBox>
         <asp:Button ID="CancelThesis" style="font-family: 'Lucida Console'"  onClick="CancelThesis_Click" runat="server" Text="Cancel Thesis" />
         </div>
-        <br /> 
+        <br />
+
+        <!--- Add phone number page  --->
+
+        <div style=" background-color: rgba(0,0,0,0.35); color:white; text-align: center; font: 900 24px/1.4 -system-ui, sans-serif;">
+            <label> Add Phone Number </label>
+        </div>
+        <br/>
+
+        <div style="text-align:center;" >
+        <asp:Button ID="AddPhoneButton" runat="server" style="font-family: 'Lucida Console'" onClick="AddPhoneButton_Click" Text="Add Phone Number"/>
+        </div>
+        <br />
+
 
         <!--- Output grid of the page  --->
         

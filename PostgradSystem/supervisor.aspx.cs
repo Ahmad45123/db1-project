@@ -251,5 +251,10 @@ namespace PostgradSystem
             }
         }
 
+        protected void AddPhoneButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManagePhones.aspx");
+        }
+
     }
 }
