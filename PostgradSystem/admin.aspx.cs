@@ -97,26 +97,7 @@ namespace PostgradSystem
 
         protected void addPhoneButton_Click(object sender, EventArgs e)
         {
-
-            try
-            {
-                var result = new SqlParameter("@thesesCount", SqlDbType.Bit) { Direction = ParameterDirection.Output };
-                DbManager.CallProc("AdminViewOnGoingTheses",
-                    new SqlParameter("@userID", int.Parse(userIDPhone.Value)),
-                    new SqlParameter("@phoneNo", phoneNoPhone.Value),
-                    result);
-
-
-                if ((bool)result.Value == false)
-                    throw new Exception("UserId not found");
-         
-                PhoneNoAlert.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                PhoneNoAlert.Text = "Error: " + ex.Message;
-                PhoneNoAlert.Visible = true;
-            }
+            Response.Redirect("ManagePhones.aspx");
         }
     }
 }

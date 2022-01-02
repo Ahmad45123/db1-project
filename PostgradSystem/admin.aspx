@@ -40,13 +40,8 @@
             <button class="nav-link" id="v-pills-issueExtension-tab" data-bs-toggle="pill" data-bs-target="#v-pills-issueExtension" type="button" role="tab" aria-controls="v-pills-issueExtension" aria-selected="false">Update Thesis Extension</button>
         </div>
         <form runat="server" class="w-100 h-100">
-            <p>
-                <asp:Button ID="LogOut" runat="server" Text="Log Out" OnClick="LogOut_Click" />
-                userID: <input type="number"  class="form-control" id="userIDPhone" runat="server" />
-                phoneNo: <input type="number"  class="form-control" id="phoneNoPhone" runat="server" />
-                <asp:Button ID="addPhoneButton" runat="server" Text="addPhone" OnClick="addPhoneButton_Click" />
-                <asp:Label runat="server" ID="PhoneNoAlert" CssClass="alert alert-success d-block mt-2" role="alert" Visible="false"/>
-            </p>
+            <asp:Button ID="logOutButton" class="btn btn-primary me-2 mb-2 align-self-end" Text="Log Out" OnClick="LogOut_Click" runat="server"/>
+            <asp:Button ID="managePhonesButton" class="btn btn-primary me-2 mb-2 align-self-end" Text="Manage Phones" OnClick="addPhoneButton_Click" runat="server"/>
             <asp:HiddenField ID="hidTAB" runat="server" Value="v-pills-listThesisSups" />
             <div class="tab-content h-100" id="v-pills-tabContent">
                 <div class="tab-pane fade h-100" id="v-pills-listThesisSups" role="tabpanel" aria-labelledby="v-pills-listThesisSups-tab">

@@ -24,6 +24,15 @@ namespace PostgradSystem
         protected global::System.Web.UI.WebControls.Button logOutButton;
 
         /// <summary>
+        /// managePhonesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button managePhonesButton;
+
+        /// <summary>
         /// hidTAB control.
         /// </summary>
         /// <remarks>

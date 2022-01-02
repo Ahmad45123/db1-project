@@ -1498,7 +1498,7 @@ CREATE PROC AddUserPhone
 @success BIT OUTPUT
 AS
 BEGIN
-    SET @sucess = 0;
+    SET @success = 0;
     IF EXISTS(SELECT * FROM PostGradUser WHERE id = @userID) AND 
     NOT EXISTS(SELECT * FROM PostGradPhoneNumber WHERE id = @userID AND phone = @phoneNo) 
     BEGIN

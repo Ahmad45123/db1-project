@@ -39,7 +39,8 @@
             <button class="nav-link" id="v-pills-search-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search" type="button" role="tab" aria-controls="v-pills-search" aria-selected="false">Search for thesis</button>
         </div>
         <form runat="server" class="w-100 h-100">
-            <asp:Button ID="logOutButton" class="btn btn-primary m-2 align-self-end" Text="Log Out" OnClick="logOutButton_OnClick" runat="server"/>
+            <asp:Button ID="logOutButton" class="btn btn-primary me-2 mb-2 align-self-end" Text="Log Out" OnClick="logOutButton_OnClick" runat="server"/>
+            <asp:Button ID="managePhonesButton" class="btn btn-primary me-2 mb-2 align-self-end" Text="Manage Phones" OnClick="managePhonesButton_OnClick" runat="server"/>
             <asp:HiddenField ID="hidTAB" runat="server" Value="v-pills-info" />
             <div class="tab-content h-100" id="v-pills-tabContent">
                 <div class="tab-pane fade h-100" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">

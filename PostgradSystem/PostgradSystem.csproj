@@ -88,6 +88,7 @@
     <Content Include="Courses.aspx" />
     <Content Include="examiner.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="ManagePhones.aspx" />
     <Content Include="ProgressReports.aspx" />
     <Content Include="Publications.aspx" />
     <Content Include="register.aspx" />
@@ -150,6 +151,13 @@
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagePhones.aspx.cs">
+      <DependentUpon>ManagePhones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagePhones.aspx.designer.cs">
+      <DependentUpon>ManagePhones.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProgressReports.aspx.cs">
       <DependentUpon>ProgressReports.aspx</DependentUpon>

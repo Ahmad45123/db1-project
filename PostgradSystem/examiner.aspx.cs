@@ -144,5 +144,10 @@ namespace PostgradSystem
             Session.Clear();
             Response.Redirect("login.aspx");
         }
+
+        protected void managePhonesButton_OnClick(object sender, EventArgs e)
+        {
+            Response.Redirect("ManagePhones.aspx");
+        }
     }
 }
