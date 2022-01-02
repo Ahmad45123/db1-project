@@ -148,6 +148,14 @@ namespace PostgradSystem
                 int National = this.AddExaminerNational.Checked ? 1 : 0;
                 string fieldOfWork = this.AddExaminerField.Text;
 
+                if (DbManager.Query(
+                            $"SELECT * FROM Defense WHERE date='{DefenseDate}' AND serialNumber={ThesisSerialNo};").Rows
+                        .Count == 0)
+                {
+                    Response.Write("<script language=javascript>alert('Invalid defense credentials.');</script>");
+                    return;
+                }
+
                 int tableRowCount = DbManager.Query($"SELECT * FROM ExaminerEvaluateDefense").Rows.Count;
 
                 DataTable queryInfo = DbManager.CallProc("AddExaminer",
@@ -184,16 +192,21 @@ namespace PostgradSystem
             try
             {
                 int ThesisSerialNo = int.Parse(this.EvaluateThesis.Text);
-                string ProgressReportNo = this.EvaluateProgressNo.Text;
-                string Evaluation = this.Evaluation.Text;
+                int ProgressReportNo = int.Parse(this.EvaluateProgressNo.Text);
+                int Evaluation = int.Parse(this.Evaluation.Text);
 
                 DataTable tempGucian = DbManager.Query($"SELECT * FROM GUCianProgressReport");
                 DataTable tempNonGucian = DbManager.Query($"SELECT * FROM NonGUCianProgressReport");
 
+                if (Evaluation < 0 || Evaluation > 3)
+                {
+                    Response.Write("<script language=javascript>alert('Invalid evaluation.');</script>");
+                    return;
+                }
 
 
                 DataTable queryInfo = DbManager.CallProc("EvaluateProgressReport",
-                new SqlParameter("@supervisorID", Session["userId"].ToString()),
+                new SqlParameter("@supervisorID", Session["userId"]),
                 new SqlParameter("@thesisSerialNo", ThesisSerialNo),
                 new SqlParameter("@progressReportNo", ProgressReportNo),
                 new SqlParameter("@evaluation", Evaluation)
@@ -204,9 +217,9 @@ namespace PostgradSystem
                 DataTable newTempGucian = DbManager.Query($"SELECT * FROM GUCianProgressReport");
                 DataTable newTempNonGucian = DbManager.Query($"SELECT * FROM NonGUCianProgressReport");
 
-                if (tempGucian.Equals(newTempGucian) && tempNonGucian.Equals(newTempNonGucian))
+                if (tempGucian.AreTablesTheSame(newTempGucian) && tempNonGucian.AreTablesTheSame(newTempNonGucian))
                 {
-                    Response.Write("<script language=javascript>alert('Failed to change table successfully(evaluation same as current or invalid input');</script>");
+                    Response.Write("<script language=javascript>alert('Failed to change table successfully(evaluation same as current or invalid input or you are not supervising this student)');</script>");
                 }
                 else
                 {

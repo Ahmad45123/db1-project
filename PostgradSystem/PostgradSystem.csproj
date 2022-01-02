@@ -137,6 +137,7 @@
     <Compile Include="Courses.aspx.designer.cs">
       <DependentUpon>Courses.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DataTableEx.cs" />
     <Compile Include="DbManager.cs" />
     <Compile Include="examiner.aspx.cs">
       <DependentUpon>examiner.aspx</DependentUpon>
